@@ -1,0 +1,1 @@
+export {Translate } from './ui/Translate.tsx'

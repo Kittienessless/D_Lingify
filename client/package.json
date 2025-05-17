@@ -1,0 +1,86 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@ant-design/icons": "^5.6.1",
+    "@floating-ui/react": "^0.25.0",
+    "@floating-ui/react-dom": "^2.1.2",
+    "@react-oauth/google": "^0.12.1",
+    "@tanstack/react-query": "^5.66.0",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.119",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "antd": "^5.22.0",
+    "antd-style": "^3.7.1",
+    "axios": "^1.8.4",
+    "classnames": "^2.5.1",
+    "crypto-browserify": "^3.12.1",
+    "dotenv": "^16.4.7",
+    "gapi-script": "^1.2.0",
+    "gigachat": "^0.0.14",
+    "jwt-decode": "^4.0.0",
+    "mobx": "^6.13.7",
+    "mobx-react-lite": "^4.1.0",
+    "openai": "^4.87.3",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "prop-types": "^15.8.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-focus-lock": "^2.13.6",
+    "react-google-login": "^5.2.2",
+    "react-icons": "^5.5.0",
+    "react-loading-skeleton": "^3.5.0",
+    "react-router-dom": "^6.28.0",
+    "react-scripts": "5.0.1",
+    "react-toastify": "^11.0.5",
+    "redux": "^5.0.1",
+    "redux-persist": "^6.0.0",
+    "sass": "^1.86.0",
+    "scss": "^0.2.4",
+    "stream-browserify": "^3.0.0",
+    "styled-components": "^6.1.15",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@reduxjs/toolkit": "^2.6.1",
+    "@types/react-highlight-words": "^0.20.0",
+    "buffer": "^6.0.3",
+    "prettier": "3.3.3",
+    "process": "^0.11.10",
+    "react-app-rewired": "^2.2.1",
+    "react-error-boundary": "^5.0.0",
+    "react-highlight-words": "^0.21.0",
+    "react-redux": "^9.2.0"
+  }
+}

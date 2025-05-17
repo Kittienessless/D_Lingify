@@ -1,0 +1,6 @@
+export const EMPTY_FIELD = 'Пустое поле'
+export const WRONG_TYPE='Не подходит тип'
+export const MANY_SYMBOLS='Много символов'
+export const FEW_SYMBOLS='Мало символов'
+export const NOT_EMAIL='Не e-mail'
+export const PASSWORD_ERROR='Пароли не совпадают'

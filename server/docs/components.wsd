@@ -1,0 +1,57 @@
+@startuml Components
+package "Клиентское приложение" {
+    [Клиент]
+}
+
+package "REST API сервер" {
+    [Routing]
+    [Auth Controller]
+    [User Controller]
+    [Language Controller]
+    [Feature Controller]
+
+    [Auth Service]
+    [User Service]
+    [Language Service]
+    [Feature Service]
+    [File Service]
+    [Mail Service]
+    [Cloud Service]
+    [ExternalApi Service]
+
+   
+}
+
+package "Внешние модули" {
+    [bcrypt (npm)]
+    [uuid (npm)]
+    [nodemailer (npm)]
+    [easyyandexs3 (npm)]
+    [cors (npm)]
+    [nodemon (npm)]
+    [sequlize (npm)]
+    [gigachat (npm)]
+}
+
+' Взаимодействия между контроллерами и сервисами
+[Auth Controller] --> [Auth Service]
+[User Controller] --> [User Service]
+[Language Controller] --> [Language Service]
+[Feature Controller] --> [Feature Service]
+[Language Service]--> [File Service]
+[Language Service]-->[ExternalApi Service]
+
+' Взаимодействия сервисов с внешними модулями
+[Auth Service] --> bcrypt : хеширование паролей
+[Auth Service] --> sequlize : занесение данных
+[Auth Service] --> uuid : генерация UUID
+[User Service] --> bcrypt : хеширование паролей
+[User Service] --> sequlize : занесение данных
+[User Service] --> uuid : генерация UUID
+[Language Service] --> sequlize : занесение данных
+[Mail Service] --> nodemailer : отправка писем
+[Cloud Service] --> easyyandexs3 : работа с облаком
+[ExternalApi Service] -->gigachat : работа с нейросетью
+
+
+@enduml

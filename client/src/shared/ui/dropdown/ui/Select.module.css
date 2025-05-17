@@ -1,0 +1,26 @@
+ 
+.options .option {
+   padding: 8px 16px;
+  border: 1px solid rgb(220, 220, 238);
+  width: 12rem;
+  border-bottom: none;
+  font-size: 14px;
+  cursor: pointer;
+ 
+ 
+}
+
+.options .option:last-child {
+  border-bottom: 1px solid #cacaca;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+  
+  
+}
+
+.options .option:first-child {
+  border-top: 1px solid #cacaca;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+
+}

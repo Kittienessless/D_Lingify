@@ -1,0 +1,126 @@
+@startuml ClassDiagramm
+class UserModel{
+-user_id: int
+-email: string
+-password: string
+-name: string
+-familyName: string
+-isActivated: boolean
+-actLink: string
+-resetLink: string
+-RqUid: string
+-role: string
+}
+class TokenModel{
+-id: int
+-refresh_token: string
+-userId: int
+}
+class LanguageModel{
+-id: int
+-title: string
+-description: string
+-path: string
+-userId: int
+}
+class UserDto{
+  -email: string
+  -user_id: int
+  -isActivated: boolean
+  -role : string
+  +constructor()
+}
+
+class AuthController{
++registration (req, res)
++googleAuth (req, res)
++activate (req, res)
++login (req, res)
++logout (req, res)
++getOneUserByPK (req, res)
+
+}
+class UserController{
++getUsers (req, res)
++resetPwdUserByPK (req, res)
++reset (req, res)
++GetNewPassword (req, res)
++DeleteUserByPK (req, res)
++getAllLangsByUser (req, res)
++updInfo (req, res)
+}
+class LanguageController{
++createLanguage (req, res)
++getAccessToken (req, res)
++createLanguageNeural (req, res)
++getAllLangs (req, res)
++getCurrentLang (req, res)
++updateLangInfo (req, res)
++deleteLang (req, res)
++updateLang (req, res)
++upload (req, res)
++saveFile (req, res)
+}
+class FeatureController{
++generateTextNeural (req, res)
++translateTextNeural (req, res)
+}
+class AdminController{
++changeUserRole (req, res)
++getUserStatistics (req, res)
++getLanguageStatistics (req, res)
+}
+class FeatureService{
++generateTextNeural (bearer : string, path : string)
++translateTextNeural (text : string, path : string, bearer : string)
+}
+class UserService{
++registration (email : string, password : string)
++activation (activationLink : string)
++login (email : string, password : string)
++loginByGoogle (user : User)
++registerByGoogle (user : User)
++logout (refreshToken : string) 
++refresh (refreshToken : string)
++ResetPassword (resetLink : string, email : string)
++GetResetLink (resetLink : string)
++reset (email : string, password : string)
+}
+class MailService{
++constructor()
++sendActivationMail(to : string, Link : string)
++sendResetPasswordMail(to : string, Link : string)
++sendEmailSuccessChangedPassword(to : string)
+}
+class FilesService{
++createJsonFile (content : any)
++appendJsonFile (path : int, content : string ) 
++deleteJsonFile (path : string)
++readJsonFile (path : string)
+
+}
+class TokenService{
++generateTokens (payload : any)
++saveToken (user_id : int, refreshToken : string ) 
++removeToken (refreshToken : string)
++validateAccessToken (token : string)
++validateRefreshToken (token : string)
++findToken (token : string)
+}
+class LanguageApi {
+-systemPromptTranslation: string
+-systemPromptGenericText: string
+-systemPromptCreateLanguage: string
+-answerExample : string
+-GigaChatModel: string
++getCreate()
++getTranslate()
++getGenerate()
++getGigaChatModel()
++getAccessToken(RqUid : string)
++getConfig(bearer : string, data : string)
++postApi(bearer : string, data : string)
+
+
+}
+

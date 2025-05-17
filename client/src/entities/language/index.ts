@@ -1,0 +1,1 @@
+export {type ILanguage} from './model/language.ts';

@@ -1,0 +1,20 @@
+ 
+
+.textfield--input {
+  padding: 7px;
+  border-radius: 12px;
+  font-size: 16px;
+  margin: 7px;
+  border: none;
+  width: 100%;
+}
+.textfield--header-action[title]:focus::after {
+  color: black;
+ 
+
+  position: absolute;
+  max-width: 200px;
+  border-radius: 12px;
+
+  border: 1px solid #cacaca;
+}

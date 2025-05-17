@@ -1,0 +1,1 @@
+export {type file} from './model/filesModel.ts';

@@ -1,0 +1,16 @@
+{
+  "name": "diplomalingify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install:client": "cd client && npm install",
+    "install:server": "cd server && npm install",
+    "start:client": "cd client && npm start",
+    "start:server": "cd server && npm start",
+    "start": "concurrently --kill-others \"npm run start:client\" \"npm run start:server\"",
+    "postinstall": "concurrently \"npm run install:client\" \"npm run install:server\""
+  },
+  "author": "",
+  "license": "ISC"
+}
