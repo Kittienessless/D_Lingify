@@ -16,7 +16,7 @@ const PORT = process.env.PORT;
 const rateLimit = require("express-rate-limit");
 const slowDown = require("express-slow-down");
 
-
+/* 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 50,
@@ -28,7 +28,7 @@ const speedLimiter = slowDown({
 });
 server.use(speedLimiter);
 
-server.use(limiter);
+server.use(limiter); */
 
 server.use(
   cors({

@@ -12,6 +12,8 @@ const tokenService = require("../services/tokenService.js");
 const PATH = `D:/Diploma/server/userStorage/`;
 const multer = require("multer");
 const { Op } = require("@sequelize/core");
+const fs = require("fs");
+const LangsOptions = require("../dbo/langsOption.js");
 
 /* const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -234,24 +236,17 @@ class languageController {
 
   async getCurrentLang(req, res) {
     try {
-      const token = req.cookies["token"];
+      console.log("get into server");
 
-      const isFind = tokenService.findToken(token);
+      const token = req.cookies["token"];
+      const id = req.params.id;
+
+      const isFind = await tokenService.findToken(token);
       if (!isFind) return res.json("unauthorized").status(401);
 
-      const langID = req.params.id;
+      const langData = await languageService.getCurrentLang(id);
 
-      const lang = getDb().models.Language.findByPk({
-        where: { id: langID }.then((lang) => {
-          if (!lang) return res.status(400).json({ msg: "Lang not exist" });
-        }),
-      });
-
-      const languagleFileData = filesService.readJsonFile(lang.LangPath);
-
-      if (!languagleFileData) return res.status(400).json("no language data");
-
-      return res.json(languagleFileData);
+      return res.json(langData);
     } catch (e) {
       console.log(e);
       res.status(400).json({ message: "getLang error" });
@@ -263,7 +258,7 @@ class languageController {
       const { title, description } = req.body;
       const langID = req.params.id;
 
-      const lang = getDb().models.Language.findByPk({
+      const lang = getDb().models.Language.findOne({
         where: { id: langID }.then((lang) => {
           if (!lang) return res.status(400).json({ msg: "Lang not exist" });
           lang.title = title;
@@ -280,20 +275,19 @@ class languageController {
 
   async deleteLang(req, res) {
     try {
-      const langID = req.params.id;
       const token = req.cookies["token"];
-
+      const { key } = req.body;
       const isFind = tokenService.findToken(token);
       if (!isFind) return res.json("unauthorized").status(401);
 
       const lang = await getDb().models.Language.findOne({
-        where: { id: langID },
+        where: { id: key },
       });
 
       if (!lang) return res.status(400).json({ message: "no lang error" });
 
       const deleteLang = await getDb().models.Language.destroy({
-        where: { user_id: userData.user_id },
+        where: { id: lang.id },
       });
 
       return res.status(200).json({ message: "Delete success" });
@@ -325,6 +319,34 @@ class languageController {
     } catch (e) {
       console.log(e);
       res.status(400).json({ message: "updateLang error" });
+    }
+  }
+
+  async getFile(req, res) {
+    try {
+      const token = req.cookies["token"];
+      const { id } = req.body;
+
+      const isFind = await tokenService.findToken(token);
+      if (!isFind) return res.json("unauthorized").status(401);
+      const langData = await languageService.getCurrentLang(id);
+      fs.readFile(
+        langData.lang.LangPath,
+        { encoding: "utf-8" },
+        function (err, data) {
+          if (!err) {
+            console.log("received data: " + data);
+            res.writeHead(200, { "Content-Type": "text/plain" });
+            res.write(data);
+            res.end();
+          } else {
+            console.log(err);
+          }
+        }
+      );
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ message: "getFile error" });
     }
   }
 
@@ -363,6 +385,23 @@ class languageController {
       });
 
     return res.status(200).json({ message: "success added to storage" });
+  }
+
+  async getAllLangsTitle(req, res) {
+    try {
+      const token = req.cookies["token"];
+
+      const isFind = await tokenService.findToken(token);
+      if (!isFind) return res.json("unauthorized").status(401);
+
+      const languages = await getDb().models.Language.findAll();
+      const result = new LangsOptions(languages);
+
+      return res.json(result);
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ message: "getFile error" });
+    }
   }
 }
 module.exports = new languageController();

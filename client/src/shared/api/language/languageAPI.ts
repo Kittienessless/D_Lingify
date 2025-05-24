@@ -7,7 +7,7 @@ import Data from "features/languageCard/ui/Uploader";
 interface IKey {
   key: string;
 }
- 
+
 export const LangAPI = {
   langInfo: {
     editLangInfo: async (data: ILanguage) => {
@@ -21,7 +21,14 @@ export const LangAPI = {
       });
       await errorHandler(response);
     },
+    getAlllangs: async () => {
+      const response = await fetch(`${BASE_URL}/lang/allLangs`, {
+        method: "GET",
+        credentials: "include",
 
+      });
+      await errorHandler(response);
+    },
     getAllLangsInfo: async () => {
       const response = await fetch(`${BASE_URL}/user/langs`, {
         method: "GET",
@@ -36,29 +43,27 @@ export const LangAPI = {
     createLangNeural: async (data: ILanguage) => {
       const response = await fetch(`${BASE_URL}/lang/createLangNeural`, {
         method: "POST",
-        credentials: 'include',
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-
       });
       await errorHandler(response);
       return await response.json();
     },
-    uploadLang: async (data : string ) => {
+    uploadLang: async (data: string) => {
       const response = await fetch(`${BASE_URL}/lang/upload`, {
         method: "POST",
-        body: data ,
+        body: data,
         headers: {
-          "Contetnt-Type":"multipart/form-data" ,
-         
-      }
+          "Contetnt-Type": "multipart/form-data",
+        },
       });
       await errorHandler(response);
       await response.json();
     },
-   
+
     createLang: async (data: ILanguage) => {
       const response = await fetch(`${BASE_URL}/lang/createLang`, {
         method: "POST",
@@ -78,7 +83,7 @@ export const LangAPI = {
       await errorHandler(response);
       return await response.json();
     },
-   /*  updateLang: async (data: ILanguage) => {
+    /*  updateLang: async (data: ILanguage) => {
       const response = await fetch(`${BASE_URL}/`, {
         credentials: "include",
         method: "PUT",

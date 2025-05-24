@@ -1,28 +1,41 @@
 import { TextArea } from "shared/ui/textArea";
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect, useContext } from "react";
 import styled from "styled-components";
 import useTranslate from "../../../shared/lib/hook/useTranslate";
 import { Option } from "../../../shared/types/Option.tsx";
 import { Select } from "shared/ui/dropdown";
- 
+import { ILanguage } from "entities/language/index.ts";
+import { UserContext } from "app/providers/index.tsx";
+import { FundTwoTone } from "@ant-design/icons";
+import { observer } from "mobx-react-lite";
+
 const options: Option[] = [
   {
+    id: '1',
     label: "Английский",
     value: "English",
   },
   {
+    id: '2',
     label: "Русский",
     value: "Russian",
   },
 ];
-
-export const Translate = () => {
+const Translate = () => {
   const [sourceText, setSourceText] = useState("");
-  const [selectedLanguage, setSelectedLanguage] = useState<string>("English");
+  const [langs, setLangs] = useState<Option[]>([]);
 
-  const targetText = useTranslate(sourceText, selectedLanguage);
-  const [acessibleLang, setAcessibleLang] = useState<Option | null>(null);
+  const [accessibleLang, setAccessibleLang] = useState<Option | null>(null);
   const [selectedLang, setSelectedLang] = useState<Option | null>(null);
+
+  const targetText = useTranslate(sourceText, selectedLang!.value);
+  const { store } = useContext(UserContext);
+
+  useEffect(() => {
+    setLangs(store.languageTextArray)
+
+    
+  }, []);
 
   const TranslateCont = styled.div`
     display: flex;
@@ -35,28 +48,26 @@ export const Translate = () => {
   return (
     <TranslateCont>
       <ContainerTranslate>
-        <Select  
+        <Select
           placeholder="Выберите язык..."
-          selected={acessibleLang}
+          selected={accessibleLang}
           options={options}
-          onChange={(selection: Option) => setAcessibleLang(selection)}
+          onChange={(selection: Option) => setAccessibleLang(selection)}
         />
         <TextArea
           id={1}
           value={sourceText}
-          onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-            setSourceText(e.target.value)
-          }
+          onChange={(e) => setSourceText(e.target.value)}
           placeholder="Пишите текст здесь..."
           maxlength={1000}
         />
       </ContainerTranslate>
 
       <ContainerTranslate>
-        <Select    
+        <Select
           placeholder="Выберите язык"
           selected={selectedLang}
-          options={options}
+          options={langs}
           onChange={(selection: Option) => setSelectedLang(selection)}
         />
         <TextArea
@@ -69,3 +80,4 @@ export const Translate = () => {
     </TranslateCont>
   );
 };
+export default observer(Translate)

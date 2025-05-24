@@ -7,3 +7,6 @@ export interface AuthResponse {
   user: user;
  }
 
+export interface LangResponse {
+  lang: ILanguage;
+ }

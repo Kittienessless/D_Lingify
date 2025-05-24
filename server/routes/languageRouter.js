@@ -8,7 +8,9 @@ router.post('/createLangNeural', controller.createLanguageNeural);
 router.get('/getAllLangs', controller.getAllLangs); 
 router.get('/lang/:id', controller.getCurrentLang); 
 router.put('/updateLangInfo', controller.updateLangInfo);
-router.delete('/deleteLang/:id', controller.deleteLang);
+router.post('/deleteLang', controller.deleteLang);
 router.post('/upload', controller.upload);
+router.post('/getFile', controller.getFile);
+router.get('/getAllLangsTitle', controller.getAllLangsTitle);
 
 module.exports = router

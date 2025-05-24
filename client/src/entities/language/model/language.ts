@@ -1,8 +1,10 @@
-export interface ILanguage  {
+export interface ILanguage {
   id: string;
-  Title: string, 
-  Description: string,
-  file?: FormData,
-  prompt? : string;
-  
+  Title: string;
+  Description: string;
+  createdAt: string
+}
+
+export interface IFeature {
+  translatedText: string;
 }

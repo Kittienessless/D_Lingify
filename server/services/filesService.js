@@ -1,7 +1,7 @@
 const fs = require("fs");
-const PATH = `D:/Diploma/server/userStorage/`
+const PATH = `D:/Diploma/server/userStorage/`;
 // const officeParser = require("officeparser");
-const FORMATS = [".json", ".xlsx", ".word", "txt", "undefined"];
+const FORMATS = [".json", ".xlsx", ".word", ".txt", "undefined"];
 
 class FileService {
   async createJsonFile(content) {
@@ -9,16 +9,11 @@ class FileService {
       const rndInt = randomIntFromInterval(10, 1000);
 
       const fileName = String(Date.now() + rndInt + ".json");
-    
-      fs.writeFile(
-        `${PATH}${fileName}.json`,
-        content,
-        "utf8",
-        function (err) {
-          if (err) throw err;
-          console.log("complete");
-        }
-      );
+
+      fs.writeFile(`${PATH}${fileName}.json`, content, "utf8", function (err) {
+        if (err) throw err;
+        console.log("complete");
+      });
 
       return fileName;
     } catch (e) {
@@ -50,18 +45,20 @@ class FileService {
 
   async readJsonFile(path) {
     try {
-      fs.readFile(path, function (err, data) {
+     await fs.readFile(path, "utf-8", function (err, data) {
         if (err) {
           return console.log(err);
         }
-        return JSON.stringify(data);
+    
       });
+      console.log(file);
+      return file;
     } catch (e) {
       console.log(e);
     }
   }
 
-/*   async parseJsonToFormat(oldPath, newfileType) {
+  /*   async parseJsonToFormat(oldPath, newfileType) {
     const config = {
       newlineDelimiter: " ",
       ignoreNotes: true,

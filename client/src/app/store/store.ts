@@ -6,8 +6,10 @@ import UserService from "shared/api/user/UserService";
 import { BASE_URL } from "shared/constances";
 import { AuthResponse } from "shared/types/responseTypes";
 import { ILanguage } from "entities/language/model/language";
-import { LangAPI } from "shared/api";
+
 import languageService from "shared/api/language/languageService";
+import { Option } from "../../shared/types/Option.tsx";
+
 export default class Store {
   user = {} as user;
   isAuth = false;
@@ -15,6 +17,8 @@ export default class Store {
   isAdmin = false;
 
   language = {} as ILanguage;
+  languageArray = Array<ILanguage>()
+  languageTextArray : Option[] = []
 
   constructor() {
     makeAutoObservable(this);
@@ -135,11 +139,20 @@ export default class Store {
     }
   }
 
-  async getLang() {
+  async getLang(id: string) {
     try {
-      const response = await languageService.getLanguage();
+      const response = await languageService.getLanguage(id);
       console.log(response);
-      this.language = response.data;
+      this.language = response.data.lang;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+    async getAllLangs() {
+    try {
+      const response = await languageService.getAllLanguages();
+      console.log(response);
+      this.languageArray = response.data;
     } catch (e) {
       console.log(e);
     }
@@ -159,6 +172,16 @@ export default class Store {
       console.log(response);
     } catch (e) {
       console.log(e);
+    }
+  }
+
+  async getAllLangsTitle() {
+    try{
+      const response = await languageService.getAllLangsTitle();
+      this.languageTextArray=response.data;
+    }catch(e) {
+            console.log(e);
+
     }
   }
 }

@@ -13,10 +13,10 @@ import { TrashBinIcon } from "shared/assets/TrashBinIcon";
 import { SparkleIcon } from "shared/assets/SparkleIcon";
 import { Button } from "shared/ui/button";
 import { LangAPI } from "shared/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import languageService from "shared/api/language/languageService";
 interface CartProps {
-  key: string;
+  id: string;
   title: string;
   desc: string;
 }
@@ -26,7 +26,7 @@ const HeaderContainer = styled.div`
   z-index: -1;
 `;
 
-export function LanguageCart({ key, title, desc }: CartProps) {
+export function LanguageCart({ id, title, desc }: CartProps) {
   const Container = styled.div`
     background-color: ${({ theme }) => theme.colors.container};
     color: ${({ theme }) => theme.colors.font};
@@ -42,24 +42,22 @@ export function LanguageCart({ key, title, desc }: CartProps) {
   const navigate = useNavigate();
 
   function OnEdit(key: string) {
-    navigate(`/#/redactLanguage/:${key}`);
-    
+    navigate(`/redactLanguage/${key}`);
   }
-
-  
   async function OnDelete(key: string) {
+   
+    await languageService.delete(key);
 
-    await languageService.delete(key); 
-     
   }
+
   function OnShow(key: string) {
-    navigate(`/#/redactLanguage/:${key}`);
+    navigate(`/redactLanguage/${key}`);
   }
 
   return (
     <Container>
       {" "}
-      {key}
+      {id!}
       <HeaderContainer>
         <Menu
           title="Настройки языка"
@@ -71,24 +69,21 @@ export function LanguageCart({ key, title, desc }: CartProps) {
               {
                 text: "Редактировать",
                 onSelect: () => {
-
-                  OnEdit(key);
+                  OnEdit(id!);
                 },
                 icon: <EditIcon />,
               },
               {
                 text: "Просмотреть язык",
                 onSelect: () => {
-
-                  OnShow(key);
+                  OnShow(id!);
                 },
                 icon: <SparkleIcon />,
               },
               {
                 text: "Удалить язык",
                 onSelect: () => {
-
-                  OnDelete(key);
+                  OnDelete(id!);
                 },
                 icon: <TrashBinIcon />,
               },

@@ -1,3 +1,11 @@
+const { getDb } = require("../db/db.js");
+require("dotenv").config();
+const { where } = require("sequelize");
+const filesService = require("../services/filesService.js");
+const PATH = `D:/Diploma/server/userStorage/`;
+const LangDto = require("../dbo/lang-dto.js");
+const fs = require("fs");
+
 class LanguageService {
   async createLang(title, description, filePath, fileType, userID) {
     try {
@@ -18,6 +26,15 @@ class LanguageService {
   }
   async getCurrentLang(langID) {
     try {
+      const lang = await getDb().models.Language.findOne({
+        where: { id: langID },
+      });
+      console.log("language ID  " + langID);
+      const langDto = new LangDto(lang);
+
+      return {
+        lang: langDto,
+      };
     } catch (e) {}
   }
   async updateLangInfo(title, description) {

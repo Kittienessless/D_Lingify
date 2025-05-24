@@ -22,6 +22,8 @@ import { observer } from "mobx-react-lite";
 import { UserContext } from "app/providers";
 import { Loader } from "shared/ui/loaders/loader.tsx";
 import { LoginWidget } from "widgets/loginWidget/ui/LoginWidget.tsx";
+import languageService from "shared/api/language/languageService.ts";
+import { ILanguage } from "entities/language/index.ts";
 
 const ContainerList = styled.div`
   margin: 10px;
@@ -64,25 +66,15 @@ const LanguageList: React.FC = () => {
   const navigate = useNavigate();
   const { store } = useContext(UserContext);
 
-  const [langInfo, setlangInfo] = useState([
-    {
-      id: "",
-      Title: "",
-      Description: "",
-      userID: "",
-      LangPath: "",
-      createdAt: "",
-      updatedAt: "",
-    },
-  ]);
+  const [langInfo, setlangInfo] = useState<ILanguage[]>([]);
   useEffect(() => {
-    const fetchDataForPosts = async () => {
+    const fetchData = async () => {
       try {
-        const response = await LangAPI.langInfo.getAllLangsInfo();
-        setlangInfo(response);
+        await store.getAllLangs();
+        setlangInfo(store.languageArray);
       } catch (e) {}
     };
-    fetchDataForPosts();
+    fetchData();
   }, []);
 
   function handlerOnSave() {}
@@ -99,18 +91,40 @@ const LanguageList: React.FC = () => {
     setSearchContentData(e.currentTarget.value);
   };
 
-  function onSortHelper(this: any, selectedItem: any) {
+  function onSortHelper(this: any, selectedItem: Option) {
     setSelectedItem(selectedItem);
-    switch(selectedItem)  {
-      case 'Title' : return this.setState(langInfo.sort((a: any, b: any) => b.Title - a.Title));
-      case 'Date' : return this.setState(langInfo.sort((a: any, b: any) => parseFloat(b.createdAt) - parseFloat(a.createdAt)));
+    switch (selectedItem.value) {
+      case "Title":
+        return setlangInfo(
+          langInfo.sort(function (a, b) {
+            if (a.Title > b.Title) {
+              return 1;
+            }
+            if (a.Title < b.Title) {
+              return -1;
+            }
+            return 0;
+          })
+        );
+      case "Date":
+        return setlangInfo(
+          langInfo.sort(function (a, b) {
+            if (a.createdAt > b.createdAt) {
+              return 1;
+            }
+            if (a.createdAt < b.createdAt) {
+              return -1;
+            }
+            // a должно быть равным b
+            return 0;
+          })
+        );
     }
-     
+    console.log(selectedItem);
+    console.log(langInfo);
   }
 
   function onFilterHelper() {}
-
-  
 
   return (
     <ContainerList>
@@ -121,35 +135,34 @@ const LanguageList: React.FC = () => {
           placeholder="Сортировать..."
           selected={selectedItem}
           options={options}
-          onChange={(selection: Option) => onSortHelper(selection)}
+          onChange={(selectedItem: Option) => onSortHelper(selectedItem)}
         />
 
         <AddLanguage />
       </FeaturedContainer>
-      { 
-        langInfo
-          .filter(
-            (lang) =>
-              lang.Title.toLowerCase().startsWith(
-                searchContentData.toLowerCase()
-              ) ||
-              lang.Description.toLowerCase().startsWith(
-                searchContentData.toLowerCase()
-              ) ||
-              `${lang.Title} `
-                .toLowerCase()
-                .startsWith(searchContentData.toLowerCase())
-          )
-           
-          .map((lang, index) => (
-            <li key={index}>
-              <LanguageCart
-                key={lang.id}
-                title={lang.Title}
-                desc={lang.Description}
-              />
-            </li>
-          ))}
+      {store.languageArray
+        .filter(
+          (lang) =>
+            lang.Title.toLowerCase().startsWith(
+              searchContentData.toLowerCase()
+            ) ||
+            lang.Description.toLowerCase().startsWith(
+              searchContentData.toLowerCase()
+            ) ||
+            `${lang.Title} `
+              .toLowerCase()
+              .startsWith(searchContentData.toLowerCase())
+        )
+
+        .map((lang, index) => (
+          <li key={index}>
+            <LanguageCart
+              id={lang.id}
+              title={lang.Title}
+              desc={lang.Description}
+            />
+          </li>
+        ))}
 
       {selectedItem && <div></div>}
     </ContainerList>

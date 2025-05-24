@@ -6,9 +6,9 @@ import styled from "styled-components";
 
 interface SelectProps {
   placeholder?: string;
-  options: Option[];
-  selected: Option | null;
-  onChange: (selection: Option) => void;
+  options: any[];
+  selected: any | null;
+  onChange: (selection: any) => void;
 }
 
 const SelectComponent = styled.div`

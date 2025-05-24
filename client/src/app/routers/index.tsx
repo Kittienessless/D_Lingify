@@ -22,19 +22,12 @@ import { RegisterWidget } from "widgets/registerWidget/index.ts";
 import { PwdRecoveryWidget } from "widgets/pwdRecoreryWidget/index.ts";
 import { useState } from "react";
 import { AdminPage } from "pages/adminPage/AdminPage.tsx";
-import { RedactLanguage } from "features/languageCard/index.ts";
+import { RedactLanguage } from "widgets/languageWidget/ui/RedactLanguage.tsx";
 import { LanguageWidget } from "widgets/languageWidget/ui/LanguageWidget.tsx";
 import { RecoverPwd } from "widgets/pwdRecoreryWidget/ui/RecoverPwd.tsx";
- 
- 
-
-
-
 
 export const AppRouter = () => {
   const { theme } = useThemeMode();
-
-  
 
   const routers = createRoutesFromElements(
     <Route path="/" errorElement={<Fallback />} element={<Layout />}>
@@ -47,8 +40,8 @@ export const AppRouter = () => {
       <Route path="/Profile" element={<ProfilePage />} />
       <Route path="/Handbook" element={<HandbookPage />} />
       <Route path="/Language" element={<CreateLanguagePage />} />
-      <Route path="/redactLanguage" >
-        <Route path=":id" element={<LanguageWidget />} />
+      <Route path="/redactLanguage">
+        <Route path=":id" element={<RedactLanguage />} />
       </Route>
       <Route path="/Auth/recoverNewPassword" element={<RecoverPwd />} />
     </Route>
