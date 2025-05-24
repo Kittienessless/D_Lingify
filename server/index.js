@@ -5,6 +5,7 @@ const authRouter = require("./routes/authRouter.js");
 const userRouter = require("./routes/userRouter.js");
 const languageRouter = require("./routes/languageRouter.js");
 const featureRouter = require('./routes/featureRouter.js')
+const adminRouter = require('./routes/adminRouter.js')
 require("dotenv").config();
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -64,6 +65,7 @@ server.use("/auth", authRouter);
 server.use("/user", userRouter);
 server.use("/lang", languageRouter);
 server.use("/feature", featureRouter);
+server.use("/admin", adminRouter );
 
 server.use(errorMiddleware);
 

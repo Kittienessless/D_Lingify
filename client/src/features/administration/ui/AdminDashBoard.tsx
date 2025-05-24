@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Tabs as BaseTabs } from "antd";
 import { GetAllUsers } from './GetAllUsers';
 import { GetAllLangs } from './GetAllLangs';
-import { GetStatistic } from './GetStatistic';
+import GetStatistic  from './GetStatistic';
 import { Space } from 'shared/ui/space';
 
 const Tabs = styled(BaseTabs)`
@@ -45,7 +45,7 @@ const items = [
 const ProfileDiv = styled.div`
 background-color: ${({ theme }) => theme.colors.bg};
 color:  ${({ theme }) => theme.colors.font};
-max-width: 80vw;
+max-width: 100vw;
 min-width: 20vw;
 `;
 

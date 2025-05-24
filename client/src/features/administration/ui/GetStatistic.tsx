@@ -1,34 +1,34 @@
-import react from "react";
+import { UserContext } from "app/providers";
+import { observer } from "mobx-react-lite";
+import react, { useContext, useEffect, useState } from "react";
+import AdminService from "shared/api/user/AdminServive";
 import styled from "styled-components";
 
-export const GetStatistic = () => {
-  // Фейковые данные
-  const stats = [
-    {
-      value: 12500,
-      label: "Количество пользователей",
-    },
-    {
-      value: 3500,
-      label: "Посещений в неделю",
-    },
-    {
-      value: 75,
-      label: "Среднее время сессии (мин)",
-    },
-    {
-      value: 120,
-      label: "Новые регистрации за месяц",
-    },
-    {
-      value: 15,
-      label: "Новых языков за месяц",
-    },
-    {
-      value: 3000,
-      label: "Средне количество слов в языках",
-    },
-  ];
+export type Statistic = {
+  label: string;
+  value: string;
+};
+
+const GetStatistic = () => {
+  const [stats, setStats] = useState<Statistic[]>([]);
+  const { store } = useContext(UserContext);
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      store.checkAuth();
+    }
+
+    async function fetchLangs() {
+      try {
+        const res = await AdminService.getStats();
+        setStats(res.data);
+      } catch (e) {}
+    }
+
+    fetchLangs();
+  }, []);
+
+  
 
   return (
     <div
@@ -52,12 +52,12 @@ export const GetStatistic = () => {
             textAlign: "center",
           }}
         >
-          <div style={{ fontSize: "24pt" }}>
-            {stat.value}
-          </div>
+          <div style={{ fontSize: "24pt" }}>{stat.value}</div>
           <div style={{ marginTop: "8px", fontSize: "14px" }}>{stat.label}</div>
         </div>
       ))}
     </div>
   );
 };
+
+export default observer(GetStatistic)

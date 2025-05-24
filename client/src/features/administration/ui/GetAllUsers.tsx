@@ -238,8 +238,8 @@ export const GetAllUsers = () => {
         columns={columns}
         dataSource={data}
         pagination={{ onChange: cancel }}
-        scroll={{ x: "calc(700px + 50%)", y: 47 * 5 }}
-      />
+
+        />
     </>
   );
 };

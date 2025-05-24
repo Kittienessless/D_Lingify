@@ -10,3 +10,8 @@ export interface AuthResponse {
 export interface LangResponse {
   lang: ILanguage;
  }
+
+ export interface StatsResponse {
+  label: string;
+  value: string;
+ }

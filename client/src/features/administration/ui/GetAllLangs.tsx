@@ -23,7 +23,6 @@ interface DataType {
   Title: string;
   Description: string;
   file?: FormData;
-  prompt?: string;
 }
 type DataIndex = keyof DataType;
 
@@ -235,7 +234,7 @@ export const GetAllLangs = () => {
         columns={columns}
         dataSource={data}
         pagination={{ onChange: cancel }}
-        scroll={{ x: "calc(700px + 50%)", y: 47 * 5 }}
+       
       />
     </>
   );
