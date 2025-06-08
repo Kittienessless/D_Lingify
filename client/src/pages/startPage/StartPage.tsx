@@ -10,14 +10,11 @@ import { ArrowRightIcon } from "shared/assets/ArrowRightIcon";
 import { interactive } from "shared/lib/interactive";
 import { IconButton } from "shared/ui/button/IconButton";
 import { Divider } from "shared/ui/divider";
-<<<<<<< HEAD
 import { observer } from "mobx-react-lite";
 import { UserContext } from "app/providers";
 import { FC, useContext, useEffect } from "react";
 import { withTranslation } from 'react-i18next';
 import { Trans } from 'react-i18next';
-=======
->>>>>>> 4f58ac43c48caad787c384d733505571a0d1524d
 
 const Container = styled.div`
   background: linear-gradient(
@@ -37,15 +34,8 @@ const CardContainer = styled.div`
   width: 100%;
   ${centerContent};
   color: ${({ theme }) => theme.colors.font};
-<<<<<<< HEAD
 `;
-const HandbookContainer = styled.div`
-  width: 100%;
-  height: 30vh;
-  padding: 10rem;
-  ${centerContent};
-  color: rgb(39, 39, 39);
-`;
+
 const ImageContainer = styled.div`
   color: ${({ theme }) => theme.colors.font};
   left: 50%;
@@ -81,8 +71,6 @@ const CardWelcome = styled.div`
   padding: 4em;
   max-width: fit-content;
   height: auto;
-=======
->>>>>>> 4f58ac43c48caad787c384d733505571a0d1524d
 `;
 const HandbookContainer = styled.div`
   width: 100%;
@@ -90,50 +78,8 @@ const HandbookContainer = styled.div`
   padding: 10rem;
   ${centerContent};
     color:rgb(39, 39, 39);
-
-<<<<<<< HEAD
+`;
 const StartPage: FC = () => {
-=======
-`;
-const ImageContainer = styled.div`
-  color: ${({ theme }) => theme.colors.font};
-  left: 50%;
-  top: 50%;
-  transform: translateY(-50%);
-  transform: translateX(-50%);
-  width: 80%;
-  text-align: left;
-  position: relative;
-  ${centerContent};
-  height: auto;
-  margin-right: 3em;
-  padding: 1em;
-`;
-const Image = styled.img`
-  opacity: 0.9;
-  width: 30%;
-  height: auto;
-  margin-left: 5em;
-`;
-const Card = styled.div`
-  background-color: ${({ theme }) => theme.colors.container};
-  ${borderRadius.m};
-  margin: 2em;
-  padding: 1em;
-  max-width: 18em;
-  height: 18em;
-`;
-const CardWelcome = styled.div`
-  background-color: ${({ theme }) => theme.colors.container};
-  ${borderRadius.m};
-  margin: 4em;
-  padding: 4em;
-  max-width: fit-content;
-  height: auto;
-`;
-
-export const StartPage = () => {
->>>>>>> 4f58ac43c48caad787c384d733505571a0d1524d
   const navigate = useNavigate();
   const { store } = useContext(UserContext);
 
@@ -149,29 +95,17 @@ export const StartPage = () => {
   function handlerClick1() {
     navigate("Auth");
   }
-<<<<<<< HEAD
-=======
-  function handlerClick2() {
-    navigate("Handbook");
-  }
-
->>>>>>> 4f58ac43c48caad787c384d733505571a0d1524d
   return (
     <Container>
       <Landing>
         <Text height="m" size={"42px"}>
-<<<<<<< HEAD
       
          <Trans>Добро пожаловать в Lingify</Trans>
-=======
-          Добро пожаловать в Lingify -
->>>>>>> 4f58ac43c48caad787c384d733505571a0d1524d
         </Text>
         <Text height="m" size={"38px"}>
           Ваш инструмент для создания уникальных искусственных языков!
         </Text>
         <Space height="s"></Space>
-<<<<<<< HEAD
         {!store.isAuth && (
           <>
             <Text height="m" size={"24px"}>
@@ -186,19 +120,6 @@ export const StartPage = () => {
             </div>
           </>
         )}
-=======
-
-        <Text height="m" size={"24px"}>
-          Войди или зарегистрируйся чтобы создать свой уникальный язык
-        </Text>
-        <Space height="s"></Space>
-        <div style={{ display: "flex" }}>
-          <Button primary onClick={handlerClick}>
-            Зарегистрироваться
-          </Button>
-          <Button onClick={handlerClick1}>Войти</Button>
-        </div>
->>>>>>> 4f58ac43c48caad787c384d733505571a0d1524d
       </Landing>
 
       <ImageContainer>
@@ -207,11 +128,7 @@ export const StartPage = () => {
             Создавайте собственные языки легко и быстро с помощью передовых
             нейросетевых технологий. Наше приложение позволяет не только
             генерировать новые языки, но и редактировать их, переводить тексты и
-<<<<<<< HEAD
             управлять своим языковым портфолио.
-=======
-            управлять своим языковым портфолио.{" "}
->>>>>>> 4f58ac43c48caad787c384d733505571a0d1524d
           </Text>
         </CardWelcome>
 
