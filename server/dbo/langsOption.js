@@ -3,10 +3,5 @@ module.exports = class LangsOptions {
   label;
   value;
 
-  constructor(model) {
-    this.id = model.id;
-    this.label = model.Title;
-    this.value = model.Title;
-    
-  }
+ 
 };

@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import featureService from "shared/api/features/featureService";
+import { Option } from "shared/types/Option";
 
 
 
-const useTranslate = (sourceText: string, selectedLanguage: string) => {
+const useTranslate = (sourceText: string, selectedLanguage: Option) => {
   const [targetText, setTargetText] = useState("");
 
   useEffect(() => {
     const handleTranslate = async (sourceText: string) => {
       try {
-        const res = await featureService.translate(sourceText, selectedLanguage);
+        const res = await featureService.translate(sourceText, selectedLanguage.id );
         setTargetText(res.data);
       } catch (error) {
-        console.error("Error translating text:", error);
+        console.log("Error translating text:" +  error);
       }
     };
 

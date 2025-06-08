@@ -25,6 +25,7 @@ const initDb = async () => {
       require("../modules/user.js").User,
       require("../modules/tokens.js").Token,
        require("../modules/lang.js").Language,
+       require("../modules/role.js").Role,
 
     ];
     for (const model of modules) {

@@ -10,27 +10,29 @@ import {
 import clsx from "clsx";
 
 import { useThemeMode } from "../styles/themes/useThemeMode.ts";
-import { Layout } from "app/layout";
+import Layout  from "app/layout/Layout.tsx";
 import { ProfilePage } from "pages/userPage";
 import { HandbookPage } from "pages/handbookPage";
 import { AboutPage } from "pages/aboutPage";
 import { CreateLanguagePage } from "pages/createLanguagePage";
 import { AuthPage } from "pages/authPage";
 import { Fallback } from "shared/ui/fallback/Fallback.tsx";
-import { StartPage } from "pages/startPage/StartPage.tsx";
+import StartPage from "pages/startPage/StartPage.tsx";
 import { RegisterWidget } from "widgets/registerWidget/index.ts";
 import { PwdRecoveryWidget } from "widgets/pwdRecoreryWidget/index.ts";
-import { useState } from "react";
-import { AdminPage } from "pages/adminPage/AdminPage.tsx";
+import { useContext, useEffect, useState } from "react";
+import AdminPage from "pages/adminPage/AdminPage.tsx";
 import { RedactLanguage } from "widgets/languageWidget/ui/RedactLanguage.tsx";
 import { LanguageWidget } from "widgets/languageWidget/ui/LanguageWidget.tsx";
 import { RecoverPwd } from "widgets/pwdRecoreryWidget/ui/RecoverPwd.tsx";
+import { UserContext } from "app/providers/index.tsx";
 
 export const AppRouter = () => {
   const { theme } = useThemeMode();
 
+
   const routers = createRoutesFromElements(
-    <Route path="/" errorElement={<Fallback />} element={<Layout />}>
+    <Route path="/" element={<Layout />}>
       <Route index element={<StartPage />} />
       <Route path="/About" element={<AboutPage />} />
       <Route path="/Auth" element={<AuthPage />} />
@@ -44,6 +46,7 @@ export const AppRouter = () => {
         <Route path=":id" element={<RedactLanguage />} />
       </Route>
       <Route path="/Auth/recoverNewPassword" element={<RecoverPwd />} />
+      <Route path="*" element={<Fallback />} />
     </Route>
   );
 

@@ -1,7 +1,7 @@
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   line-height: 1.5;
-   margin: 0;
+  margin: 0;
 
   min-height: 100vh;
   scroll-behavior: smooth;
@@ -15,7 +15,7 @@ html,
 #root {
   height: 100%;
 }
- 
+
 *,
 *::before,
 *::after {
@@ -61,4 +61,16 @@ button {
 
 a {
   text-decoration: none;
+  color: rgb(50, 164, 252);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  color: rgb(163, 163, 163);
+}
+
+a:visited {
+  color: rgb(91, 131, 161);
 }

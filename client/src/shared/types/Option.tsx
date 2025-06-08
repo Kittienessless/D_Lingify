@@ -1,7 +1,5 @@
- 
-export interface Option  {
+export interface Option {
   id: string;
   label: string;
-  value: string ;
+  value: string;
 }
-

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   EditOutlined,
@@ -16,9 +16,10 @@ import { FireIcon } from "shared/assets/FireIcon";
 import { LogoIcon } from "shared/assets/LogoIcon";
 import { LogoNew } from "shared/assets/LogoNew";
 import styled from "styled-components";
+import { UserContext } from "app/providers";
+import { observer } from "mobx-react-lite";
 
 const Menu = styled(BaseMenu)`
-   
   .ant-menu-title-content {
     color: ${({ theme }) => theme.colors.font} !important;
   }
@@ -107,6 +108,42 @@ const Menu = styled(BaseMenu)`
 `;
 type MenuItem = Required<MenuProps>["items"][number];
 
+const MenuNotAuth: MenuItem[] = [
+  {
+    label: "Руководство",
+    key: "Handbook",
+    icon: <PlusCircleOutlined />,
+  },
+
+  {
+    label: " О проекте",
+    key: "About",
+    icon: <FireIcon />,
+  },
+];
+
+const itemsAuth: MenuItem[] = [
+  {
+    label: " Создать язык",
+    key: "Language",
+    icon: <EditOutlined />,
+  },
+  {
+    label: "Руководство",
+    key: "Handbook",
+    icon: <PlusCircleOutlined />,
+  },
+  {
+    label: "Профиль",
+    key: "Profile",
+    icon: <UserOutlined />,
+  },
+  {
+    label: " О проекте",
+    key: "About",
+    icon: <FireIcon />,
+  },
+];
 const items: MenuItem[] = [
   {
     label: " Создать язык",
@@ -134,17 +171,22 @@ const items: MenuItem[] = [
     icon: <NodeIndexOutlined />,
   },
 ];
-
-export const HeaderWidget: React.FC = () => {
+const HeaderWidget: React.FC = () => {
   const navigate = useNavigate();
   const headerStyle: React.CSSProperties = {
     textAlign: "center",
     justifyContent: "right",
-   
+
     backgroundColor: "transparent",
     alignContent: "center",
     width: "100%",
   };
+  const { store } = useContext(UserContext);
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      store.checkAuth();
+    }
+  }, [store.isAuth]);
   return (
     <div
       style={{
@@ -154,16 +196,40 @@ export const HeaderWidget: React.FC = () => {
       }}
     >
       <Link to={"/"}>
-        <LogoNew/>
+        <LogoNew />
       </Link>
-      <Menu
-        style={headerStyle}
-        onClick={({ key }) => {
-          navigate(key);
-        }}
-        mode="horizontal"
-        items={items}
-      />
+      {!store.isAuth && (
+        <Menu
+          style={headerStyle}
+          onClick={({ key }) => {
+            navigate(key);
+          }}
+          mode="horizontal"
+          items={MenuNotAuth}
+        />
+      )}
+      {store.isAuth && !store.isAdmin && (
+        <Menu
+          style={headerStyle}
+          onClick={({ key }) => {
+            navigate(key);
+          }}
+          mode="horizontal"
+          items={itemsAuth}
+        />
+      )}
+      {store.isAuth && store.isAdmin && (
+        <Menu
+          style={headerStyle}
+          onClick={({ key }) => {
+            navigate(key);
+          }}
+          mode="horizontal"
+          items={items}
+        />
+      )}
     </div>
   );
 };
+
+export default observer(HeaderWidget);

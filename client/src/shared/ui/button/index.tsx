@@ -8,6 +8,7 @@ import { CenterAbsolutely } from "shared/lib/CenterAbsolutely.tsx";
 import { Loader } from "../loaders/loader.tsx";
 import { MergeRefs } from "shared/lib/MergeRefs.tsx";
 import { Tooltip } from "../tooltip/index.tsx";
+import { centerContent } from "shared/lib/centerContent.tsx";
 
 type Props = {
   children: React.ReactNode;
@@ -31,7 +32,7 @@ const StyledButton = styled(UnstyledButton)<ContainerProps>`
     css`
       opacity: 0.6;
       & :hover {
-        cursor: 'initial';
+        cursor: "initial";
       }
     `};
   text-wrap: nowrap;
@@ -43,31 +44,35 @@ const StyledButton = styled(UnstyledButton)<ContainerProps>`
   border: 2px solid #0091ff;
   border-radius: 7px;
   &:hover {
-    cursor:${(props) =>
-      props.isDisabled ? "initial" : "pointer"} ;
-    background-color: ${(props) =>(
-      props.isDisabled ? 'none' : props.primary ? "rgb(50, 164, 252)" : "rgb(242, 250, 253)"  
-       )};
+    cursor: ${(props) => (props.isDisabled ? "initial" : "pointer")};
+    background-color: ${(props) =>
+      props.isDisabled
+        ? "none"
+        : props.primary
+          ? "rgb(50, 164, 252)"
+          : "rgb(242, 250, 253)"};
   }
-
- 
+  ${centerContent};
+  & svg {
+    color: rgb(50, 164, 252) !important;
+    margin-left: 1em;
+  }
 `;
 
 export type ButtonProps = Omit<
   React.ComponentProps<typeof StyledButton>,
-    'isDisabled'
+  "isDisabled"
 > & {
-   
-  isDisabled?: boolean | string
-  isLoading?: boolean
-  isRounded?: boolean
-   
-  onClick?: () => void
-  ref?: Ref<HTMLButtonElement>
-} & AsProp
+  isDisabled?: boolean | string;
+  isLoading?: boolean;
+  isRounded?: boolean;
+
+  onClick?: () => void;
+  ref?: Ref<HTMLButtonElement>;
+} & AsProp;
 const Hide = styled.div`
   opacity: 0;
-`
+`;
 export function Button({
   children,
   primary,
@@ -76,7 +81,7 @@ export function Button({
   onClick,
   ref,
   ...rest
-}: ButtonProps)  { 
+}: ButtonProps) {
   const content = isLoading ? (
     <>
       <Hide>{children}</Hide>
@@ -86,16 +91,16 @@ export function Button({
     </>
   ) : (
     children
-  )
+  );
   const containerProps = {
     primary,
     isDisabled: !!isDisabled,
     isLoading,
     onClick: isDisabled || isLoading ? undefined : onClick,
     ...rest,
-  }
+  };
 
-  if (typeof isDisabled === 'string') {
+  if (typeof isDisabled === "string") {
     return (
       <Tooltip
         content={isDisabled}
@@ -110,15 +115,12 @@ export function Button({
           />
         )}
       />
-    )
+    );
   }
 
   return (
-    <StyledButton  ref={ref} {...containerProps}>
+    <StyledButton ref={ref} {...containerProps}>
       {content}
     </StyledButton>
-  )
+  );
 }
-  
- 
- 

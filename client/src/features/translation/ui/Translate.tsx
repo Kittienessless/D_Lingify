@@ -1,5 +1,11 @@
 import { TextArea } from "shared/ui/textArea";
-import React, { useState, ChangeEvent, useEffect, useContext } from "react";
+import React, {
+  useState,
+  ChangeEvent,
+  useEffect,
+  useContext,
+  useLayoutEffect,
+} from "react";
 import styled from "styled-components";
 import useTranslate from "../../../shared/lib/hook/useTranslate";
 import { Option } from "../../../shared/types/Option.tsx";
@@ -11,30 +17,38 @@ import { observer } from "mobx-react-lite";
 
 const options: Option[] = [
   {
-    id: '1',
+    id: "1",
     label: "Английский",
     value: "English",
   },
   {
-    id: '2',
+    id: "2",
     label: "Русский",
     value: "Russian",
   },
 ];
 const Translate = () => {
   const [sourceText, setSourceText] = useState("");
-  const [langs, setLangs] = useState<Option[]>([]);
+  const [langs, setLangs] = useState<Option[]>();
 
-  const [accessibleLang, setAccessibleLang] = useState<Option | null>(null);
-  const [selectedLang, setSelectedLang] = useState<Option | null>(null);
+  const [accessibleLang, setAccessibleLang] = useState<Option | null>();
+  const [selectedLang, setSelectedLang] = useState<Option>();
 
-  const targetText = useTranslate(sourceText, selectedLang!.value);
+  const targetText = useTranslate(sourceText, selectedLang!);
   const { store } = useContext(UserContext);
 
-  useEffect(() => {
-    setLangs(store.languageTextArray)
+  const fetchTitleData = async () => {
+    try {
+      await store.getAllLangsTitle();
+      await setLangs(store.languageTextArray);
+      console.log(langs);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-    
+  useEffect(() => {
+    fetchTitleData();
   }, []);
 
   const TranslateCont = styled.div`
@@ -67,7 +81,7 @@ const Translate = () => {
         <Select
           placeholder="Выберите язык"
           selected={selectedLang}
-          options={langs}
+          options={langs!}
           onChange={(selection: Option) => setSelectedLang(selection)}
         />
         <TextArea
@@ -80,4 +94,4 @@ const Translate = () => {
     </TranslateCont>
   );
 };
-export default observer(Translate)
+export default observer(Translate);

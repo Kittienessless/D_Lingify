@@ -11,7 +11,7 @@ const tokenService = require("./tokenService.js");
 const LangDto = require("../dbo/lang-dto.js");
 
 class UserService {
-  async registration(email, password) {
+  async registration(email, password, name, familyName) {
     try {
       const login = await getDb().models.User.findOne({
         where: {
@@ -30,10 +30,12 @@ class UserService {
       const user = await getDb().models.User.create({
         email: email,
         password: hashPassword,
-        role: process.env.USER_ROLE,
+        role: parseInt(1),
         activationLink: actLink,
         isActivated: false,
         resetLink: resetLink,
+        given_name: name,
+        familyName: familyName,
       });
       console.log("created user");
       await mailService.sendActivationMail(
@@ -148,9 +150,7 @@ class UserService {
 
     const tokenFromDto = await tokenService.findToken(refreshToken);
 
-    if (!userData || !tokenFromDto) {
-      throw ApiError.UnauthorizedError();
-    }
+    
 
     const user = await getDb().models.User.findOne({
       where: {

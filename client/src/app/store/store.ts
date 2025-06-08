@@ -9,6 +9,7 @@ import { ILanguage } from "entities/language/model/language";
 
 import languageService from "shared/api/language/languageService";
 import { Option } from "../../shared/types/Option.tsx";
+import { element } from "prop-types";
 
 export default class Store {
   user = {} as user;
@@ -17,8 +18,8 @@ export default class Store {
   isAdmin = false;
 
   language = {} as ILanguage;
-  languageArray = Array<ILanguage>()
-  languageTextArray : Option[] = []
+  languageArray = Array<ILanguage>();
+  languageTextArray: Option[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -42,11 +43,20 @@ export default class Store {
   setLanguage(language: ILanguage) {
     this.language = language;
   }
-
+  setlanguageTextArray(opt: Option[]) {
+    this.languageTextArray = opt;
+  }
   async login(email: string, password: string) {
     try {
       const response = await AuthService.login(email, password);
       this.setAuth(true);
+      if (response.data.user.role === 2) {
+        this.setAdmin(true);
+        console.log(response.data.user.role);
+      }
+      if (response.data.user.role === 1) {
+        this.setAdmin(false);
+      }
       this.setUser(response.data.user);
       localStorage.setItem("token", response.data.accessToken);
     } catch (e) {
@@ -58,6 +68,13 @@ export default class Store {
     try {
       this.setAuth(true);
       this.setUser(response.data.user);
+      if (response.data.user.role === 2) {
+        this.setAdmin(true);
+        console.log(response.data.user.role);
+      }
+      if (response.data.user.role === 1) {
+        this.setAdmin(false);
+      }
       window.localStorage.setItem("token", response.data.accessToken);
     } catch (e) {
       console.log(e);
@@ -88,6 +105,13 @@ export default class Store {
       const response = await AuthService.registration(email, password);
       this.setAuth(true);
       console.log(response);
+      if (response.data.user.role === 2) {
+        this.setAdmin(true);
+        console.log(response.data.user.role);
+      }
+      if (response.data.user.role === 1) {
+        this.setAdmin(false);
+      }
       this.setUser(response.data.user);
       localStorage.setItem("token", response.data.accessToken);
     } catch (e) {
@@ -97,10 +121,10 @@ export default class Store {
 
   async logout() {
     try {
+     window.localStorage.removeItem("token");
       const response = await AuthService.logout();
       this.setAuth(false);
       this.setUser({} as user);
-      window.localStorage.removeItem("token");
     } catch (e) {
       console.log(e);
     }
@@ -148,7 +172,7 @@ export default class Store {
       console.log(e);
     }
   }
-    async getAllLangs() {
+  async getAllLangs() {
     try {
       const response = await languageService.getAllLanguages();
       console.log(response);
@@ -166,9 +190,13 @@ export default class Store {
       console.log(e);
     }
   }
-  async createLangNeural(prompt : string, title : string, description : string) {
+  async createLangNeural(prompt: string, title: string, description: string) {
     try {
-      const response = await languageService.createNeural(prompt, title, description);
+      const response = await languageService.createNeural(
+        prompt,
+        title,
+        description
+      );
       console.log(response);
     } catch (e) {
       console.log(e);
@@ -176,12 +204,12 @@ export default class Store {
   }
 
   async getAllLangsTitle() {
-    try{
+    try {
       const response = await languageService.getAllLangsTitle();
-      this.languageTextArray=response.data;
-    }catch(e) {
-            console.log(e);
-
+      this.setlanguageTextArray(response.data);
+      console.log(response.data);
+    } catch (e) {
+      console.log(e);
     }
   }
 }

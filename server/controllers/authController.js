@@ -12,13 +12,13 @@ const { validationResult } = require("express-validator");
 
 class authController {
   async registration(req, res, next) {
-    const { email, password } = req.body;
+    const { email, password, given_name, familyName } = req.body;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       throw new ApiError.BadRequest("Ошибка валидации", errors.array());
     }
-   
-    const userData = await userService.registration(email, password);
+
+    const userData = await userService.registration(email, password, given_name, familyName);
     res.cookie(COOKIE_NAME, userData.refreshToken, {
       maxAge: 38 * 24 * 60 * 1000,
       httpOnly: true,
@@ -61,21 +61,18 @@ class authController {
           secure: false,
         });
         return res.json(userData);
-      }              
-
-
+      }
 
       const newUser = await getDb().models.User.create({
         email: payload.email,
         password: "",
-        role: process.env.USER_ROLE,
+        role: parseInt(1),
         activationLink: "",
         isActivated: true,
         given_name: payload?.given_name,
         familyName: payload?.family_name,
-        resetLink: '',
+        resetLink: "",
       });
- 
 
       const userData = await userService.registerByGoogle(newUser);
       res.cookie(COOKIE_NAME, userData.refreshToken, {
@@ -83,7 +80,7 @@ class authController {
         httpOnly: true,
         secure: false,
       });
-     return res.json(userData);
+      return res.json(userData);
     } catch (e) {
       console.log(e);
       next(e);

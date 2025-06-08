@@ -22,23 +22,22 @@ class featureController {
       return res.status(200).json(generatedText);
     } catch (e) {
       console.log(e);
-      res
-      .status(400)
-      .json({ message: "generateTextNeural by gigachat error" });
+      res.status(400).json({ message: "generateTextNeural by gigachat error" });
     }
   }
 
   async translateTextNeural(req, res) {
     try {
       const { text, langID } = req.body;
-
-      const lang = getDb().models.Language.findOne({
-        where: { id: langID }.then((lang) => {
-          if (!lang) return res.json("no lang");
-        }),
+      console.log(text, langID)
+      const lang = await getDb().models.Language.findOne({
+        where: { id: langID }
       });
-
-      const translatedText = featureService.translateTextNeural(text, lang);
+      if(!lang) return res.message('no lang data')
+      const translatedText = await featureService.translateTextNeural(
+        text,
+        lang
+      );
       return res.status(200).json(translatedText);
     } catch (e) {
       console.log(e);

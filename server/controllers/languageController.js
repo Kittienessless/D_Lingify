@@ -394,13 +394,24 @@ class languageController {
       const isFind = await tokenService.findToken(token);
       if (!isFind) return res.json("unauthorized").status(401);
 
-      const languages = await getDb().models.Language.findAll();
-      const result = new LangsOptions(languages);
+      const user = await tokenService.findToken(token);
+      if (!user) return res.json("unauthorized").status(401);
 
-      return res.json(result);
+      const languages = await getDb().models.Language.findAll({
+        where: { userID: user.userID },
+      });
+
+      let result = new LangsOptions()
+      result=[]
+      result = languages.map(language => ({
+        id: language.id,
+        label: language.Title,
+        value: language.Title
+      }));
+      return res.status(200).json(result);
     } catch (e) {
       console.log(e);
-      res.status(400).json({ message: "getFile error" });
+      res.status(400).json({ message: "gel all langs title error" });
     }
   }
 }

@@ -9,7 +9,7 @@ const Token = sequelize => sequelize.define('Token', {
 
     },
     refreshToken: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1234),
         allowNull: false
     },
     userID: {

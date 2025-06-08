@@ -9,14 +9,15 @@ import GlobalStyle from "../styles/themes/gloabal.ts";
 import { ThemeContext } from "../styles/index.tsx";
 import { useThemeMode } from "../styles/themes/useThemeMode.ts";
 
-import { HeaderWidget } from "widgets/header";
+import  HeaderWidget  from "widgets/header/ui/HeaderWidget.tsx";
 import { FooterWidget } from "widgets/footer";
+import { observer } from "mobx-react-lite";
 
-export const Layout = () => {
+ const Layout:React.FC = () => {
   const { theme, themeToggler } = useThemeMode();
   const themeMode = theme === "light" ? lightTheme : darkTheme;
 
-  const Layout = styled.div`
+  const LayoutM = styled.div`
     background-color: ${({ theme }) => theme.colors.bg};
     color: ${({ theme }) => theme.colors.font};
     & svg {
@@ -26,7 +27,7 @@ export const Layout = () => {
   return (
     <ThemeContext>
       <ThemeProvider theme={themeMode}>
-        <Layout>
+        <LayoutM>
           <GlobalStyle />
           <SkeletonTheme>
             <HeaderWidget />
@@ -37,8 +38,10 @@ export const Layout = () => {
             <FooterWidget />
             <ScrollRestoration />
           </SkeletonTheme>
-        </Layout>
+        </LayoutM>
       </ThemeProvider>
     </ThemeContext>
   );
 };
+
+export default observer(Layout)
