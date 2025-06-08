@@ -30,7 +30,7 @@ export const AppRouter = () => {
   const { theme } = useThemeMode();
 
   const routers = createRoutesFromElements(
-    <Route path="/" errorElement={<Fallback />} element={<Layout />}>
+    <Route path="/"  element={<Layout />}>
       <Route index element={<StartPage />} />
       <Route path="/About" element={<AboutPage />} />
       <Route path="/Auth" element={<AuthPage />} />
@@ -44,6 +44,8 @@ export const AppRouter = () => {
         <Route path=":id" element={<RedactLanguage />} />
       </Route>
       <Route path="/Auth/recoverNewPassword" element={<RecoverPwd />} />
+            <Route path="*" element={<Fallback />} />
+
     </Route>
   );
 

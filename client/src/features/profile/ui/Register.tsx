@@ -1,17 +1,24 @@
 import { useContext, useState } from "react";
-import { LockOutlined, MailOutlined } from "@ant-design/icons";
+import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Space } from "antd";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "app/providers";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import { CenterAbsolutely } from "shared/lib/CenterAbsolutely";
+import axios, { AxiosResponse } from "axios";
 
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import { AuthResponse } from "shared/types/responseTypes";
 export const Register = () => {
   const [form] = Form.useForm();
   const [password, setPassword] = useState("");
   const [doublePassword, setDoublePassword] = useState("");
   const [email, setEmail] = useState("");
+  const [given_name, setGivenName] = useState("");
+
+  const [family_name, setFamilyName] = useState("");
+
   const navigate = useNavigate();
   const { store } = useContext(UserContext);
 
@@ -20,7 +27,28 @@ export const Register = () => {
     color: ${({ theme }) => theme.colors.font};
     font-size: 24px;
   `;
+  const googleLogin = useGoogleLogin({
+    onSuccess: async ({ code }) => {
+      try {
+        const response = await axios.post<AuthResponse>(
+          "http://localhost:5000/auth/googleAuth",
+          {
+            code,
+          },
+          {
+            withCredentials: true,
+          }
+        );
+        store.google(response);
 
+        navigate("/Profile");
+      } catch (e) {
+        console.log(e);
+      } finally {
+      }
+    },
+    flow: "auth-code",
+  });
   function registerHandler() {
     store.register(email, password);
     toast.success("Успешно!");
@@ -45,8 +73,8 @@ export const Register = () => {
         <Form.Item
           name="email"
           rules={[
-            { required: true, message: "Please input your Email!" },
-            { type: "email", message: "please enter a valid email" },
+            { required: true, message: "Пожалуйста введите Вашe почту" },
+            { type: "email", message: "Пожалуйста введите корректную почту" },
           ]}
           hasFeedback
         >
@@ -59,10 +87,49 @@ export const Register = () => {
             }}
             prefix={<MailOutlined />}
             type="email"
-            placeholder="Email"
+            placeholder="Почта"
           />
         </Form.Item>
-
+        <Form.Item
+          name="Name"
+          rules={[
+            { required: true, message: "Пожалуйста введите Ваше Имя" },
+            { type: "email", message: "Пожалуйста введите корректное имя" },
+          ]}
+          hasFeedback
+        >
+          <Input
+            value={given_name}
+            onChange={(e) => setGivenName(e.target.value)}
+            style={{
+              fontSize: 20,
+              height: 40,
+            }}
+            prefix={<UserOutlined />}
+            type="text"
+            placeholder="Имя"
+          />
+        </Form.Item>
+        <Form.Item
+          name="FamilyName"
+          rules={[
+            { required: true, message: "Пожалуйста введите Вашу фамилию" },
+            { type: "email", message: "Пожалуйста введите корректную Фамилию" },
+          ]}
+          hasFeedback
+        >
+          <Input
+            value={family_name}
+            onChange={(e) => setFamilyName(e.target.value)}
+            style={{
+              fontSize: 20,
+              height: 40,
+            }}
+            prefix={<UserOutlined />}
+            type="text"
+            placeholder="Фамилия"
+          />
+        </Form.Item>
         <Form.Item
           name="password"
           rules={[
@@ -80,7 +147,7 @@ export const Register = () => {
               height: 40,
             }}
             prefix={<LockOutlined />}
-            placeholder="Password"
+            placeholder="Пароль"
           />
         </Form.Item>
 
@@ -110,7 +177,7 @@ export const Register = () => {
               height: 40,
             }}
             prefix={<LockOutlined />}
-            placeholder="Password"
+            placeholder="Подтвердить пароль"
           />
         </Form.Item>
 
@@ -118,7 +185,7 @@ export const Register = () => {
           <Button
             style={{
               fontSize: 20,
-              height: 50,
+              height: 40,
             }}
             block
             type="primary"
@@ -126,6 +193,22 @@ export const Register = () => {
           >
             Зарегестрироваться
           </Button>
+          <Form.Item style={{ marginTop: 10, width: "100%" }}>
+            <Button
+              size="large"
+              style={{
+                fontSize: 20,
+                height: 40,
+                width: "100%",
+              }}
+              type="primary"
+              onClick={() => {
+                googleLogin();
+              }}
+            >
+              Войти с помощью Google
+            </Button>
+          </Form.Item>
           <Button
             size="large"
             style={{

@@ -21,15 +21,26 @@ export const GenerateText = () => {
   const { store } = useContext(UserContext);
   const [text, setText] = useState("");
  
-  const [selectedItem, setSelectedItem] = useState<Option | null>(null);
+  const [selectedItem, setSelectedItem] = useState<Option | null>();
 
-  const [options, setOps] = useState([{label : '', value: ''}]);
-  // добавить фетч созданных языков пользователем 
+  const [langs, setLangs] = useState<Option[]>();
 
+  
 
-  useEffect(() => {
-    ///
-  }, [])
+  const fetchTitleData = async () => {
+     try {
+       await store.getAllLangsTitle();
+       await setLangs(store.languageTextArray);
+       console.log(langs);
+     } catch (e) {
+       console.log(e);
+     }
+   };
+ 
+   useEffect(() => {
+     fetchTitleData();
+   }, []);
+ 
   const Container = styled.div`
     margin: 10px;
     padding: 5px;
@@ -51,7 +62,7 @@ export const GenerateText = () => {
       <Select
         placeholder="Выберите язык..."
         selected={selectedItem}
-        options={options}
+        options={langs!}
         onChange={(selection: Option) => onChosenHelper(selection)}
       />
       <Space height="s" />

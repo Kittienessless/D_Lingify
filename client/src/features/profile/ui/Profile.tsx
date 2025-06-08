@@ -1,6 +1,6 @@
 import React from "react";
 import  ProfileCard  from "shared/ui/profileCard/ui/ProfileCard.tsx";
-import { Translate } from "features/translation";
+import  Translate from "../../../features/translation/ui/Translate.tsx";
 import LanguageList  from "widgets/languageWidget/ui/LanguageList";
 import { PreferencesWidget } from "widgets/preferencesWidget/ui/PreferencesWidget";
 import styled from "styled-components";

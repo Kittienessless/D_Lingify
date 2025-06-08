@@ -9,6 +9,7 @@ import { ILanguage } from "entities/language/model/language";
 
 import languageService from "shared/api/language/languageService";
 import { Option } from "../../shared/types/Option.tsx";
+import { element } from "prop-types";
 
 export default class Store {
   user = {} as user;
@@ -17,8 +18,8 @@ export default class Store {
   isAdmin = false;
 
   language = {} as ILanguage;
-  languageArray = Array<ILanguage>()
-  languageTextArray : Option[] = []
+  languageArray = Array<ILanguage>();
+  languageTextArray: Option[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -42,7 +43,9 @@ export default class Store {
   setLanguage(language: ILanguage) {
     this.language = language;
   }
-
+  setlanguageTextArray(opt: Option[]) {
+    this.languageTextArray = opt;
+  }
   async login(email: string, password: string) {
     try {
       const response = await AuthService.login(email, password);
@@ -148,7 +151,7 @@ export default class Store {
       console.log(e);
     }
   }
-    async getAllLangs() {
+  async getAllLangs() {
     try {
       const response = await languageService.getAllLanguages();
       console.log(response);
@@ -166,9 +169,13 @@ export default class Store {
       console.log(e);
     }
   }
-  async createLangNeural(prompt : string, title : string, description : string) {
+  async createLangNeural(prompt: string, title: string, description: string) {
     try {
-      const response = await languageService.createNeural(prompt, title, description);
+      const response = await languageService.createNeural(
+        prompt,
+        title,
+        description
+      );
       console.log(response);
     } catch (e) {
       console.log(e);
@@ -176,12 +183,12 @@ export default class Store {
   }
 
   async getAllLangsTitle() {
-    try{
+    try {
       const response = await languageService.getAllLangsTitle();
-      this.languageTextArray=response.data;
-    }catch(e) {
-            console.log(e);
-
+      this.setlanguageTextArray(response.data);
+      console.log(response.data);
+    } catch (e) {
+      console.log(e);
     }
   }
 }

@@ -17,7 +17,7 @@ const User = (sequelize) =>
       allowNull: false,
     },
     role: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     activationLink: {

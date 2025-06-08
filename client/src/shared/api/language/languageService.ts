@@ -32,7 +32,7 @@ export default class languageService {
     return await $api.post(`${BASE_URL}/lang/deleteLang`, {key});
   }
   static async getAllLangsTitle(): Promise<AxiosResponse<Option[]>> {
-    return await $api.post(`${BASE_URL}/lang/getAllLangsTitle` );
+    return await $api.get<Option[]>(`${BASE_URL}/lang/getAllLangsTitle` );
   }
 
 

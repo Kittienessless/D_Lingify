@@ -1,44 +1,5 @@
 @startuml ClassDiagramm
 
-class UserModel { 
--user_id: int 
--email: string 
--password: string 
--name: string 
--familyName: string 
--isActivated: boolean 
--actLink: string 
--resetLink: string 
--RqUid: string 
--role: string 
-}
-
-class TokenModel { 
--id: int 
--refresh_token: string 
--userId: int 
-}
-
-class LanguageModel { 
--id: int 
--title: string 
--description: string 
--path: string 
--userId: int 
-}
-
-class UserDto { 
--email: string 
--user_id: int 
--isActivated: boolean 
--role : string 
-}
-
-class LanguageDto { 
--id: int 
--title: string 
--description: string 
-}
 
 class AuthController { 
 +registration(req, res) 
@@ -108,20 +69,7 @@ class MailService {
 +sendEmailSuccessChangedPassword(to : string) 
 }
 
-class FileService {
-+createJsonFile(content : any) 
-+appendJsonFile(path : int, content : string) 
-+deleteJsonFile(path : string) 
-+readJsonFile(path : string)
-}
-class CloudService { 
-+configCloud()
-+getAccessCloud()
-+addFile(content : any) 
-+deleteFile(path : int, content : string) 
-+getFile(path : string) 
-+appendFile(path : string)
-}
+
 class TokenService { 
 +generateTokens(payload : any) 
 +saveToken(user_id : int, refreshToken : string) 
@@ -158,16 +106,6 @@ class LanguageApi {
 }
 
 
-
-UserModel "1" -- "1" TokenModel 
-LanguageModel "many" -- "1" UserModel 
-
-
-UserDto --|> UserModel
-LanguageDto --|> LanguageModel
-TokenService--|>TokenModel
-UserService..>UserDto
-LanguageService..>LanguageDto
 AuthController ..> UserService 
 UserController ..> UserService 
 LanguageController ..> LanguageService
@@ -177,9 +115,6 @@ FeatureController..>FeatureService
 AdminController..>UserService
 FeatureService ..> LanguageApi
 LanguageService..>LanguageApi
-LanguageService..>FileService
-LanguageService..>CloudService
-FeatureService ..>FileService
 LanguageService..>TokenService
 
 @enduml

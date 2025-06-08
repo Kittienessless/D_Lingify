@@ -148,9 +148,7 @@ class UserService {
 
     const tokenFromDto = await tokenService.findToken(refreshToken);
 
-    if (!userData || !tokenFromDto) {
-      throw ApiError.UnauthorizedError();
-    }
+    
 
     const user = await getDb().models.User.findOne({
       where: {

@@ -11,12 +11,12 @@ export default class AdminService {
     return $api.get<StatsResponse[]>("admin/LangStat");
   }
 
-  static async getUsersStatistics(): Promise<AxiosResponse<user[]>> {
-    return $api.get<user[]>("admin/getUserStatistics");
+  static async getUsersStatistics(): Promise<AxiosResponse<StatsResponse[]>> {
+    return $api.get<StatsResponse[]>("admin/getUserStatistics");
   }
 
-  static async getLangsStatistics(): Promise<AxiosResponse<ILanguage[]>> {
-    return $api.get<ILanguage[]>("admin/getLanguageStatistics");
+  static async getLangsStatistics(): Promise<AxiosResponse<StatsResponse[]>> {
+    return $api.get<StatsResponse[]>("admin/getLanguageStatistics");
   }
 
 }
