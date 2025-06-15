@@ -10,6 +10,7 @@ const userService = require("../services/userService.js");
 const tokenService = require("../services/tokenService.js");
 const UserDto = require("../dbo/user-dto.js");
 const COOKIE_NAME = "token";
+const COOKIE_ROLE = "role";
 const uuid = require("uuid");
 
 class userController {
@@ -91,6 +92,7 @@ class userController {
     await tokenService.removeToken(token);
 
     res.clearCookie(COOKIE_NAME);
+    res.clearCookie(COOKIE_ROLE);
     return res.status(200).json({ message: "Delete success" });
   }
 

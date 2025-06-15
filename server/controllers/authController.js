@@ -3,6 +3,7 @@ require("dotenv").config();
 const { checkAuth } = require("../modules/user.js");
 const userService = require("../services/userService.js");
 const COOKIE_NAME = "token";
+const COOKIE_ROLE = "role";
 const { OAuth2Client } = require("google-auth-library");
 const uuid = require("uuid");
 const ApiError = require("../exceptions/api-error.js");
@@ -18,8 +19,18 @@ class authController {
       throw new ApiError.BadRequest("Ошибка валидации", errors.array());
     }
 
-    const userData = await userService.registration(email, password, given_name, familyName);
+    const userData = await userService.registration(
+      email,
+      password,
+      given_name,
+      familyName
+    );
     res.cookie(COOKIE_NAME, userData.refreshToken, {
+      maxAge: 38 * 24 * 60 * 1000,
+      httpOnly: true,
+      secure: false,
+    });
+    res.cookie(COOKIE_ROLE, String(userData.user.role), {
       maxAge: 38 * 24 * 60 * 1000,
       httpOnly: true,
       secure: false,
@@ -128,6 +139,11 @@ class authController {
         httpOnly: true,
         secure: false,
       });
+      res.cookie(COOKIE_ROLE, String(userData.user.role), {
+        maxAge: 38 * 24 * 60 * 1000,
+        httpOnly: true,
+        secure: false,
+      });
       return res.json(userData);
     } catch (e) {
       console.log(e);
@@ -140,6 +156,11 @@ class authController {
       const token = req.cookies["token"];
       const userData = await userService.refresh(token);
       res.cookie(COOKIE_NAME, userData.refreshToken, {
+        maxAge: 38 * 24 * 60 * 1000,
+        httpOnly: true,
+        secure: false,
+      });
+      res.cookie(COOKIE_ROLE, String(userData.user.role), {
         maxAge: 38 * 24 * 60 * 1000,
         httpOnly: true,
         secure: false,
@@ -178,6 +199,8 @@ class authController {
       const Rtoken = await userService.logout(token);
 
       res.clearCookie(COOKIE_NAME);
+      res.clearCookie(COOKIE_ROLE);
+
       return res.json(Rtoken);
     } catch (e) {
       next(e);

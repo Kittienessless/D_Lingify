@@ -5,7 +5,7 @@ import { ILanguage } from "entities/language";
 import { AuthResponse } from "shared/types/responseTypes";
 
 interface DataType {
-  key: string;
+  user_id: string;
   name: string;
   email: string;
   role: string;

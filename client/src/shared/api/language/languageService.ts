@@ -7,13 +7,13 @@ import { LangResponse } from "shared/types/responseTypes";
 import { Option } from "../../../shared/types/Option.tsx";
 
 export default class languageService {
-  static async create(language: ILanguage): Promise<AxiosResponse<ILanguage>> {
-    return await $api.post(`${BASE_URL}/lang/createLang`, {language});
+  static async create(Title: string, Description: string): Promise<AxiosResponse<ILanguage>> {
+    return await $api.post(`${BASE_URL}/lang/createLang`, {Title, Description});
   }
   static async createNeural(
-    prompt : string, title : string, description : string
+    Prompt : string, Title : string, Description : string, Rules : any
   ): Promise<AxiosResponse<ILanguage>> {
-    return await $api.post(`${BASE_URL}/lang/createLangNeural`, {prompt, title, description});
+    return await $api.post(`${BASE_URL}/lang/createLangNeural`, {Prompt, Title, Description, Rules});
   }
   static async getLanguage(id: string): Promise<AxiosResponse<LangResponse>> {
     return await $api.get<LangResponse>(`${BASE_URL}/lang/lang/${id}`);
@@ -22,8 +22,11 @@ export default class languageService {
     return await $api.get<ILanguage[]>(`${BASE_URL}/lang/getAllLangs`);
   }
 
-  static async uploadLang(data : FormData) : Promise<AxiosResponse<FormData>> {
-    return await $api.post<FormData>(`${BASE_URL}/lang/upload`,{data} );
+  static async uploadLang(id: string, data : Blob | FormData | File) : Promise<AxiosResponse<FormData | Blob | File>> {
+    return await $api.post<FormData | Blob | File>(`${BASE_URL}/lang/upload`,{id, data} );
+  }
+    static async download(id : string) : Promise<AxiosResponse<FormData | Blob>> {
+    return await $api.post<FormData>(`${BASE_URL}/lang/download` , {id});
   }
  static async getFileLang(id: string) : Promise<AxiosResponse<FormData>> {
     return await $api.post<FormData>(`${BASE_URL}/lang/getFile`,{id} );

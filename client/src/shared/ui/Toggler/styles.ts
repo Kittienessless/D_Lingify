@@ -24,10 +24,10 @@ export const Container = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: ${({ theme }) => theme.background};
+    background-color: ${({ theme }) => theme.colors.bg};
       -webkit-transition: 0.2s;
      transition: 0.2s;
-     box-shadow: 0 0 2px ${({ theme }) => theme.text};
+     box-shadow: 0 0 2px ${({ theme }) => theme.colors.font};
   }
 
   .slider:before {

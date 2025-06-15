@@ -1,0 +1,17 @@
+{
+  "Title": "",
+  "Desc": "",
+  "Vocabulary": [{ "word": "", "translate": "", "stress": "" }],
+  "Rules": {
+    "noun": [{ "rule Noun": "" }],
+    "verb": [{ "rule verb": "" }],
+    "pronoun": [{ "rule pronoun": "" }],
+    "adjective": [{ "rule adjective": "" }],
+    "adverb": [{ "rule adverb": "" }],
+    "conjunction": [{ "rule conjunction": "" }],
+    "interjection": [{ "rule interjection": "" }]
+  },
+  "Articles": [{ "rule": "" }],
+  "NounGender": [{ "rule": "" }],
+  "DegreesOfComparison": [{ "rule": "" }]
+}

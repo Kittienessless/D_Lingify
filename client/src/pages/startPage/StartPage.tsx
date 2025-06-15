@@ -13,9 +13,10 @@ import { Divider } from "shared/ui/divider";
 import { observer } from "mobx-react-lite";
 import { UserContext } from "app/providers";
 import { FC, useContext, useEffect } from "react";
-import { withTranslation } from 'react-i18next';
-import { Trans } from 'react-i18next';
-
+import { useTranslation, withTranslation } from "react-i18next";
+import { Trans } from "react-i18next";
+import Screen1 from "../../shared/assets/123 (1).png";
+import Screen2 from "../../shared/assets/123 (2).png";
 const Container = styled.div`
   background: linear-gradient(
     to top,
@@ -27,34 +28,57 @@ const Container = styled.div`
 
 const Landing = styled.div`
   width: 100%;
+  
   padding: 10rem;
   color: ${({ theme }) => theme.colors.fontContrast};
+   @media (width <= 1350px) {
+    font-size:  1.2rem !important;
+  }
 `;
 const CardContainer = styled.div`
   width: 100%;
   ${centerContent};
   color: ${({ theme }) => theme.colors.font};
+  @media (width <= 1350px) {
+    flex-direction: column;
+  }
 `;
 
 const ImageContainer = styled.div`
   color: ${({ theme }) => theme.colors.font};
-  left: 50%;
-  top: 50%;
-  transform: translateY(-50%);
-  transform: translateX(-50%);
-  width: 80%;
-  text-align: left;
-  position: relative;
+  margin: 0 auto;
   ${centerContent};
   height: auto;
   margin-right: 3em;
   padding: 1em;
+  margin-top: 25em;
+  @media (width <= 1350px) {
+    flex-direction: column;
+  }
 `;
 const Image = styled.img`
   opacity: 0.9;
   width: 30%;
   height: auto;
   margin-left: 5em;
+`;
+const ImageScreen1 = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80%;
+  height: auto;
+  z-index: 10;
+  opacity: 1;
+`;
+const ImageScreen2 = styled.img`
+  position: absolute;
+  top: -2em;
+  left: -3em;
+  width: 80%;
+  height: auto;
+  z-index: 5;
+  opacity: 0.8;
 `;
 const Card = styled.div`
   background-color: ${({ theme }) => theme.colors.container};
@@ -77,7 +101,14 @@ const HandbookContainer = styled.div`
   height: 30vh;
   padding: 10rem;
   ${centerContent};
-    color:rgb(39, 39, 39);
+  color: rgb(39, 39, 39);
+`;
+
+const Screen = styled.div`
+  display: flex;
+  @media (width <= 1350px) {
+    flex-direction: column;
+  }
 `;
 const StartPage: FC = () => {
   const navigate = useNavigate();
@@ -95,22 +126,32 @@ const StartPage: FC = () => {
   function handlerClick1() {
     navigate("Auth");
   }
+  const { t } = useTranslation();
+
   return (
     <Container>
       <Landing>
         <Text height="m" size={"42px"}>
-      
-         <Trans>Добро пожаловать в Lingify</Trans>
+          {t("main.header")}
         </Text>
-        <Text height="m" size={"38px"}>
-          Ваш инструмент для создания уникальных искусственных языков!
-        </Text>
-        <Space height="s"></Space>
+        <Screen>
+          <Text height="m" size={"38px"}>
+            Ваш инструмент для создания уникальных искусственных языков!
+          </Text>
+          <div
+            style={{ position: "relative", width: "100%", marginTop: "3em" }}
+          >
+            <ImageScreen1 src={Screen1}></ImageScreen1>
+            <ImageScreen2 src={Screen2}></ImageScreen2>
+          </div>
+        </Screen>
+
         {!store.isAuth && (
           <>
             <Text height="m" size={"24px"}>
               Войди или зарегистрируйся чтобы создать свой уникальный язык
             </Text>
+
             <Space height="s"></Space>
             <div style={{ display: "flex" }}>
               <Button primary onClick={handlerClick}>

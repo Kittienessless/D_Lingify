@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { user } from "entities/user/model/user.ts";
 import { makeAutoObservable } from "mobx";
 import AuthService from "shared/api/user/AuthService";
@@ -20,6 +20,7 @@ export default class Store {
   language = {} as ILanguage;
   languageArray = Array<ILanguage>();
   languageTextArray: Option[] = [];
+  file = {} as Blob | FormData | File;
 
   constructor() {
     makeAutoObservable(this);
@@ -32,6 +33,9 @@ export default class Store {
   setUser(user: user) {
     this.user = user;
   }
+  setFile(file: Blob | FormData | File) {
+    this.file = file;
+  }
   setAdmin(admin: boolean) {
     this.isAdmin = admin;
   }
@@ -40,8 +44,9 @@ export default class Store {
     this.isLoading = loading;
   }
 
-  setLanguage(language: ILanguage) {
-    this.language = language;
+  setLanguage(Title: string, description: string) {
+    this.language.Title = Title;
+    this.language.Description = description;
   }
   setlanguageTextArray(opt: Option[]) {
     this.languageTextArray = opt;
@@ -59,6 +64,7 @@ export default class Store {
       }
       this.setUser(response.data.user);
       localStorage.setItem("token", response.data.accessToken);
+      localStorage.setItem("role", String(response?.data.user.role));
     } catch (e) {
       console.log(e);
     }
@@ -76,6 +82,7 @@ export default class Store {
         this.setAdmin(false);
       }
       window.localStorage.setItem("token", response.data.accessToken);
+      localStorage.setItem("role", String(response?.data.user.role));
     } catch (e) {
       console.log(e);
     }
@@ -99,6 +106,32 @@ export default class Store {
       this.setLoading(false);
     }
   }
+  
+  async checkAdmin() {
+    this.setLoading(true);
+    try {
+      const response = await axios.get<AuthResponse>(
+        `${BASE_URL}/auth/refresh`,
+        {
+          withCredentials: true,
+        }
+      );
+      if (response.data.user.role === 2) {
+        this.setAdmin(true);
+        console.log(response.data.user.role);
+      }
+      if (response.data.user.role === 1) {
+        this.setAdmin(false);
+      }
+      localStorage.setItem("role", String(response?.data.user.role));
+      this.setUser(response?.data.user);
+      this.setAuth(true);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      this.setLoading(false);
+    }
+  }
 
   async register(email: string, password: string) {
     try {
@@ -114,6 +147,7 @@ export default class Store {
       }
       this.setUser(response.data.user);
       localStorage.setItem("token", response.data.accessToken);
+      localStorage.setItem("role", String(response?.data.user.role));
     } catch (e) {
       console.log(e);
     }
@@ -121,7 +155,7 @@ export default class Store {
 
   async logout() {
     try {
-     window.localStorage.removeItem("token");
+      window.localStorage.removeItem("token");
       const response = await AuthService.logout();
       this.setAuth(false);
       this.setUser({} as user);
@@ -182,14 +216,14 @@ export default class Store {
     }
   }
 
-  async createLang(language: ILanguage) {
+  /*   async createLang(language: ILanguage | null) {
     try {
-      const response = await languageService.create(language);
+      const response = await languageService.create();
       console.log(response);
     } catch (e) {
       console.log(e);
     }
-  }
+  } */
   async createLangNeural(prompt: string, title: string, description: string) {
     try {
       const response = await languageService.createNeural(

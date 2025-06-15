@@ -2,16 +2,40 @@ import { useEffect, useState } from "react";
 import { Button } from "shared/ui/button";
 import { LangAPI } from "shared/api";
 import { toast } from "react-toastify";
-export const SaveLang = () => {
+import languageService from "shared/api/language/languageService";
+import { BASE_URL } from "shared/constances";
+
+export const SaveLang = (id: string) => {
+  const [file, setFile] = useState<File | null>(null);
+
   async function handleDownloadFile() {
     try {
-    /*   const fileName = await LangAPI.langInfo.getLangInfo();
-      const filename = fileName;
-      const Lang = await LangAPI.Lang.downloadLang(); */
+      if (!file) {
+        console.error("No file selected");
+        return;
+      }
+      const formData = new FormData();
 
-      //TODO: доделать скачивание файла
+      const response = await fetch(`${BASE_URL}/lang/download`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(id),
+      });
+      formData.append("file", file);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = file.name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
     } catch (e) {
-      toast.error('Ошибка скачивания файла' + e)
+      toast.error("Ошибка скачивания файла" + e);
     }
   }
 

@@ -10,6 +10,7 @@ import axios, { AxiosResponse } from "axios";
 
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import { AuthResponse } from "shared/types/responseTypes";
+import { Toaster } from "shared/ui/toasters";
 export const Register = () => {
   const [form] = Form.useForm();
   const [password, setPassword] = useState("");
@@ -18,7 +19,8 @@ export const Register = () => {
   const [given_name, setGivenName] = useState("");
 
   const [family_name, setFamilyName] = useState("");
-
+  const [list, setList] = useState<any[]>([]);
+  let toastProperties: any = null;
   const navigate = useNavigate();
   const { store } = useContext(UserContext);
 
@@ -27,6 +29,46 @@ export const Register = () => {
     color: ${({ theme }) => theme.colors.font};
     font-size: 24px;
   `;
+
+  const showToast = (type: any) => {
+    switch (type) {
+      case "success":
+        toastProperties = {
+          id: list.length + 1,
+          title: "Success",
+          description: "This is a success toast component",
+          backgroundColor: "#5cb85c",
+        };
+        break;
+      case "danger":
+        toastProperties = {
+          id: list.length + 1,
+          title: "Danger",
+          description: "This is a danger toast component",
+          backgroundColor: "#d9534f",
+        };
+        break;
+      case "info":
+        toastProperties = {
+          id: list.length + 1,
+          title: "Info",
+          description: "This is a info toast component",
+          backgroundColor: "#5bc0de",
+        };
+        break;
+      case "warning":
+        toastProperties = {
+          id: list.length + 1,
+          title: "Warning",
+          description: "This is a warning toast component",
+          backgroundColor: "#f0ad4e",
+        };
+        break;
+      default:
+        toastProperties = [];
+    }
+    setList([...list, toastProperties]);
+  };
   const googleLogin = useGoogleLogin({
     onSuccess: async ({ code }) => {
       try {
@@ -40,24 +82,24 @@ export const Register = () => {
           }
         );
         store.google(response);
+        showToast("success");
 
         navigate("/Profile");
       } catch (e) {
         console.log(e);
+        showToast("danger");
       } finally {
       }
     },
     flow: "auth-code",
   });
   function registerHandler() {
-    store.register(email, password);
-    toast.success("Успешно!");
-    return (
-      <Helper>
-        Зайдите на указанную почту и перейдите по ссылке чтобы активировать
-        аккаунт
-      </Helper>
-    );
+    try {
+      store.register(email, password);
+      showToast("success");
+    } catch (e) {
+      showToast("danger");
+    }
   }
   return (
     <div>
@@ -222,6 +264,7 @@ export const Register = () => {
           </Button>
         </Form.Item>
       </Form>
+      <Toaster toastlist={list} position="buttom-right" setList={setList} />
     </div>
   );
 };

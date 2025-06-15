@@ -1,0 +1,26 @@
+{
+  "main": {
+    "header": "Welcome to the Lingify!"
+   
+  },
+  "profile": {
+      "changeUserInterfaceLang": "Change UI language"
+
+  },
+   "about": {
+      "changeUserInterfaceLang": "Change UI language"
+
+  },
+ "handbook": {
+      "changeUserInterfaceLang": "Change UI language"
+
+  },
+  "redact": {
+      "changeUserInterfaceLang": "Change UI language"
+
+  },
+  "creationPage": {
+      "changeUserInterfaceLang": "Change UI language"
+
+  }
+}

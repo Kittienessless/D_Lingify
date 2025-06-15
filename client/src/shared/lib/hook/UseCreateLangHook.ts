@@ -9,7 +9,7 @@ export interface DataType {
 export type StepType = 
 | "Introduction"
 | "LangInfo"
-| "ImportLang"
+|"CreateLangNeural"
 | "Confirmation";
 
 export const UseCreateLangHook = () => useStepper<DataType, StepType>();

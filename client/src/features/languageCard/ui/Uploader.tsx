@@ -1,34 +1,24 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { LangAPI } from "shared/api";
 import styled from "styled-components";
 import { Button } from "shared/ui/button";
 import { Text } from "shared/ui/text";
 import { transition } from "shared/lib/transition";
+import languageService from "shared/api/language/languageService";
+import ProgressBar from "shared/ui/ProgressBar/ProgressBar";
+import { FileSuccess } from "shared/assets/FileSuccess";
+import { FileWrong } from "shared/assets/FileWrong";
+import { UserContext } from "app/providers";
 
-interface UploaderProps  {
-  title: string;
+interface UploaderProps {
+  id: string;
 }
+
  
-export default class Data {
-  
-  Title: string | null= null;
-  File: FormData | null = null;
+export const Uploader = () => {
+  const [progress, setProgress] = useState(0);
+  const { store } = useContext(UserContext);
 
-  setTitle(title: string){
-    this.Title = title
-  };
-  setFile(File: FormData){
-    this.File = File
-  };
-  constructor(Title: string, File: FormData) {
- 
-    this.Title = Title;
-    this.File = File;
-}
-
-}
-export const Uploader = ({title} : UploaderProps) => {
-  
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<
     "initial" | "uploading" | "success" | "fail" | "wrong format" | "not a file"
@@ -41,14 +31,8 @@ export const Uploader = ({title} : UploaderProps) => {
     }
   };
 
-
-  //TODO: on abort
-
-  //TODO: progress bar
-
-  //TODO: проверить на пустоту файла
-
-  //TODO: отображение файла и отмена загрузки именно этого файла, disable если файл загружен
+  //TODO:
+  // отображение файла и отмена загрузки именно этого файла, disable если файл загружен
 
   //TODO: drag & drop
 
@@ -73,10 +57,7 @@ export const Uploader = ({title} : UploaderProps) => {
         setStatus("wrong format");
       }
       try {
-        const data = new Data(title, formData)
-        
-        await LangAPI.Lang.uploadLang(data);
-
+        store.setFile(file);
         setStatus("success");
       } catch (error) {
         console.error(error);
@@ -84,7 +65,6 @@ export const Uploader = ({title} : UploaderProps) => {
       }
     }
   };
-
   const InputGroup = styled.div`
     display: flex;
     flex-direction: column;
@@ -93,7 +73,7 @@ export const Uploader = ({title} : UploaderProps) => {
   `;
   const FileInput = styled.input`
     width: 100%;
-     
+
     &::file-selector-button {
       height: 2.3rem;
       padding: 5px;
@@ -128,7 +108,9 @@ export const Uploader = ({title} : UploaderProps) => {
       return null;
     }
   };
-
+  useEffect(() => {
+    setInterval(() => setProgress(Math.floor(Math.random() * 100) + 1), 2000);
+  }, []);
   return (
     <>
       <InputGroup>
@@ -142,6 +124,8 @@ export const Uploader = ({title} : UploaderProps) => {
             <Text>Тип: {file.type}</Text>
             <Text>Размер: {file.size} bytes</Text>
           </ul>
+          <ProgressBar progress={progress} />
+          <FileSuccess />
         </section>
       )}
 
@@ -151,6 +135,11 @@ export const Uploader = ({title} : UploaderProps) => {
         </Button>
       )}
       <Result status={status} />
+      {!file && (
+        <section>
+          <FileWrong />
+        </section>
+      )}
     </>
   );
 };

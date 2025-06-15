@@ -5,7 +5,8 @@ import { upload } from "@testing-library/user-event/dist/upload";
 import Data from "features/languageCard/ui/Uploader";
 
 interface IKey {
-  key: string;
+  id: string;
+  file: Blob | FormData | File;
 }
 
 export const LangAPI = {
@@ -25,7 +26,6 @@ export const LangAPI = {
       const response = await fetch(`${BASE_URL}/lang/allLangs`, {
         method: "GET",
         credentials: "include",
-
       });
       await errorHandler(response);
     },
@@ -52,12 +52,14 @@ export const LangAPI = {
       await errorHandler(response);
       return await response.json();
     },
-    uploadLang: async (data: string) => {
+    uploadLang: async (id: string, data: Blob | FormData | File) => {
       const response = await fetch(`${BASE_URL}/lang/upload`, {
         method: "POST",
-        body: data,
+        credentials: "include",
+        body: JSON.stringify({ id, data }),
+
         headers: {
-          "Contetnt-Type": "multipart/form-data",
+          "Content-Type": "text/plain",
         },
       });
       await errorHandler(response);

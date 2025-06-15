@@ -3,40 +3,35 @@ import { observer } from "mobx-react-lite";
 import react, { useContext, useEffect, useState } from "react";
 import AdminService from "shared/api/user/AdminServive";
 
-
 export type Statistic = {
+  id: string;
   label: string;
   value: string;
 };
 
 const GetStatistic = () => {
-  const [stats, setStats] = useState<Statistic[]>([]);
   const { store } = useContext(UserContext);
 
-  const [userStats, setUserStats] = useState<Statistic[]>([]);
-  const [langStats, setLangStats] = useState<Statistic[]>([]);
+  const [userStats, setUserStats] = useState<Statistic>();
+  const [langStats, setLangStats] = useState<Statistic>();
 
+  async function fetchStatistic() {
+    try {
+      const res2 = await AdminService.getUsersStatistics();
+      const res3 = await AdminService.getLangsStatistics();
+
+      setUserStats(res2.data);
+      setLangStats(res3.data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      store.checkAuth();
-    }
-
-    async function fetchStatistic() {
-      try {
-        const res1 = await AdminService.getStats();
-        const res2 = await AdminService.getUsersStatistics();
-        const res3 = await AdminService.getLangsStatistics();
-
-        setStats(res1.data);
-        setUserStats(res2.data);
-        setLangStats(res3.data);
-      } catch (e) {
-        console.log(e)
-      }
     }
 
     fetchStatistic();
-  }, []);
+  }, [store.isAuth]);
 
   return (
     <div
@@ -50,48 +45,33 @@ const GetStatistic = () => {
         minHeight: "100vh",
       }}
     >
-      {stats.map((stat, index) => (
-        <div
-          key={index}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center",
-          }}
-        >
-          <div style={{ fontSize: "24pt" }}>{stat.value}</div>
-          <div style={{ marginTop: "8px", fontSize: "14px" }}>{stat.label}</div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          textAlign: "center",
+        }}
+      >
+        <div style={{ fontSize: "24pt" }}>{userStats?.value}</div>
+        <div style={{ marginTop: "8px", fontSize: "14px" }}>
+          {userStats?.label}
         </div>
-      ))}
-        {userStats.map((stat, index) => (
-        <div
-          key={index}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center",
-          }}
-        >
-          <div style={{ fontSize: "24pt" }}>{stat.value}</div>
-          <div style={{ marginTop: "8px", fontSize: "14px" }}>{stat.label}</div>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          textAlign: "center",
+        }}
+      >
+        <div style={{ fontSize: "24pt" }}>{langStats?.value}</div>
+        <div style={{ marginTop: "8px", fontSize: "14px" }}>
+          {langStats?.label}
         </div>
-      ))}
-       {langStats.map((stat, index) => (
-        <div
-          key={index}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center",
-          }}
-        >
-          <div style={{ fontSize: "24pt" }}>{stat.value}</div>
-          <div style={{ marginTop: "8px", fontSize: "14px" }}>{stat.label}</div>
-        </div>
-      ))}
+      </div>
     </div>
   );
 };

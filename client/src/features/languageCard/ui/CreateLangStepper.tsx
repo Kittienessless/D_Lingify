@@ -1,4 +1,9 @@
-import React, { useEffect, useState, useSyncExternalStore } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { UseCreateLangHook } from "shared/lib/hook/UseCreateLangHook";
 import { StepperProvider } from "shared/ui/stepper/ui/StepperContext";
 import { Uploader } from "features/languageCard/ui/Uploader";
@@ -12,6 +17,14 @@ import { Space } from "shared/ui/space/Space.tsx";
 import { borderRadius } from "shared/lib/borderRadius.tsx";
 import { LangAPI } from "shared/api/index.ts";
 import languageService from "shared/api/language/languageService.ts";
+import { UserContext } from "app/providers";
+import { ILanguage } from "entities/language/index.ts";
+import { observer } from "mobx-react-lite";
+import Input from "antd/es/input/Input";
+import { Descriptions, Form } from "antd";
+import NeuralLang from "./NeuralLang.tsx";
+import Confirmation from "./Confirmation.tsx";
+
 
 const Wrapper = styled.div`
   margin: 0px auto;
@@ -78,52 +91,28 @@ const Introduction = () => {
 };
 
 const LangInfo = () => {
+  const { store } = useContext(UserContext);
+
   const { navigateTo, handleSetData } = UseCreateLangHook();
-  const [isEmpty, setIsEmpty] = useState(true);
-  const [isEmptyPrompt, setisEmptyPrompt] = useState(true);
-  const [isDisable, setIsDisable] = useState(true);
-  const [LangName, setLangName] = useState("");
-  const [descLang, setDescLang] = useState("");
-  const [prompt, setPrompt] = useState("");
+  // const [isEmpty, setIsEmpty] = useState(true);
+  // const [isEmptyPrompt, setisEmptyPrompt] = useState(true);
+  //const [isDisable, setIsDisable] = useState(true);
+  const [Title, setLangName] = useState("");
+  const [Description, setDescLang] = useState("");
 
-  useEffect(() => {
-    if (prompt !== null) {
-      setIsEmpty(false);
-      setisEmptyPrompt(false);
-      setIsDisable(true);
-    }
-  }, [prompt]);
+  const handleNext = async () => {
+    await store.setLanguage(Title, Description);
+ 
 
-  function InputOnChangeHelper(e: any) {
-    if (isEmpty) {
-      return (
-        <Text size={"12px"} weight={400}>
-          поле не должно быть пустым!
-        </Text>
-      );
-    }
-    setIsEmpty(false);
-  }
-
-  const handleNext = () => {
-    setIsDisable(false);
-    if (isEmpty === false) {
-      setIsDisable(true);
-      return <Text>Пожалуста введите все необходимые данные</Text>;
-    }
-    navigateTo("ImportLang");
+    navigateTo("CreateLangNeural");
   };
-
-  const handleUseAI = async () => {
-    
-    try {
-      await languageService.createNeural(prompt, LangName, descLang );
-      navigateTo("Confirmation");
-    } catch (e) {
-      console.log(e + "\n ошибка создания языка с помощью ИИ");
-    }
+  const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    store.setLanguage(Title, Description);
+    setLangName(e.currentTarget.value);
   };
-
+  const onChangeDesc = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDescLang(e.currentTarget.value);
+  };
   return (
     <Wrapper>
       <Space height="m"></Space>
@@ -137,19 +126,20 @@ const LangInfo = () => {
           Название*:{" "}
         </Text>
         <Space height="s"></Space>
+
         <StyledInput
-          name="Name"
+          name="Title"
           type="text"
-          onChange={(e) => setLangName(e.target.value)}
-          value={LangName}
-          required={true}
-          placeholder={"Введите название языка..."}
+          className="desc"
+          
+          onChange={(e) => onChangeName(e)}
+          placeholder={"Введите описание языка..."}
         />
-        {isEmpty && (
+        {/*  {isEmpty && (
           <Text size={"12px"} weight={400}>
             Название не должно быть пустым!
           </Text>
-        )}
+        )} */}
         <Space height="s"></Space>
 
         <Divider></Divider>
@@ -161,64 +151,19 @@ const LangInfo = () => {
         <StyledInput
           name="Description"
           type="text"
+          
           className="desc"
-          onChange={(e) => setDescLang(e.target.value)}
-          required={true}
-          value={descLang}
+          onChange={(e) => onChangeDesc(e)}
           placeholder={"Введите описание языка..."}
         />
-        {isEmpty && (
+        {/*   {isEmpty && (
           <Text size={"12px"} weight={400}>
             Описание не должно быть пустым!
           </Text>
-        )}
+        )} */}
       </InputContainer>
       <Space height="s"></Space>
-      <Divider></Divider>
 
-      <Space height="s"></Space>
-      <Text size={"14px"} weight={400}>
-        Вы можете создать язык с помощью Искусственного Интеллекта основанного
-        на GigaChat. Введите описание языка и Ваш запрос с описанием ниже. Вы
-        можете указать жетальное количество слов (не более 10.000 слов), правила
-        и другие данные. ИИ их обработает и выдаст результат. Если результат Вас
-        не устроит, в редакторе языка Вы сможете отредактировать нужные поля.
-      </Text>
-      <Space height="s"></Space>
-      <InputContainer>
-        <StyledInput
-          name="Description"
-          type="text"
-          value={prompt}
-          className="desc"
-          onChange={(e) => setPrompt(e.target.value)}
-          required={true}
-          placeholder={"Введите описание вашего запроса для ИИ* ..."}
-        />
-      </InputContainer>
-
-      <Space height="s"></Space>
-      <Button isDisabled={!isDisable} onClick={handleUseAI}>
-        Создать вместе с ИИ
-      </Button>
-      <Space height="s"></Space>
-      <Divider></Divider>
-      <Text size={"14px"} weight={400}>
-        Вы так же можете импортировать свой язык в форматах .word или .json или .excel
-      </Text>
-      <Space height="s"></Space>
-
-      <Uploader title={LangName}></Uploader>
-      <Space height="s"></Space>
-      <Divider></Divider>
-      <Text size={"14px"} weight={400}>
-        Либо вы можете пропустить этот шаг если хотите приступить к
-        редактированию самостоятельно, нажав кнопку далее.
-      </Text>
-      
-      <Divider></Divider>
-
-      <Space height="s"></Space>
       <div
         style={{
           display: "flex",
@@ -227,83 +172,19 @@ const LangInfo = () => {
         }}
       >
         <Button onClick={() => navigateTo("Introduction")}>Назад</Button>
-        <Button isDisabled={isDisable} onClick={handleNext}>
-          Далее
-        </Button>
-      </div>
-    </Wrapper>
-  );
-};
-
-const ImportLang = () => {
-  const { navigateTo, handleSetData, data } = UseCreateLangHook();
-
-  const handleNext = () => {
-    navigateTo("Confirmation");
-  };
-
-  return (
-    <Wrapper>
-      <Space height="m"></Space>
-      <Text size={"16px"} height="s">
-        Воспользуйтесь мастером импорта!
-      </Text>
-      <Text size={"12px"} height="s">
-        Можно пропустить этот шаг
-      </Text>
-      <Divider></Divider>
-      <Space height="s"></Space>
-      
-      <Space height="s"></Space>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Button onClick={() => navigateTo("LangInfo")}>Назад</Button>
         <Button onClick={handleNext}>Далее</Button>
       </div>
     </Wrapper>
   );
 };
+export default observer(LangInfo);
 
-const Confirmation = () => {
-  const navigate = useNavigate();
-  return (
-    <Wrapper>
-      <Space height="m"></Space>
-      <Text size={"16px"} height="s">
-        Спасибо! Вы успешно создали язык
-      </Text>
-      <Divider></Divider>
-      <Space height="s"></Space>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Button
-          style={{ width: "fit-content" }}
-          onClick={() => navigate("/redactLanguage")}
-        >
-          Редактировать язык
-        </Button>
-      </div>
-    </Wrapper>
-  );
-};
 
 // Define the steps for the stepper
 const steps = [
   { label: "Introduction", content: <Introduction /> },
   { label: "LangInfo", content: <LangInfo /> },
-  { label: "ImportLang", content: <ImportLang /> }, //todo: переделать этот пункт. убрать
-  //todo: добавить несколько других пунктов настроек 
-  //todo: сделать переход к итоговой сразу если был выбран ручной способ. сделать возможность такого выбора
+  { label: "CreateLangNeural", content: <NeuralLang /> },
   { label: "Confirmation", content: <Confirmation /> },
 ];
 

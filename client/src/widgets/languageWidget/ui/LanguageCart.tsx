@@ -15,6 +15,8 @@ import { Button } from "shared/ui/button";
 import { LangAPI } from "shared/api";
 import { useNavigate, useParams } from "react-router-dom";
 import languageService from "shared/api/language/languageService";
+import { BASE_URL } from "shared/constances";
+import { DownloadIcon } from "shared/assets/DownloadIcon";
 interface CartProps {
   id: string;
   title: string;
@@ -45,13 +47,36 @@ export function LanguageCart({ id, title, desc }: CartProps) {
     navigate(`/redactLanguage/${key}`);
   }
   async function OnDelete(key: string) {
-   
     await languageService.delete(key);
+  }
+  async function handleDownloadFile(key: string) {
+    try {
+      const formData = new FormData();
+      const response = await languageService.download(key);
+      const a = document.createElement("a");
 
+      a.style.display = "none";
+      document.body.appendChild(a);
+
+      formData.append("file", JSON.stringify(response.data));
+      const blobFile = new Blob([JSON.stringify(response.data)], {
+        type: "text/plain",
+      });
+      const url = window.URL.createObjectURL(blobFile);
+      a.href = url;
+      a.download = "Language " + title;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   function OnShow(key: string) {
     navigate(`/redactLanguage/${key}`);
+  }
+  function OnDownload(key: string) {
+    handleDownloadFile(key);
   }
 
   return (
@@ -79,6 +104,13 @@ export function LanguageCart({ id, title, desc }: CartProps) {
                   OnShow(id!);
                 },
                 icon: <SparkleIcon />,
+              },
+              {
+                text: "Скачать язык",
+                onSelect: () => {
+                  OnDownload(id!);
+                },
+                icon: <DownloadIcon />,
               },
               {
                 text: "Удалить язык",

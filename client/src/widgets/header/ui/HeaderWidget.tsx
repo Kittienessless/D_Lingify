@@ -106,6 +106,8 @@ const Menu = styled(BaseMenu)`
     color: ${({ theme }) => theme.colors.font};
   }
 `;
+
+
 type MenuItem = Required<MenuProps>["items"][number];
 
 const MenuNotAuth: MenuItem[] = [
@@ -172,6 +174,7 @@ const items: MenuItem[] = [
   },
 ];
 const HeaderWidget: React.FC = () => {
+   
   const navigate = useNavigate();
   const headerStyle: React.CSSProperties = {
     textAlign: "center",
@@ -185,8 +188,12 @@ const HeaderWidget: React.FC = () => {
   useEffect(() => {
     if (localStorage.getItem("token")) {
       store.checkAuth();
+      store.checkAdmin();
     }
-  }, [store.isAuth]);
+  }, [store.isAuth, store.isAdmin]);
+
+ 
+
   return (
     <div
       style={{
@@ -195,7 +202,7 @@ const HeaderWidget: React.FC = () => {
         marginLeft: "50px",
       }}
     >
-      <Link to={"/"}>
+      <Link to={'/'}>
         <LogoNew />
       </Link>
       {!store.isAuth && (

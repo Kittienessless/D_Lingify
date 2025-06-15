@@ -6,6 +6,7 @@ const axios = require("axios");
 const qs = require("qs");
 const { where } = require("sequelize");
 const filesService = require("../services/filesService.js");
+const JsonTemplate = require("../helpers/JsonTemplate.js");
 const languageService = require("../services/languageService.js");
 const userService = require("../services/userService.js");
 const tokenService = require("../services/tokenService.js");
@@ -14,98 +15,36 @@ const multer = require("multer");
 const { Op } = require("@sequelize/core");
 const fs = require("fs");
 const LangsOptions = require("../dbo/langsOption.js");
+const crypto = require("crypto");
+const GigaChat = require("gigachat");
+const chatModule = require("./chatModule.js");
 
-/* const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "../userStorage/");
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
-});
-
-const upload = multer({ storage: storage }); */
-function randomIntFromInterval(min, max) {
-  // min and max included
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
 class languageController {
   async createLanguage(req, res) {
     try {
       const token = req.cookies["token"];
+      const { Title, Description } = req.body;
 
-      const isFind = tokenService.findToken(token);
-      if (!isFind) return res.json("unauthorized").status(401);
-
-      const { title, description, file } = req.body;
-
-      const fileName = await filesService.createJsonFile(file);
-
-      await getDb().models.Language.create({
-        Title: title,
-        userID: isFind.userID,
-        Description: description ? description : "",
-        LangPath: fileName ? fileName : "",
+      const userToken = await tokenService.findToken(token);
+      if (!userToken) return res.status(401).json("unauthorized");
+      const path = PATH + uuid.v4() + ".json";
+      const result = await getDb().models.Language.create({
+        Title: Title,
+        userID: userToken.userID,
+        Description: Description,
+        LangPath: path,
       });
-      return res
-        .status(200)
-        .json("success create lang and write file to storage");
-      //res -> success
+      console.log(result);
+      const data = "";
+      fs.writeFile(`${path}`, data, "utf8", function (err) {
+        if (err) throw err;
+        console.log("complete");
+      });
+
+      return res.status(200).json(result);
     } catch (e) {
       console.log(e);
       res.status(400).json({ message: "createLanguage error" });
-    }
-  }
-
-  async getAccessToken(user_id) {
-    try {
-      console.log("let get bearer");
-      let data = qs.stringify({
-        scope: "GIGACHAT_API_PERS",
-      });
-
-      const RqUID = uuid.v4();
-      console.log("let get config");
-      const config = {
-        method: "post",
-        maxBodyLength: Infinity,
-        url: "https://ngw.devices.sberbank.ru:9443/api/v2/oauth",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          Accept: "application/json",
-          RqUID: RqUID,
-          Authorization: `Basic ${process.env.GIGACHAT_AUTH_KEY}`,
-        },
-        data: data,
-      };
-      console.log("let get tokenChat");
-
-      const tokenChat = await axios
-        .request(config)
-        .then((response) => {
-          const access_token = JSON.stringify(response.data);
-          return access_token;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-
-      const userToken = await getDb()
-        .models.User.findOne({ where: { user_id: user_id } })
-        .then((user) => {
-          if (!user.bearer) {
-            user.bearer = String(tokenChat);
-            user.save().then(function () {
-              console.log("saved");
-            });
-          }
-        });
-      console.log(userToken + "let get userToken");
-
-      return userToken;
-    } catch (e) {
-      console.log(error);
-      return res.status(401).message("Нет access token ");
     }
   }
 
@@ -113,8 +52,8 @@ class languageController {
     try {
       const token = req.cookies["token"];
 
-      const { prompt, title, description } = req.body;
-      console.log("получить запрос ");
+      const { Prompt, Title, Description, rules } = req.body;
+      console.log("получить запрос title и тд " + Prompt, Title, Description, rules);
 
       const userToken = await tokenService.findToken(token);
       if (!userToken) return res.status(401).json("unauthorized");
@@ -122,101 +61,84 @@ class languageController {
       const user = await getDb().models.User.findOne({
         where: { user_id: userToken.userID },
       });
-      console.log(user, token, user.user_id);
-      // const bearer = await this.getAccessToken(user.user_id);
 
       let dataScope = qs.stringify({
         scope: "GIGACHAT_API_PERS",
       });
-
-      const RqUID = uuid.v4();
-      console.log("let get config");
-
-      const configScope = {
+      const configScopes = {
         method: "post",
-        Credentials: true,
-        rejectUnauthorized: (process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0),
         maxBodyLength: Infinity,
         url: "https://ngw.devices.sberbank.ru:9443/api/v2/oauth",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           Accept: "application/json",
-          RqUID: RqUID,
-          Authorization: `Basic ${process.env.GIGACHAT_AUTH_KEY}`,
+          RqUID: "0120dd27-c1ea-4dc1-afcc-130e927ea299",
+          Authorization:
+            "Basic YzAzMTExNTktZmVmYi00MTk0LWE3YzgtNTU1MDJmMzZjN2E3OmFkMGNmYjhhLTc3NjAtNDhhMy1iNDA4LWI2NzgwM2YwYTk2YQ==",
         },
+
         data: dataScope,
       };
-      console.log("let get tokenChat");
 
-      const tokenChat = await axios
-        .request(configScope)
-        .then((response) => {
-          const access_token = JSON.stringify(response.data.access_token);
-          return access_token;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      console.log(tokenChat + " \n token chat");
-
-      const userAccessToken = await getDb()
-        .models.User.findOne({ where: { user_id: user.user_id } })
-        .then(function (user) {
-          user.bearer = tokenChat;
-          user.save().then(function () {
-            console.log("saved");
-          });
-        });
-      console.log(userAccessToken + " \n let get userToken");
+      const tokenChat = await axios.request(configScopes);
 
       const data = JSON.stringify({
         model: "GigaChat-2-Max",
         messages: [
           {
             role: "system",
-            content:
-              "Роль: Ты – профессиональный лингвист и филолог и занимаешься созданием новых языков под заказ для писателей, других лингвистов и просто разных пользователей. Задача: Создать новый язык по заданным параметрам, каждое слово должно иметь свой перевод, ударение и должно соответствовать общей модели языка. Инструкции: 1. Внимательно прочитай оригинальное сообщение. 2. Определите контекст, заданные параметры для языка. 3. Создай вокабулярий с переводом на русский и правила для языка, включая правила грамматики и синтаксиса по заданным параметрам. Количество слов так же по заданным параметрам. 4. При необходимости можно брать слова из другого языка, только немного измени их - измени ударение, некоторые буквы, но так, чтобы он был в общей тематике создаваемого языка. 5. Следи за тем, чтобы не было слов-повторений, если это не заложено в заданных параметрах. 6. Список слов не должен содержать неэтичные слова и словесные конструкции, маты и ругательства.  Формат ответа: Отправляй ответ в формате json в виде ключ-значение, как для слов так и для правил. Сделай правильную структуру языка, раздели их на существительные - глаголы и другие части речи, отсортируй слова в алфавитном порядке, а правила в порядке сложности и каждое правило должно соответствовать своему месту (к примеру, правила для существительных в группе правил для существительных). Все слова должны быть написаны латиницей с помощью правил IPA. Пример: Слово на выдуманном языке: Naranha . Перевод: Зарево. Свойства: существительное, ударение на вторую гласную, h произносится с придыханием, либо никак не произносится. мн. число - Naranhener (зарева), падежи как в русском языке, Naranha, naranher, naranhane, naranheter, naransetor, en a naranhester.  Примечание: Если будут сложности с созданием слов, можно использовать части слов или слова других языков, но объем таких слов не должен превышать 30% от объема всего вокабуляра.",
+            content: `Роль: Ты – профессиональный лингвист и филолог и занимаешься созданием новых языков под заказ для писателей, других лингвистов и просто разных пользователей. Задача: Создать новый язык по заданным параметрам, каждое слово должно иметь свой перевод, ударение и должно соответствовать общей модели языка. Инструкции: 1. Внимательно прочитай оригинальное сообщение. 2. Определите контекст, заданные параметры для языка. 3. Создай вокабулярий с переводом на русский и правила для языка, включая правила грамматики и синтаксиса по заданным параметрам. Количество слов так же по заданным параметрам. 4. При необходимости можно брать слова из другого языка, только немного измени их - измени ударение, некоторые буквы, но так, чтобы он был в общей тематике создаваемого языка. 5. Следи за тем, чтобы не было слов-повторений, если это не заложено в заданных параметрах. 6. Список слов не должен содержать неэтичные слова и словесные конструкции, маты и ругательства.  Формат ответа: Отправляй ответ в формате json в виде ключ-значение, как для слов так и для правил. Сделай правильную структуру языка, раздели их на существительные - глаголы и другие части речи, отсортируй слова в алфавитном порядке, а правила в порядке сложности и каждое правило должно соответствовать своему месту (к примеру, правила для существительных в группе правил для существительных). Все слова должны быть написаны латиницей с помощью правил IPA. Примерная схема выходных данных - { "Title" : "111" ,
+  "Desc" : "111 Desc", "vocabular": [{"word": "aaa", "translate": "bbb", "stress" :"aAa"}, {"word": "aaa", "translate": "bbb", "stress" :"aAa"},{"word": "aaa", "translate": "bbb", "stress" :"aAa"},{"word": "aaa", "translate": "bbb", "stress" :"aAa"},{"word": "aaa", "translate": "bbb", "stress" :"aAa"},{"word": "aaa", "translate": "bbb", "stress" :"aAa"},{"word": "aaa", "translate": "bbb", "stress" :"aAa"},{"word": "aaa", "translate": "bbb", "stress" :"aAa"}],
+  "rules" :  {"noun": [{"rule Noun" : "rule 1"}, {"rule Noun" : "rule 1"}, {"rule Noun" : "rule 1"}, {"rule Noun" : "rule 1"}, {"rule Noun" : "rule 1"}, {"rule Noun" : "rule 1"}], "verb" : [{"rule verb": "rule 1"}, {"rule verb": "rule 1"}, {"rule verb": "rule 1"}, {"rule verb": "rule 1"}, {"rule verb": "rule 1"}], "pronoun" : [{"rule pronoun": "rule 1"}, {"rule pronoun": "rule 1"}, {"rule pronoun": "rule 1"}, {"rule pronoun": "rule 1"}, {"rule pronoun": "rule 1"}],  "adjective" : [{"rule adjective": "rule 1"}, {"rule adjective": "rule 1"}, {"rule adjective": "rule 1"}, {"rule adjective": "rule 1"}, {"rule adjective": "rule 1"}], "adverb" : [{"rule adverb": "rule 1"}, {"rule adverb": "rule 1"}, {"rule adverb": "rule 1"}, {"rule adverb": "rule 1"}, {"rule adverb": "rule 1"}], "conjunction" : [{"rule conjunction": "rule 1"}, {"rule conjunction": "rule 1"}, {"rule conjunction": "rule 1"}, {"rule conjunction": "rule 1"}, {"rule conjunction": "rule 1"}],
+   "interjection" : [{"rule interjection": "rule 1"}, {"rule interjection": "rule 1"}, {"rule interjection": "rule 1"}, {"rule interjection": "rule 1"}, {"rule interjection": "rule 1"}],
+  },"articles" : [{"rule": "aaa"}, {"rule": "aaa"}, {"rule": "aaa"},],"nounGender" : [{"rule": "aaa"}, {"rule": "aaa"}, {"rule": "aaa"},],"DegreesofComparison"  : [{"rule": "aaa"}, {"rule": "aaa"}, {"rule": "aaa"}}, ] Пример: Слово на выдуманном языке: Naranha . Перевод: Зарево. Свойства: существительное, ударение на вторую гласную, h произносится с придыханием, либо никак не произносится. мн. число - Naranhener (зарева), падежи как в русском языке, Naranha, naranher, naranhane, naranheter, naransetor, en a naranhester.  Примечание: Если будут сложности с созданием слов, можно использовать части слов или слова других языков, но объем таких слов не должен превышать 30% от объема всего вокабуляра.";`,
           },
 
           {
             role: "user",
-            content: `${prompt}`,
+            content: `Описание языка: ${Prompt}, дополнительные правила ${rules}`,
           },
         ],
-        stream: false,
-        update_interval: 0,
       });
 
       const config = {
-        method: "post",
+        method: "POST",
+        credentials: true,
         maxBodyLength: Infinity,
         rejectUnauthorized: (process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0),
         url: "https://gigachat.devices.sberbank.ru/api/v1/chat/completions",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization: `Bearer ${userAccessToken.bearer}`,
+          Authorization: `Bearer ${tokenChat.data.access_token}`,
         },
         data: data,
       };
-
+      let answer;
       const chatResult = await axios
         .request(config)
         .then((response) => {
-          JSON.stringify(response.data);
+          console.log("data answer" + JSON.stringify(response.data));
+          answer = JSON.stringify(response.data);
         })
         .catch((error) => {
           console.log(error);
         });
+      const path = PATH + uuid.v4() + ".json";
 
-      const file = filesService.createJsonFile(chatResult);
-      const result = getDb().model.Language.create({
-        Title: title,
+      const result = await getDb().models.Language.create({
+        Title: Title,
         userID: user.user_id,
-        Description: description,
-        LangPath: `${PATH}${String(file)}.json`,
+        Description: Description,
+        LangPath: path,
       });
-
+       
+ 
+      console.log(answer);
+      fs.writeFile(`${path}`, JSON.stringify(answer), "utf8", function (err) {
+        if (err) throw err;
+        console.log("complete");
+      });
       return res.json(result);
     } catch (e) {
       console.log(e);
@@ -350,39 +272,50 @@ class languageController {
     }
   }
 
+  async downloadFile(req, res) {
+    try {
+      const token = req.cookies["token"];
+      const isFind = tokenService.findToken(token);
+      if (!isFind) return res.json("unauthorized").status(401);
+      const { id } = req.body;
+      const langData = await languageService.getCurrentLang(id);
+
+      fs.readFile(
+        langData.lang.LangPath,
+        { encoding: "utf-8" },
+        function (err, data) {
+          if (!err) {
+            console.log("received data: " + data);
+            res.send(data);
+            res.end();
+          } else {
+            console.log(err);
+          }
+        }
+      );
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ message: "getFile error" });
+    }
+  }
+
   async upload(req, res) {
     const token = req.cookies["token"];
-    const { file } = req.body;
+    const { id, data } = req.body;
 
-    const { title } = req.body;
-
-    const isFind = tokenService.findToken(token);
+    const isFind = await tokenService.findToken(token);
     if (!isFind) return res.json("unauthorized").status(401);
 
-    const user = await getDb().models.User.findOne({
-      where: { user_id: isFind.userID },
+    const updateLangInfo = await getDb().models.Language.findOne({
+      where: id,
     });
-    if (!user) return res.json("no user").status(401);
 
-    const newFile = await filesService.createJsonFile(
-      title,
-      user.user_id,
-      file
-    );
-    const fileName = String(title + isFind.userID + ".json");
+    // const newData = await JsonTemplate.CreateFileByTemplate(data);
 
-    const updateLangInfo = await getDb()
-      .models.Language.findOne({
-        where: { [Op.and]: [{ userID: user.user_id }, { Title: title }] },
-      })
-      .then((lang) => {
-        if (!lang.LangPath) {
-          lang.LangPath = fileName;
-          lang.save().then(function () {
-            console.log("saved");
-          });
-        }
-      });
+    /*  fs.appendFile(`${updateLangInfo.LangPath}`, JSON.stringify(data), "utf8", function (err) {
+      if (err) throw err;
+      console.log("complete");
+    }); */
 
     return res.status(200).json({ message: "success added to storage" });
   }
@@ -401,12 +334,12 @@ class languageController {
         where: { userID: user.userID },
       });
 
-      let result = new LangsOptions()
-      result=[]
-      result = languages.map(language => ({
+      let result = new LangsOptions();
+      result = [];
+      result = languages.map((language) => ({
         id: language.id,
         label: language.Title,
-        value: language.Title
+        value: language.Title,
       }));
       return res.status(200).json(result);
     } catch (e) {

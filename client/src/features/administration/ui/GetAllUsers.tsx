@@ -1,9 +1,4 @@
-import  {
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import {
   Button,
   Input,
@@ -21,9 +16,10 @@ import { Space } from "shared/ui/space";
 import { FilterDropdownProps } from "antd/es/table/interface";
 import { SearchOutlined } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
+import AdminService from "shared/api/user/AdminServive";
 
 interface DataType {
-  key: string;
+  user_id: string;
   name: string;
   email: string;
   role: string;
@@ -40,15 +36,14 @@ export const GetAllUsers = () => {
   const searchInput = useRef<InputRef>(null);
   const [editingKey, setEditingKey] = useState("");
 
-  const HandlerOnChangeRole = (key: React.Key) => {
-    //todo: отправить на бд запрос
+  const HandlerOnChangeRole = async (key: React.Key) => {
+    await AdminService.changeRole(key);
   };
-  const HandlerOnSendEmail = (key: React.Key) => {
-    //todo: отправить на бд запрос
-  };
-  const handleDelete = (key: React.Key) => {
-    const newData = data.filter((item) => item.key !== key);
-    //todo: отправить на бд запрос
+
+  const handleDelete = async (key: React.Key) => {
+    const newData = data.filter((item) => item.user_id !== key);
+    await AdminService.deleteUser(key);
+
     setData(newData);
   };
 
@@ -181,6 +176,12 @@ export const GetAllUsers = () => {
 
   const columns: TableColumnsType<DataType> = [
     {
+      title: "ID",
+      dataIndex: "user_id",
+      key: "user_id",
+      ...getColumnSearchProps("user_id"),
+    },
+    {
       title: "Email",
       dataIndex: "email",
       key: "email",
@@ -206,21 +207,16 @@ export const GetAllUsers = () => {
           <>
             <Popconfirm
               title="Удалить пользователя?"
-              onConfirm={() => handleDelete(record.key)}
+              onConfirm={() => handleDelete(record.user_id)}
             >
               <a>Удалить</a>
             </Popconfirm>
+            <p></p>
             <Popconfirm
               title="Сменить роль?"
-              onConfirm={() => HandlerOnChangeRole(record.key)}
+              onConfirm={() => HandlerOnChangeRole(record.user_id)}
             >
               <a>Изменить роль</a>
-            </Popconfirm>
-            <Popconfirm
-              title="Отправить письмо?"
-              onConfirm={() => HandlerOnSendEmail(record.key)}
-            >
-              <a>Отправить письмо</a>
             </Popconfirm>
           </>
         ) : null,
@@ -238,8 +234,7 @@ export const GetAllUsers = () => {
         columns={columns}
         dataSource={data}
         pagination={{ onChange: cancel }}
-
-        />
+      />
     </>
   );
 };

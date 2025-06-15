@@ -48,10 +48,11 @@ const FeaturedContainer = styled.div`
 `;
 const options: Option[] = [
   {
+    id: '1',
     label: "Название",
     value: "Title",
   },
-  {
+  { id: '2',
     label: "Дата создания",
     value: "Date",
   },

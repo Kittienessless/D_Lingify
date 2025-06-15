@@ -10,6 +10,7 @@ import {
   shift,
   FloatingFocusManager,
   autoPlacement,
+  inline,
 } from "@floating-ui/react";
 import { Panel } from "../../lib/panel";
 import { ReactNode, useEffect, useState } from "react";
@@ -40,11 +41,10 @@ export const PopoverPanel = ({
   className,
 }: PopoverPanelProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  
+
   const Container = styled(Panel)`
     position: absolute;
     overflow: hidden;
-    
   `;
 
   const {
@@ -57,7 +57,8 @@ export const PopoverPanel = ({
 
     onOpenChange: setIsOpen,
     whileElementsMounted: autoUpdate,
-    strategy: "fixed",
+    strategy:'fixed',
+     transform: false,
     middleware: [autoPlacement()],
   });
 
@@ -77,7 +78,7 @@ export const PopoverPanel = ({
             left: x ?? 0,
             top: y ?? 0,
 
-            zIndex: 10,
+            zIndex: 1,
           }}
           ref={setFloating}
           {...getFloatingProps()}

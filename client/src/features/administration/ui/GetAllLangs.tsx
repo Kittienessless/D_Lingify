@@ -22,7 +22,7 @@ interface DataType {
   id: string;
   Title: string;
   Description: string;
-  file?: FormData;
+  userID?: string;
 }
 type DataIndex = keyof DataType;
 
@@ -36,18 +36,7 @@ export const GetAllLangs = () => {
   const searchInput = useRef<InputRef>(null);
   const [editingKey, setEditingKey] = useState("");
 
-  const HandlerOnChangeRole = (key: React.Key) => {
-    //todo: отправить на бд запрос
-  };
-  const HandlerOnSendEmail = (key: React.Key) => {
-    //todo: отправить на бд запрос
-  };
-  const handleDelete = (key: React.Key) => {
-    const newData = data.filter((item) => item.id !== key);
-    //todo: отправить на бд запрос
-    setData(newData);
-  };
-
+   
   const handleSearch = (
     selectedKeys: string[],
     confirm: FilterDropdownProps["confirm"],
@@ -177,50 +166,24 @@ export const GetAllLangs = () => {
 
   const columns: TableColumnsType<DataType> = [
     {
-      title: "Title",
+      title: "Назание",
       dataIndex: "Title",
       key: "Title",
       ...getColumnSearchProps("Title"),
     },
     {
-      title: "Description",
+      title: "Описание",
       dataIndex: "Description",
       key: "Description",
       ...getColumnSearchProps("Description"),
     },
     {
-      title: "file",
-      dataIndex: "file",
-      key: "file",
-      ...getColumnSearchProps("file"),
+      title: "Автор",
+      dataIndex: "userID",
+      key: "userID",
+      ...getColumnSearchProps("userID"),
     },
-    {
-      title: "Действия",
-      key: "action",
-      render: (_, record) =>
-        data.length >= 1 ? (
-          <>
-            <Popconfirm
-              title="Удалить пользователя?"
-              onConfirm={() => handleDelete(record.id)}
-            >
-              <a>Удалить</a>
-            </Popconfirm>
-            <Popconfirm
-              title="Сменить роль?"
-              onConfirm={() => HandlerOnChangeRole(record.id)}
-            >
-              <a>Изменить роль</a>
-            </Popconfirm>
-            <Popconfirm
-              title="Отправить письмо?"
-              onConfirm={() => HandlerOnSendEmail(record.id)}
-            >
-              <a>Отправить письмо</a>
-            </Popconfirm>
-          </>
-        ) : null,
-    },
+    
   ];
   const cancel = () => {
     setEditingKey("");

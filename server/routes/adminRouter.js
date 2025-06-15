@@ -3,8 +3,9 @@ const Router = require('express');
 const router = new Router();
 const controller = require ('../controllers/adminController');
 
-router.put('/admin', controller.changeUserRole);
+router.post('/changeUserRole', controller.changeUserRole);
 router.get('/userStat', controller.getUserStatistics);
  router.get('/LangStat', controller.getLanguageStatistics);
+ router.post('/DeleteUser', controller.deleteUserByAdmin);
 
 module.exports = router

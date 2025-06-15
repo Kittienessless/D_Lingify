@@ -5,13 +5,30 @@ const filesService = require("../services/filesService.js");
 const PATH = `D:/Diploma/server/userStorage/`;
 const LangDto = require("../dbo/lang-dto.js");
 const fs = require("fs");
+const axios = require("axios");
 
 class LanguageService {
   async createLang(title, description, filePath, fileType, userID) {
     try {
     } catch (e) {}
   }
+  async getAccessToken(bearer) {
+    try {
+      console.log("let get bearer");
 
+      let data = qs.stringify({
+        'scope': "GIGACHAT_API_PERS",
+      });
+
+      console.log("let get config");
+     
+      console.log(data + "let get tokenChat");
+
+      
+
+      return tokenChat;
+    } catch (e) {}
+  }
   async createNeural(title, description, filePath, fileType, userID, prompt) {
     try {
     } catch (e) {}

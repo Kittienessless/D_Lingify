@@ -17,7 +17,7 @@ const Language = (sequelize) =>
       allowNull: false,
     },
     Description: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(1234),
       allowNull: true,
     },
     LangPath: {

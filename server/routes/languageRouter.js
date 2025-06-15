@@ -12,5 +12,6 @@ router.post('/deleteLang', controller.deleteLang);
 router.post('/upload', controller.upload);
 router.post('/getFile', controller.getFile);
 router.get('/getAllLangsTitle', controller.getAllLangsTitle);
+router.post('/download', controller.downloadFile);
 
 module.exports = router

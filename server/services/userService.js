@@ -26,7 +26,7 @@ class UserService {
       const hashPassword = await bcrypt.hash(password, saltRounds);
       const actLink = uuid.v4();
       const resetLink = uuid.v4();
-
+      const bearer  = uuid.v4();
       const user = await getDb().models.User.create({
         email: email,
         password: hashPassword,
@@ -34,6 +34,7 @@ class UserService {
         activationLink: actLink,
         isActivated: false,
         resetLink: resetLink,
+        bearer: bearer,
         given_name: name,
         familyName: familyName,
       });
