@@ -72,9 +72,9 @@ class languageController {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           Accept: "application/json",
-          RqUID: "0120dd27-c1ea-4dc1-afcc-130e927ea299",
+          RqUID: user.bearer,
           Authorization:
-            "Basic YzAzMTExNTktZmVmYi00MTk0LWE3YzgtNTU1MDJmMzZjN2E3OmFkMGNmYjhhLTc3NjAtNDhhMy1iNDA4LWI2NzgwM2YwYTk2YQ==",
+            `Basic ${process.env.GIGACHAT_AUTH_KEY}`,
         },
 
         data: dataScope,
