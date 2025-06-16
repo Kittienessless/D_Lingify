@@ -5,7 +5,11 @@ import { toast } from "react-toastify";
 import languageService from "shared/api/language/languageService";
 import { BASE_URL } from "shared/constances";
 
-export const SaveLang = (id: string) => {
+export interface Iid {
+  id: string;
+}
+
+export const SaveLang = (id : Iid )=> {
   const [file, setFile] = useState<File | null>(null);
 
   async function handleDownloadFile() {

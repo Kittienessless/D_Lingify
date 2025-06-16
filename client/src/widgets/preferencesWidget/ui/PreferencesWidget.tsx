@@ -35,8 +35,7 @@ export const PreferencesWidget = () => {
     padding: 3px;
     max-width: 40vw;
   `;
-  
-  
+
   const { t, i18n } = useTranslation();
 
   const mailto = "mailto:paraninaea@mer.ci.nsu.ru";
@@ -57,14 +56,14 @@ export const PreferencesWidget = () => {
 
   return (
     <PreferencesBlock>
-      <Text>Настройки аккаунта</Text>
+      <Text>Настройки аккаунта{t("profile.changeUserInterfaceLang")}</Text>
       <Divider></Divider>
       <Space height="s"></Space>
       <MiniContainer>
         <Text>{t("profile.changeUserInterfaceLang")}</Text>
-       
+
         <Select
-          placeholder="Выберите язык..."
+          placeholder={t("profile.Translate1")}
           selected={selectedLang}
           options={options}
           onChange={(selection: Option) => setSelectedLang(selection)}
@@ -73,22 +72,21 @@ export const PreferencesWidget = () => {
       <Space height="s"></Space>
       <Divider></Divider>
       <MiniContainer>
-        <Text>Выйти из аккаунта:</Text>
-        {/* сюда тоже ключ? */}
+        <Text> {t("profile.preferences2")}</Text>
         <LogoutWidget></LogoutWidget>
       </MiniContainer>
 
       <Space height="s"></Space>
       <Divider></Divider>
       <MiniContainer>
-        <Text>Удалить аккаунт:</Text>
+        <Text>{t("profile.preferences3")}</Text>
         <DeleteUser></DeleteUser>
       </MiniContainer>
 
       <Space height="s"></Space>
       <Divider></Divider>
       <MiniContainer>
-        <Text>Если у вас есть вопросы можете написать нам на почту: </Text>
+        <Text>{t("profile.preferences4")}</Text>
         <IconButton
           icon={<MailIcon />}
           title="paraninaea@mer.ci.nsu.ru"

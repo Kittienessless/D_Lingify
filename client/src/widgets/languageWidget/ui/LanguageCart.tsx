@@ -21,6 +21,7 @@ interface CartProps {
   id: string;
   title: string;
   desc: string;
+ 
 }
 
 const HeaderContainer = styled.div`
@@ -28,7 +29,7 @@ const HeaderContainer = styled.div`
   z-index: -1;
 `;
 
-export function LanguageCart({ id, title, desc }: CartProps) {
+export function LanguageCart({ id, title, desc ,}: CartProps) {
   const Container = styled.div`
     background-color: ${({ theme }) => theme.colors.container};
     color: ${({ theme }) => theme.colors.font};
@@ -92,19 +93,13 @@ export function LanguageCart({ id, title, desc }: CartProps) {
           renderContent={({ view, onClose }) => {
             const options: MenuOptionProps[] = [
               {
-                text: "Редактировать",
+                text: "Редактировать язык",
                 onSelect: () => {
                   OnEdit(id!);
                 },
                 icon: <EditIcon />,
               },
-              {
-                text: "Просмотреть язык",
-                onSelect: () => {
-                  OnShow(id!);
-                },
-                icon: <SparkleIcon />,
-              },
+           
               {
                 text: "Скачать язык",
                 onSelect: () => {

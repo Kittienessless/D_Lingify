@@ -107,7 +107,6 @@ const Menu = styled(BaseMenu)`
   }
 `;
 
-
 type MenuItem = Required<MenuProps>["items"][number];
 
 const MenuNotAuth: MenuItem[] = [
@@ -174,7 +173,6 @@ const items: MenuItem[] = [
   },
 ];
 const HeaderWidget: React.FC = () => {
-   
   const navigate = useNavigate();
   const headerStyle: React.CSSProperties = {
     textAlign: "center",
@@ -192,8 +190,6 @@ const HeaderWidget: React.FC = () => {
     }
   }, [store.isAuth, store.isAdmin]);
 
- 
-
   return (
     <div
       style={{
@@ -202,7 +198,7 @@ const HeaderWidget: React.FC = () => {
         marginLeft: "50px",
       }}
     >
-      <Link to={'/'}>
+      <Link to={"/"}>
         <LogoNew />
       </Link>
       {!store.isAuth && (

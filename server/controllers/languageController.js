@@ -258,7 +258,7 @@ class languageController {
         function (err, data) {
           if (!err) {
             console.log("received data: " + data);
-            res.writeHead(200, { "Content-Type": "text/plain" });
+            res.writeHead(200, { "Content-Type": "application/json" });
             res.write(data);
             res.end();
           } else {

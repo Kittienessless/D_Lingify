@@ -1,11 +1,13 @@
 import React from "react";
-import  ProfileCard  from "shared/ui/profileCard/ui/ProfileCard.tsx";
-import  Translate from "../../../features/translation/ui/Translate.tsx";
-import LanguageList  from "widgets/languageWidget/ui/LanguageList";
+import ProfileCard from "shared/ui/profileCard/ui/ProfileCard.tsx";
+import Translate from "../../../features/translation/ui/Translate.tsx";
+import LanguageList from "widgets/languageWidget/ui/LanguageList";
 import { PreferencesWidget } from "widgets/preferencesWidget/ui/PreferencesWidget";
 import styled from "styled-components";
-import { Tabs as BaseTabs } from "antd";
+import { Tabs as BaseTabs, Grid } from "antd";
 import { GenerateText } from "widgets/generateText/GenerateText";
+import { useTranslation } from "react-i18next";
+const { useBreakpoint } = Grid;
 
 const Tabs = styled(BaseTabs)`
   .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
@@ -24,43 +26,47 @@ const Tabs = styled(BaseTabs)`
   }
 `;
 
-const items = [
-  {
-    label: "Профиль",
-    children: <ProfileCard />,
-    key: "1",
-  },
-  {
-    label: "Мои языки",
-    children: <LanguageList />,
-    key: "2",
-  },
-  {
-    label: "Перевод",
-    children: <Translate />,
-    key: "3",
-  },
-  {
-    label: "Генерация текста",
-    children: <GenerateText />,
-    key: "4",
-  },
-  {
-    label: "Настройки",
-    children: <PreferencesWidget />,
-    key: "5",
-  },
-
-];
-
 const ProfileDiv = styled.div`
   background-color: ${({ theme }) => theme.colors.bg};
 `;
 
 export const Profile: React.FC = () => {
+  const { t } = useTranslation();
+  const screens = useBreakpoint();
+
+   const isVertical = screens.lg || screens.xl || screens.xxl;  
+
+  const tabPosition = isVertical ? "left" : "top";
+  const items = [
+    {
+      label: t("profile.Tabs1"),
+      children: <ProfileCard />,
+      key: "1",
+    },
+    {
+      label: t("profile.Tabs2"),
+      children: <LanguageList />,
+      key: "2",
+    },
+    {
+      label: t("profile.Tabs3"),
+      children: <Translate />,
+      key: "3",
+    },
+    {
+      label: t("profile.Tabs4"),
+      children: <GenerateText />,
+      key: "4",
+    },
+    {
+      label: t("profile.Tabs5"),
+      children: <PreferencesWidget />,
+      key: "5",
+    },
+  ];
   return (
     <ProfileDiv>
-      <Tabs tabPosition={"left"} items={items} />
+      <Tabs tabPosition={tabPosition} items={items} />
     </ProfileDiv>
   );
 };

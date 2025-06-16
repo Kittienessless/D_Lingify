@@ -10,6 +10,7 @@ import { ILanguage } from "entities/language/model/language";
 import languageService from "shared/api/language/languageService";
 import { Option } from "../../shared/types/Option.tsx";
 import { element } from "prop-types";
+import { LanguageGenerationSettings } from "features/languageCard/ui/NeuralLang.tsx";
 
 export default class Store {
   user = {} as user;
@@ -22,6 +23,13 @@ export default class Store {
   languageTextArray: Option[] = [];
   file = {} as Blob | FormData | File;
 
+  rules = {} as LanguageGenerationSettings;
+  isNeural = {} as boolean;
+  promptNeuralCreation = {} as string;
+
+  currentLang = {} as ILanguage;
+  currentFile = {} as any;
+
   constructor() {
     makeAutoObservable(this);
   }
@@ -29,7 +37,21 @@ export default class Store {
   setAuth(bool: boolean) {
     this.isAuth = bool;
   }
-
+  setIsNeural(bool: boolean) {
+    this.isNeural = bool;
+  }
+  setRules(rules: LanguageGenerationSettings) {
+    this.rules = rules;
+  }
+  setPrompt(prompt: string) {
+    this.promptNeuralCreation = prompt;
+  }
+  setCurrentLang(currentLang: ILanguage) {
+    this.currentLang = currentLang;
+  }
+  setCurrentFile(currentFile:   any) {
+    this.currentFile = currentFile;
+  }
   setUser(user: user) {
     this.user = user;
   }
@@ -106,7 +128,7 @@ export default class Store {
       this.setLoading(false);
     }
   }
-  
+
   async checkAdmin() {
     this.setLoading(true);
     try {
@@ -224,12 +246,18 @@ export default class Store {
       console.log(e);
     }
   } */
-  async createLangNeural(prompt: string, title: string, description: string) {
+  async createLangNeural(
+    prompt: string,
+    title: string,
+    description: string,
+    rules: any
+  ) {
     try {
       const response = await languageService.createNeural(
         prompt,
         title,
-        description
+        description,
+        rules
       );
       console.log(response);
     } catch (e) {

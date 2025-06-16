@@ -24,6 +24,7 @@ import { Loader } from "shared/ui/loaders/loader.tsx";
 import { LoginWidget } from "widgets/loginWidget/ui/LoginWidget.tsx";
 import languageService from "shared/api/language/languageService.ts";
 import { ILanguage } from "entities/language/index.ts";
+import { useTranslation } from "react-i18next";
 
 const ContainerList = styled.div`
   margin: 10px;
@@ -48,17 +49,16 @@ const FeaturedContainer = styled.div`
 `;
 const options: Option[] = [
   {
-    id: '1',
+    id: "1",
     label: "Название",
     value: "Title",
   },
-  { id: '2',
-    label: "Дата создания",
-    value: "Date",
-  },
+  { id: "2", label: "Дата создания", value: "Date" },
 ];
 
 const LanguageList: React.FC = () => {
+    const { t } = useTranslation();
+  
   //search, filter, sort, create new
   const [selectedItem, setSelectedItem] = useState<Option | null>(null);
 
@@ -77,8 +77,6 @@ const LanguageList: React.FC = () => {
     };
     fetchData();
   }, []);
-
-  function handlerOnSave() {}
 
   if (store.isLoading) {
     return <Loader></Loader>;
@@ -125,7 +123,10 @@ const LanguageList: React.FC = () => {
     console.log(langInfo);
   }
 
-  function onFilterHelper() {}
+  async function OnDelete() {
+   
+    
+  }
 
   return (
     <ContainerList>
@@ -133,7 +134,7 @@ const LanguageList: React.FC = () => {
         <Search searchHandler={searchHandler}></Search>
 
         <Select
-          placeholder="Сортировать..."
+          placeholder={t("profile.LangList")}
           selected={selectedItem}
           options={options}
           onChange={(selectedItem: Option) => onSortHelper(selectedItem)}
@@ -141,7 +142,7 @@ const LanguageList: React.FC = () => {
 
         <AddLanguage />
       </FeaturedContainer>
-      {store.languageArray
+      {langInfo
         .filter(
           (lang) =>
             lang.Title.toLowerCase().startsWith(

@@ -28,8 +28,8 @@ export default class languageService {
     static async download(id : string) : Promise<AxiosResponse<FormData | Blob>> {
     return await $api.post<FormData>(`${BASE_URL}/lang/download` , {id});
   }
- static async getFileLang(id: string) : Promise<AxiosResponse<FormData>> {
-    return await $api.post<FormData>(`${BASE_URL}/lang/getFile`,{id} );
+ static async getFileLang(id: string) : Promise<AxiosResponse> {
+    return await $api.post(`${BASE_URL}/lang/getFile`,{id} );
   }
   static async delete(key: string): Promise<AxiosResponse> {
     return await $api.post(`${BASE_URL}/lang/deleteLang`, {key});

@@ -56,14 +56,23 @@ const Confirmation = () => {
   const navigate = useNavigate();
 
   const createLanguage = async () => {
+    let resultNeural;
+    if (store.isNeural) {
+      resultNeural = await languageService.createNeural(
+        store.promptNeuralCreation,
+        store.language.Title,
+        store.language.Description,
+        store.rules
+      );
+    }
     const result = await languageService.create(
       store.language!.Title,
       store.language!.Description
     );
 
-    
-
-    navigate(`/redactLanguage/${result.data.id}`);
+    navigate(
+      `/redactLanguage/${result.data.id ? result.data.id : resultNeural?.data.id}`
+    );
   };
   return (
     <Wrapper>

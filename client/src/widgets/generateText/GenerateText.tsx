@@ -15,32 +15,31 @@ import { TextArea } from "shared/ui/textArea";
 import { Option } from "../../shared/types/Option.tsx";
 import { Select } from "shared/ui/dropdown";
 import { Space } from "shared/ui/space/Space.tsx";
+import { useTranslation } from "react-i18next";
 
- 
 export const GenerateText = () => {
   const { store } = useContext(UserContext);
   const [text, setText] = useState("");
- 
+  const { t } = useTranslation();
+
   const [selectedItem, setSelectedItem] = useState<Option | null>();
 
   const [langs, setLangs] = useState<Option[]>();
 
-  
-
   const fetchTitleData = async () => {
-     try {
-       await store.getAllLangsTitle();
-       await setLangs(store.languageTextArray);
-       console.log(langs);
-     } catch (e) {
-       console.log(e);
-     }
-   };
- 
-   useEffect(() => {
-     fetchTitleData();
-   }, []);
- 
+    try {
+      await store.getAllLangsTitle();
+      await setLangs(store.languageTextArray);
+      console.log(langs);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    fetchTitleData();
+  }, []);
+
   const Container = styled.div`
     margin: 10px;
     padding: 5px;
@@ -55,12 +54,11 @@ export const GenerateText = () => {
   return (
     <Container>
       <Text weight={400} size={"16px"} height={"s"}>
-        Здесь вы можете с помощью Искусственного Интеллекта сгенерировать нужный
-        текст на созданном Вами языке.{" "}
+        {t("profile.Generate1")}
       </Text>
       <Space height="s" />
       <Select
-        placeholder="Выберите язык..."
+        placeholder={t("profile.Translate1")}
         selected={selectedItem}
         options={langs!}
         onChange={(selection: Option) => onChosenHelper(selection)}
@@ -68,7 +66,7 @@ export const GenerateText = () => {
       <Space height="s" />
 
       <Button primary={true} onClick={handlerGenerate}>
-        Сгенерировать текст
+        {t("profile.Generate3")}
       </Button>
       <Space height="s" />
 
@@ -76,8 +74,7 @@ export const GenerateText = () => {
         id={1}
         readonly
         value={text}
-       
-        placeholder="Сгенерированный текст появится здесь..."
+        placeholder={t("profile.Generate2")}
         maxlength={1000}
       />
     </Container>

@@ -1,26 +1,81 @@
 {
   "main": {
-    "header": "Welcome to the Lingify!"
-   
+    "header": "Welcome to Lingify!",
+    "header2": "Your tool for creating unique artificial languages!",
+    "header3": "Log in or register to create your own unique language",
+    "buttonRegister": "Register",
+    "buttonSighIn": "Sign In",
+    "about": "Create your own languages easily and quickly using advanced neural network technologies. Our application allows not only to generate new languages but also to edit them, translate texts, and manage your language portfolio.",
+    "neural": "Neural Networks",
+    "neuralAbout": "Neural networks handle most of the monotonous work, allowing you to focus on more important things",
+    "research": "Research",
+    "researchAbout": "Linguistic research in the field of linguistics, constructing new and reconstructing lost languages",
+    "fast": "Speed of work",
+    "fastAbout": "Web application optimizes conlang development time through a language creation wizard and editor",
+    "nsu": "NSU CII",
+    "nsuAbout": "Development is carried out as part of an order from NSU CII for the philology and journalism faculties.",
+    "handbook1": "Learn about the capabilities of the Lingify web application in the ",
+    "handbook2": "guide"
   },
   "profile": {
-      "changeUserInterfaceLang": "Change UI language"
+    "Tabs1": "Profile",
+    "Tabs2": "My Languages",
+    "Tabs3": "Translation",
+    "Tabs4": "Text Generation",
+    "Tabs5": "Settings",
 
+    "user1": "User Profile",
+    "user2": "email: ",
+    "user3": "Account activated",
+    "user4": "Account not activated",
+    "user5": "First Name: ",
+    "user6": "Last Name:",
+    "user7": "No data",
+
+    "LangList": "Sort... ",
+
+    "Translate1": "Select language... ",
+    "Translate2": "Write text here... ",
+    "Translate3": "Translation... ",
+
+    "Generate1": "Here you can generate the desired text in your created language using Artificial Intelligence.",
+    "Generate2": "Generated text will appear here... ",
+    "Generate3": "Generate Text",
+
+    "preferences1": "Account Settings",
+    "preferences2": "Log out:",
+    "preferences3": "Delete account:",
+    "preferences4": "If you have questions, you can contact us via email:",
+    "changeUserInterfaceLang": "Change interface language:"
   },
-   "about": {
-      "changeUserInterfaceLang": "Change UI language"
-
+  "about": {
+    "Title": "About Lingify Project",
+    "text1": "Welcome to Lingify — a unique web application created for those who want to immerse themselves in the world of languages and creativity! We developed Lingify using modern technologies such as React, TypeScript, Node.js, and PostgreSQL to provide you with a powerful tool for creating your own languages and rules. Our goal is to make the process of learning and creating languages engaging and accessible for everyone.",
+    "text2": "With Lingify, you can not only create your own unique languages but also use neural networks based on Gigachat for automatic translation from Russian and English into your invented languages. This means you can easily experiment with new lexical structures and grammatical rules, as well as get instant translations that help you better understand how your language works.",
+    "text3": "Lingify offers you the ability to edit and supplement already created languages, as well as create new ones manually. You can customize phonetics, grammar, and vocabulary so that your language becomes truly unique. Our team is constantly working on improving the application by adding new features and capabilities to make your experience even more engaging.",
+    "text4": "With Lingify, you will be able not only to develop your language skills but also to bring your boldest ideas to life.",
+     "text5": "Our e-mail: "
   },
- "handbook": {
-      "changeUserInterfaceLang": "Change UI language"
 
+  "handbook": {
+    "title1": "Guide",
+
+    "section1": "Creating a Language",
+    "handbook1": "Go to the section where you can create a new language. Enter the name of the language — for example, My Language. Then set it up: specify how many words should be in the dictionary, how sentences will be constructed, what parts of speech are included (nouns, verbs, etc.). Choose a style — for example, formal or friendly. Define writing and pronunciation rules. You can specify which letters are used. After filling everything out and checking it, click Create. The new language will appear in your list.",
+    "section2": "Editing a Language",
+    "handbook2": "Select a language from your list of languages. Click Edit. In the opened window, you can change the name of the language, its construction rules, style or add new words. Make necessary changes and save them. Everything will update immediately. If you change your mind — there is a Cancel button to exit without saving.",
+    "section3": "Creating a Language with Neural Networks",
+    "handbook3": "Go to the section for automatic language creation using artificial intelligence. Fill in fields: language name, number of words in the dictionary, style and grammar you need. You can choose training parameters for neural networks or leave default settings. Click Generate and wait a bit — neural network will create a language based on your parameters. Afterwards, you can review the result and save or manually modify it.",
+
+    "section4": "Managing Languages",
+    "handbook4": "Go to the section where you can create a new language. Enter its name — for example, My Language. Then set it up: specify how many words should be in the dictionary, how sentences will be constructed, what parts of speech are included (nouns, verbs, etc.). Choose a style — for example, formal or friendly. Define writing and pronunciation rules. You can specify which letters are used. After filling everything out and checking it — click Create. The new language will appear in your list.",
+
+    "section5": "Managing Account",
+    "handbook5": "To start working on the site — log into your account by entering login and password. When finished — log out via the Logout button. If you want to delete your account — go to profile settings and select delete account option; confirm deletion via email or confirmation code. After that all your data will disappear forever.",
+
+    "section6": "Site Settings",
+    "handbook6": "Go to site settings section. There you can select interface language: Russian or English — so that the site is clearer for you. Also choose theme: light or dark — so it’s comfortable to look at screen. There are additional settings: enable notifications or change date/time format. After making selections — don’t forget to save changes. If something needs clarification or making it easier — just ask!"
   },
-  "redact": {
-      "changeUserInterfaceLang": "Change UI language"
-
-  },
-  "creationPage": {
-      "changeUserInterfaceLang": "Change UI language"
-
-  }
+  "redact": { "changeUserInterfaceLang": "Change UI language" },
+  "creationPage": { "changeUserInterfaceLang": "Change UI language" }
 }

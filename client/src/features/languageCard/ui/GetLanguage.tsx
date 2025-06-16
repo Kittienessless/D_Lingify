@@ -12,9 +12,7 @@ export const GetLanguage = ()  => {
     const fetchLangData = async () => {
       try {
 
-        const response = await LangAPI.langInfo.getLangInfo()
-        setLangInfo(response);
-        setError('');
+             setError('');
        } catch (e) {
         if (e instanceof Error) {
           setError(e.message);

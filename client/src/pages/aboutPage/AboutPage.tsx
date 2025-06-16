@@ -7,19 +7,19 @@ import { GitHubIcon } from "shared/assets/GitHubIcon";
 import { useNavigate } from "react-router-dom";
 import { VK } from "shared/assets/VK";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   margin: 10px;
-  position: relative;
   padding: 10px;
-  left: 50%;
-  top: 50%;
-  transform: translateY(-50%);
-  transform: translateX(-50%);
+  margin: 0 auto;
   width: 50vw;
   min-width: 30vw;
   background: ${({ theme }) => theme.colors.bg};
-  display: block;
+
+  @media (width <= 1350px) {
+    width: 100vw;
+  }
 `;
 const Card = styled.div`
   background-color: ${({ theme }) => theme.colors.container};
@@ -28,7 +28,10 @@ const Card = styled.div`
   padding: 1.4em;
   max-width: fit-content;
   height: fit-content;
-
+  @media (width <= 1350px) {
+    display: flex;
+    flex-direction: column;
+  }
   & svg {
     color: ${({ theme }) => theme.colors.primary} !important;
     fill: ${({ theme }) => theme.colors.primary} !important;
@@ -38,67 +41,56 @@ const Card = styled.div`
     fill: ${({ theme }) => theme.colors.primary} !important;
   }
 `;
+const Card2 = styled.div`
+  display: flex;
+  @media (width <= 1350px) {
+    flex-direction: column;
+  }
+`;
 export const AboutPage = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   function handlerVK() {
-    window.open("https://vk.com/id143051280", '_blank');
+    window.open("https://vk.com/id143051280", "_blank");
   }
   const handlerGitHub = () => {
-    window.open("https://github.com/Kittienessless/D_Lingify", '_blank');
+    window.open("https://github.com/Kittienessless/D_Lingify", "_blank");
   };
   return (
     <Container>
       <Text weight={"bold"} height="m" size={"40px"} centerHorizontally>
-        О проекте Lingify{" "}
+        {t("about.Title")}
       </Text>
       <Space height="s" />
       <Card>
         <Text weight={400} size={"18px"}>
-          Добро пожаловать в Lingify — уникальное веб-приложение, созданное для
-          тех, кто хочет погрузиться в мир языков и творчества! Мы разработали
-          Lingify с использованием современных технологий, таких как React,
-          TypeScript, Node.js и PostgreSQL, чтобы предоставить вам мощный
-          инструмент для создания собственных языков и правил. Наша цель —
-          сделать процесс изучения и создания языков увлекательным и доступным
-          для всех.
+          {t("about.text1")}
         </Text>
       </Card>
 
-      <div style={{ display: "flex" }}>
+      <Card2 style={{ display: "flex" }}>
         <Card>
           <Text weight={400} size={"18px"}>
-            С помощью Lingify вы можете не только создавать свои уникальные
-            языки, но и использовать нейронные сети на базе Gigachat для
-            автоматического перевода с русского и английского на ваши
-            придуманные языки. Это значит, что вы можете легко
-            экспериментировать с новыми лексическими структурами и
-            грамматическими правилами, а также получать мгновенные переводы,
-            которые помогут вам лучше понять, как работает ваш язык.
+            {t("about.text2")}
           </Text>
         </Card>
         <Card>
           <Text weight={400} size={"18px"}>
-            Lingify предлагает вам возможность редактировать и дополнять уже
-            созданные языки, а также создавать новые языки вручную. Вы можете
-            настраивать фонетику, грамматику и словарный запас, чтобы ваш язык
-            стал поистине уникальным. Наша команда постоянно работает над
-            улучшением приложения, добавляя новые функции и возможности, чтобы
-            сделать ваш опыт еще более увлекательным.
+            {t("about.text3")}
           </Text>
         </Card>
-      </div>
+      </Card2>
 
       <Card>
         <Text weight={400} size={"18px"}>
-          С Lingify вы сможете не только развивать свои языковые навыки, но и
-          воплощать в жизнь самые смелые идеи.
+          {t("about.text4")}
         </Text>
       </Card>
-      <div style={{ display: "flex" }}>
+      <Card2>
         <Card>
           <Text weight={400} size={"18px"} centerHorizontally>
-            Наша почта:{" "}
+            {t("about.text5")}
             <a href="mailto:paranina.thebell@gmail.com?subject=SweetWords&body=Ваши вопросы: ">
               paranina.thebell@gmail.com
             </a>
@@ -119,7 +111,7 @@ export const AboutPage = () => {
             ></IconButton>
           </div>
         </Card>
-      </div>
+      </Card2>
     </Container>
   );
 };

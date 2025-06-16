@@ -24,15 +24,21 @@ const Container = styled.div`
     rgb(124, 214, 255) 70%,
     rgb(94, 204, 255) 100%
   );
+  @media (width <= 1350px) {
+    margin: 0 auto;
+  }
 `;
 
 const Landing = styled.div`
   width: 100%;
-  
-  padding: 10rem;
+
+  padding: 10em;
   color: ${({ theme }) => theme.colors.fontContrast};
-   @media (width <= 1350px) {
-    font-size:  1.2rem !important;
+  @media (width <= 1350px) {
+    font-size: 1.2rem !important;
+    margin: 0 auto;
+    width: 100vw;
+    padding: 5em;
   }
 `;
 const CardContainer = styled.div`
@@ -41,6 +47,8 @@ const CardContainer = styled.div`
   color: ${({ theme }) => theme.colors.font};
   @media (width <= 1350px) {
     flex-direction: column;
+    width: 100%;
+    margin: 0 auto;
   }
 `;
 
@@ -51,9 +59,12 @@ const ImageContainer = styled.div`
   height: auto;
   margin-right: 3em;
   padding: 1em;
-  margin-top: 25em;
+
   @media (width <= 1350px) {
     flex-direction: column;
+    width: 100vw;
+    margin-top: 4em;
+    margin-right: 0;
   }
 `;
 const Image = styled.img`
@@ -61,25 +72,12 @@ const Image = styled.img`
   width: 30%;
   height: auto;
   margin-left: 5em;
+  @media (width <= 1350px) {
+    width: 50%;
+    margin-left: 0;
+  }
 `;
-const ImageScreen1 = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 80%;
-  height: auto;
-  z-index: 10;
-  opacity: 1;
-`;
-const ImageScreen2 = styled.img`
-  position: absolute;
-  top: -2em;
-  left: -3em;
-  width: 80%;
-  height: auto;
-  z-index: 5;
-  opacity: 0.8;
-`;
+
 const Card = styled.div`
   background-color: ${({ theme }) => theme.colors.container};
   ${borderRadius.m};
@@ -87,6 +85,12 @@ const Card = styled.div`
   padding: 1em;
   max-width: 18em;
   height: 18em;
+  @media (width <= 1350px) {
+       margin: .5em;
+max-width: 30em;
+  height: 10em;
+    padding: 0.9em;
+  }
 `;
 const CardWelcome = styled.div`
   background-color: ${({ theme }) => theme.colors.container};
@@ -95,6 +99,12 @@ const CardWelcome = styled.div`
   padding: 4em;
   max-width: fit-content;
   height: auto;
+  @media (width <= 1350px) {
+    width: 100%;
+    height: 100%;
+    margin-top: 4em;
+    margin: 1em;
+  }
 `;
 const HandbookContainer = styled.div`
   width: 100%;
@@ -106,7 +116,14 @@ const HandbookContainer = styled.div`
 
 const Screen = styled.div`
   display: flex;
-  @media (width <= 1350px) {
+ 
+  @media (width <= 170px) {
+    flex-direction: column;
+  }
+`;
+const Images = styled.div`
+  width: 90%;
+   @media (width <= 170px) {
     flex-direction: column;
   }
 `;
@@ -136,28 +153,26 @@ const StartPage: FC = () => {
         </Text>
         <Screen>
           <Text height="m" size={"38px"}>
-            Ваш инструмент для создания уникальных искусственных языков!
+            {t("main.header2")}
           </Text>
-          <div
-            style={{ position: "relative", width: "100%", marginTop: "3em" }}
-          >
+         {/*  <Images>
             <ImageScreen1 src={Screen1}></ImageScreen1>
             <ImageScreen2 src={Screen2}></ImageScreen2>
-          </div>
+          </Images> */}
         </Screen>
 
         {!store.isAuth && (
           <>
             <Text height="m" size={"24px"}>
-              Войди или зарегистрируйся чтобы создать свой уникальный язык
+              {t("main.header3")}
             </Text>
 
             <Space height="s"></Space>
             <div style={{ display: "flex" }}>
               <Button primary onClick={handlerClick}>
-                Зарегистрироваться
+                {t("main.buttonRegister")}
               </Button>
-              <Button onClick={handlerClick1}>Войти</Button>
+              <Button onClick={handlerClick1}> {t("main.buttonSighIn")}</Button>
             </div>
           </>
         )}
@@ -166,10 +181,7 @@ const StartPage: FC = () => {
       <ImageContainer>
         <CardWelcome>
           <Text height="m" size={"20px"}>
-            Создавайте собственные языки легко и быстро с помощью передовых
-            нейросетевых технологий. Наше приложение позволяет не только
-            генерировать новые языки, но и редактировать их, переводить тексты и
-            управлять своим языковым портфолио.
+            {t("main.about")}
           </Text>
         </CardWelcome>
 
@@ -180,52 +192,50 @@ const StartPage: FC = () => {
       <CardContainer>
         <Card>
           <Text height="m" size={"24px"}>
-            Нейросети
+            {t("main.neural")}
           </Text>
           <Divider></Divider>
           <Text height="s" size={"16px"}>
-            Нейросети берут на себя большую часть монотонной работы, позволяя
-            уделить время более важным вещам
+            {t("main.neuralAbout")}
           </Text>
         </Card>
         <Card>
           <Text height="m" size={"24px"}>
-            Исследования
+            {t("main.research")}
           </Text>
           <Divider></Divider>
 
           <Text height="s" size={"16px"}>
-            Лингвистические исследования в области языкознания, конструирование
-            новых и реконструирование утерянных языков
+            {t("main.researchAbout")}
           </Text>
         </Card>
         <Card>
           <Text height="m" size={"24px"}>
-            Cкорость работы
+            {t("main.fast")}
           </Text>
           <Divider></Divider>
 
           <Text height="s" size={"16px"}>
-            Веб-приложение позволяет оптимизировать время разработки конлангов
-            за счет мастера создания языков и редактора
+            {t("main.fastAbout")}
           </Text>
         </Card>
         <Card>
           <Text height="m" size={"24px"}>
-            ЦИИ НГУ
+            {t("main.nsu")}
           </Text>
           <Divider></Divider>
 
           <Text height="s" size={"16px"}>
-            Разработка ведется в рамках заказа от ЦИИ НГУ для филологического и
-            журналистского факультетов.
+            {t("main.nsuAbout")}
           </Text>
         </Card>
       </CardContainer>
       <HandbookContainer>
         <Text height="m" size={"26px"}>
-          Узнайте о возможностях веб-приложения Lingify в{" "}
-          <a href="http://localhost:3000/Handbook#/Handbook">руководстве</a>
+          {t("main.handbook1")}
+          <a href="http://localhost:3000/Handbook#/Handbook">
+            {t("main.handbook2")}
+          </a>
         </Text>
         <Space height="s"></Space>
       </HandbookContainer>

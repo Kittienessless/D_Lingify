@@ -14,10 +14,12 @@ import { Space } from "shared/ui/space";
 import { CopyText } from "shared/ui/text/CopyText";
 import styled from "styled-components";
 import { centerContent } from "shared/lib/centerContent";
+import { useTranslation } from "react-i18next";
 
 const ProfileCard: FC = () => {
   const [error, setError] = useState("");
   const { store } = useContext(UserContext);
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
   const [user, setUser] = useState<user>();
@@ -61,8 +63,8 @@ const ProfileCard: FC = () => {
 
   return (
     <>
-      <Text size={"22px"} height="m" weight={"bold"}>
-        Профиль пользователя
+      <Text size={"18pt"} height="m">
+        {t("profile.user1")}
       </Text>
       <Space height="s"></Space>
 
@@ -70,14 +72,14 @@ const ProfileCard: FC = () => {
         {store.isAuth ? (
           <div style={{ maxWidth: "50%" }}>
             <CopyText content={store.user?.email}>
-              E-mail: {store.user?.email}
+             {t("profile.user2")}  {store.user?.email}
             </CopyText>
             <Activated>
               <Round />
               <Text style={{ marginLeft: "1em" }}>
                 {user?.isActivated
-                  ? "Аккаунт активирован"
-                  : "Аккаунт не активирован"}
+                  ?  t("profile.user3") 
+                  :  t("profile.user4") }
               </Text>
             </Activated>
             <Divider></Divider>
@@ -89,8 +91,8 @@ const ProfileCard: FC = () => {
                 marginRight: "25px",
               }}
             >
-              <Text style={{ marginRight: "25px" }}>Имя: </Text>
-              <Text>{user?.given_name ? user?.given_name : "No data"}</Text>
+              <Text style={{ marginRight: "25px" }}> {t("profile.user5")}  </Text>
+              <Text>{user?.given_name ? user?.given_name :  t("profile.user7")}</Text>
             </div>
 
             <Space height="s"></Space>
@@ -103,8 +105,8 @@ const ProfileCard: FC = () => {
                 marginRight: "15px",
               }}
             >
-              <Text style={{ marginRight: "25px" }}>Фамилия:</Text>
-              <Text> {user?.familyName ? user?.familyName : "No data"}</Text>
+              <Text style={{ marginRight: "25px" }}> {t("profile.user6")} </Text>
+              <Text> {user?.familyName ? user?.familyName :  t("profile.user7")}</Text>
             </div>
 
             <Space height="s"></Space>

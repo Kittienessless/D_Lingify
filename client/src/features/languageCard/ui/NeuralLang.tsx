@@ -133,7 +133,6 @@ const NeuralLang = () => {
 
   const [rules, setRules] = useState<any | null>(null);
 
-
   const onFinish = (values: any) => {
     console.log("Настройки языка:", values);
     const settings: LanguageGenerationSettings = {
@@ -142,8 +141,9 @@ const NeuralLang = () => {
       grammaticalCategories: values.grammaticalCategories,
     };
     setRules(settings);
-     console.log("Объект настроек:", rules);
+    console.log("Объект настроек:", rules);
 
+    store.setRules(settings);
   };
 
   const handleNext = () => {
@@ -151,13 +151,9 @@ const NeuralLang = () => {
   };
   const handleUseAI = async () => {
     try {
-      await languageService.createNeural(
-        Prompt,
-        store.language.Title,
-        store.language.Description,
-        rules
- 
-      );
+      store.setPrompt(Prompt);
+      store.setIsNeural(true);
+
       navigateTo("Confirmation");
     } catch (e) {
       console.log(e + "\n ошибка создания языка с помощью ИИ");
@@ -180,7 +176,7 @@ const NeuralLang = () => {
           phoneticSystem: "",
           wordFormationRules: "",
           ruleRegularityLevel: "strict",
-          latinLetters: 'a b c d e f g h i j k l m n o p q r s t x y z '
+          latinLetters: "a b c d e f g h i j k l m n o p q r s t x y z ",
         }}
       >
         <Form.Item
@@ -240,9 +236,15 @@ const NeuralLang = () => {
           rules={[{ required: true, message: "Выберите тип синтаксиса" }]}
         >
           <Select>
-            <Select.Option value="SVO">SVO (подлежащее-сказуемое-дополнение)</Select.Option>
-            <Select.Option value="SOV">SOV (подлежащее-дополнение-сказуемое)</Select.Option>
-            <Select.Option value="VSO">VSO (сказуемое-подлежащее-дополнение)</Select.Option>
+            <Select.Option value="SVO">
+              SVO (подлежащее-сказуемое-дополнение)
+            </Select.Option>
+            <Select.Option value="SOV">
+              SOV (подлежащее-дополнение-сказуемое)
+            </Select.Option>
+            <Select.Option value="VSO">
+              VSO (сказуемое-подлежащее-дополнение)
+            </Select.Option>
           </Select>
         </Form.Item>
 
@@ -291,7 +293,7 @@ const NeuralLang = () => {
         </Form.Item>
 
         <Form.Item>
-          <AntdButon  htmlType="submit">Сохранить настройки</AntdButon>
+          <AntdButon htmlType="submit">Сохранить настройки</AntdButon>
         </Form.Item>
       </Form>
       <Space height="s"></Space>
