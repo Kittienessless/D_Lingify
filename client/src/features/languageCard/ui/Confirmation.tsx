@@ -11,6 +11,7 @@ import { Space } from "shared/ui/space/Space.tsx";
 import { borderRadius } from "shared/lib/borderRadius";
 import { Divider } from "shared/ui/divider";
 import { LangAPI } from "shared/api";
+import { useTranslation } from "react-i18next";
 
 const Wrapper = styled.div`
   margin: 0px auto;
@@ -52,11 +53,13 @@ const StyledInput = styled.input`
 
 const Confirmation = () => {
   const { store } = useContext(UserContext);
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
 
   const createLanguage = async () => {
     let resultNeural;
+    let result;
     if (store.isNeural) {
       resultNeural = await languageService.createNeural(
         store.promptNeuralCreation,
@@ -65,20 +68,22 @@ const Confirmation = () => {
         store.rules
       );
     }
-    const result = await languageService.create(
-      store.language!.Title,
-      store.language!.Description
-    );
 
+    if (!store.isNeural) {
+      result = await languageService.create(
+        store.language!.Title,
+        store.language!.Description
+      );
+    }
     navigate(
-      `/redactLanguage/${result.data.id ? result.data.id : resultNeural?.data.id}`
+      `/redactLanguage/${result!.data.id ? result!.data.id : resultNeural!.data.id}`
     );
   };
   return (
     <Wrapper>
       <Space height="m"></Space>
       <Text size={"16px"} height="s">
-        Спасибо! Вы успешно создали язык
+        {t("confirmation.header1")}
       </Text>
       <Text size={"16px"} height="s">
         {store.language!.Title}
@@ -96,7 +101,7 @@ const Confirmation = () => {
         }}
       >
         <Button style={{ width: "fit-content" }} onClick={createLanguage}>
-          Редактировать язык
+          {t("confirmation.header2")}
         </Button>
       </div>
     </Wrapper>

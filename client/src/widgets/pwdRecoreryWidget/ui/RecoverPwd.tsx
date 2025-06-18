@@ -6,6 +6,7 @@ import { Text } from "shared/ui/text";
 import styled from "styled-components";
 import { UserContext } from "app/providers";
 import { Button, Form, Input } from "antd";
+import { useTranslation } from "react-i18next";
 
 const Flex = styled.div`
   padding: 10px;
@@ -65,6 +66,7 @@ export const RecoverPwd = () => {
   const [code, setCode] = useState("");
   const [email, setEmail] = useState("");
   const [form] = Form.useForm();
+  const { t } = useTranslation();
 
   function handler() {
     store.SendNewPwd(email, code);
@@ -76,7 +78,7 @@ export const RecoverPwd = () => {
         <Form.Item
           name="email"
           rules={[
-            { required: true, message: "Please input your email again!" },
+            { required: true, message: t("RecoverPwd.text1") },
           ]}
         >
           <Input
@@ -88,13 +90,13 @@ export const RecoverPwd = () => {
             value={code}
             onChange={(e) => setEmail(e.target.value)}
             type="text"
-            placeholder="Снова введите свой email"
+            placeholder={t("RecoverPwd.text1")}
           />
         </Form.Item>
         <Form.Item
           name="code"
           rules={[
-            { required: true, message: "Please input your new Password!" },
+            { required: true, message: t("RecoverPwd.text5") },
           ]}
         >
           <Input
@@ -106,7 +108,7 @@ export const RecoverPwd = () => {
             value={code}
             onChange={(e) => setCode(e.target.value)}
             type="text"
-            placeholder="Введите новый пароль сюда"
+            placeholder={t("RecoverPwd.text5")}
           />
         </Form.Item>
         <Form.Item>
@@ -120,7 +122,7 @@ export const RecoverPwd = () => {
             onClick={handler}
             type="primary"
           >
-            Восстановить
+           {t("RecoverPwd.text4")}
           </Button>
         </Form.Item>
       </Form>

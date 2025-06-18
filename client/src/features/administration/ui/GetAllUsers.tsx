@@ -17,6 +17,7 @@ import { FilterDropdownProps } from "antd/es/table/interface";
 import { SearchOutlined } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
 import AdminService from "shared/api/user/AdminServive";
+import { useTranslation } from "react-i18next";
 
 interface DataType {
   user_id: string;
@@ -28,6 +29,7 @@ type DataIndex = keyof DataType;
 
 export const GetAllUsers = () => {
   const { store } = useContext(UserContext);
+  const { t } = useTranslation();
 
   const [data, setData] = useState<DataType[]>([]);
 
@@ -176,47 +178,47 @@ export const GetAllUsers = () => {
 
   const columns: TableColumnsType<DataType> = [
     {
-      title: "ID",
+      title: t("admin.title1"),
       dataIndex: "user_id",
       key: "user_id",
       ...getColumnSearchProps("user_id"),
     },
     {
-      title: "Email",
+      title: t("admin.title4"),
       dataIndex: "email",
       key: "email",
       ...getColumnSearchProps("email"),
     },
     {
-      title: "Имя",
+      title: t("admin.title6"),
       dataIndex: "name",
       key: "name",
       ...getColumnSearchProps("name"),
     },
     {
-      title: "Роль",
+      title: t("admin.title9"),
       dataIndex: "role",
       key: "role",
       ...getColumnSearchProps("role"),
     },
     {
-      title: "Действия",
+      title: t("admin.title10"),
       key: "action",
       render: (_, record) =>
         data.length >= 1 ? (
           <>
             <Popconfirm
-              title="Удалить пользователя?"
+              title={t("admin.action1")}
               onConfirm={() => handleDelete(record.user_id)}
             >
-              <a>Удалить</a>
+              <a>{t("admin.action4")}</a>
             </Popconfirm>
             <p></p>
             <Popconfirm
-              title="Сменить роль?"
+              title={t("admin.action2")}
               onConfirm={() => HandlerOnChangeRole(record.user_id)}
             >
-              <a>Изменить роль</a>
+              <a>{t("admin.action3")}</a>
             </Popconfirm>
           </>
         ) : null,
@@ -227,7 +229,7 @@ export const GetAllUsers = () => {
   };
   return (
     <>
-      <Text>Список пользователей</Text>
+      <Text>{t("admin.header")}</Text>
       <Space height="m" />
 
       <Table<DataType>

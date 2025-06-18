@@ -24,7 +24,7 @@ export default class Store {
   file = {} as Blob | FormData | File;
 
   rules = {} as LanguageGenerationSettings;
-  isNeural = {} as boolean;
+  isNeural = false;
   promptNeuralCreation = {} as string;
 
   currentLang = {} as ILanguage;

@@ -11,12 +11,14 @@ import axios, { AxiosResponse } from "axios";
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import { AuthResponse } from "shared/types/responseTypes";
 import { Toaster } from "shared/ui/toasters";
+import { useTranslation } from "react-i18next";
 export const Register = () => {
   const [form] = Form.useForm();
   const [password, setPassword] = useState("");
   const [doublePassword, setDoublePassword] = useState("");
   const [email, setEmail] = useState("");
   const [given_name, setGivenName] = useState("");
+  const { t } = useTranslation();
 
   const [family_name, setFamilyName] = useState("");
   const [list, setList] = useState<any[]>([]);
@@ -115,8 +117,8 @@ export const Register = () => {
         <Form.Item
           name="email"
           rules={[
-            { required: true, message: "Пожалуйста введите Вашe почту" },
-            { type: "email", message: "Пожалуйста введите корректную почту" },
+            { required: true, message: t("Register.text1") },
+            { type: "email", message: t("Register.text2") },
           ]}
           hasFeedback
         >
@@ -129,14 +131,14 @@ export const Register = () => {
             }}
             prefix={<MailOutlined />}
             type="email"
-            placeholder="Почта"
+            placeholder={t("Register.text22")}
           />
         </Form.Item>
         <Form.Item
           name="Name"
           rules={[
-            { required: true, message: "Пожалуйста введите Ваше Имя" },
-            { type: "email", message: "Пожалуйста введите корректное имя" },
+            { required: true, message: t("Register.text3") },
+            { type: "email", message: t("Register.text43") },
           ]}
           hasFeedback
         >
@@ -149,14 +151,14 @@ export const Register = () => {
             }}
             prefix={<UserOutlined />}
             type="text"
-            placeholder="Имя"
+            placeholder={t("Register.text4")}
           />
         </Form.Item>
         <Form.Item
           name="FamilyName"
           rules={[
-            { required: true, message: "Пожалуйста введите Вашу фамилию" },
-            { type: "email", message: "Пожалуйста введите корректную Фамилию" },
+            { required: true, message: t("Register.text5") },
+            { type: "email", message: t("Register.text6") },
           ]}
           hasFeedback
         >
@@ -169,15 +171,15 @@ export const Register = () => {
             }}
             prefix={<UserOutlined />}
             type="text"
-            placeholder="Фамилия"
+            placeholder={t("Register.text7")}
           />
         </Form.Item>
         <Form.Item
           name="password"
           rules={[
             { required: true },
-            { min: 4, message: "password must be more than 4 symbols " },
-            { max: 10, message: "password must be less than 10 symbols " },
+            { min: 5, message: t("Register.text8") },
+            { max: 20, message: t("Register.text9") },
           ]}
           hasFeedback
         >
@@ -189,7 +191,7 @@ export const Register = () => {
               height: 40,
             }}
             prefix={<LockOutlined />}
-            placeholder="Пароль"
+            placeholder={t("Register.text10")}
           />
         </Form.Item>
 
@@ -198,14 +200,14 @@ export const Register = () => {
           dependencies={["password"]}
           rules={[
             { required: true },
-            { min: 4, message: "password must be more than 4 symbols " },
-            { max: 10, message: "password must be less than 10 symbols " },
+            { min: 5, message: t("Register.text8") },
+            { max: 20, message: t("Register.text9") },
             ({ getFieldValue }) => ({
               validator(_, value) {
                 if (!value || getFieldValue("password") === value) {
                   return Promise.resolve();
                 }
-                return Promise.reject("Passwords are must be the same");
+                return Promise.reject(t("Register.text12"));
               },
             }),
           ]}
@@ -219,7 +221,7 @@ export const Register = () => {
               height: 40,
             }}
             prefix={<LockOutlined />}
-            placeholder="Подтвердить пароль"
+            placeholder={t("Register.text13")}
           />
         </Form.Item>
 
@@ -233,7 +235,7 @@ export const Register = () => {
             type="primary"
             onClick={() => registerHandler()}
           >
-            Зарегестрироваться
+            {t("Register.text14")}
           </Button>
           <Form.Item style={{ marginTop: 10, width: "100%" }}>
             <Button
@@ -248,7 +250,7 @@ export const Register = () => {
                 googleLogin();
               }}
             >
-              Войти с помощью Google
+              {t("Register.text15")}
             </Button>
           </Form.Item>
           <Button
@@ -260,7 +262,7 @@ export const Register = () => {
             type="link"
             onClick={() => navigate("/Auth")}
           >
-            или Войти!
+            {t("Register.text16")}
           </Button>
         </Form.Item>
       </Form>

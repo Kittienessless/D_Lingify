@@ -9,6 +9,7 @@ import ProgressBar from "shared/ui/ProgressBar/ProgressBar";
 import { FileSuccess } from "shared/assets/FileSuccess";
 import { FileWrong } from "shared/assets/FileWrong";
 import { UserContext } from "app/providers";
+import { useTranslation } from "react-i18next";
 
 interface UploaderProps {
   id: string;
@@ -18,6 +19,7 @@ interface UploaderProps {
 export const Uploader = () => {
   const [progress, setProgress] = useState(0);
   const { store } = useContext(UserContext);
+  const { t } = useTranslation();
 
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<
@@ -91,19 +93,19 @@ export const Uploader = () => {
   `;
   const Result = ({ status }: { status: string }) => {
     if (status === "success") {
-      return <p>✅ Файл успешно загружен!</p>;
+      return <p>✅ {t("Uploader.text1")}</p>;
     } else if (status === "fail") {
-      return <p>❌ Ошибка загрузки файла</p>;
+      return <p>❌ {t("Uploader.text111")}</p>;
     } else if (status === "uploading") {
-      return <p>Загрузка...</p>;
+      return <p>{t("Uploader.text2")}</p>;
     } else if (status === "wrong format") {
       return (
         <p>
-          Неправильный формат файла! Требуемый формат - excel, json, doc, docx
+         {t("Uploader.text3")}
         </p>
       );
     } else if (status === "not a file") {
-      return <p>Файл не загружен</p>;
+      return <p>{t("Uploader.text4")}</p>;
     } else {
       return null;
     }
@@ -118,11 +120,11 @@ export const Uploader = () => {
       </InputGroup>
       {file && (
         <section>
-          Детали файла:
+         {t("Uploader.text5")}
           <ul>
-            <Text>Название: {file.name}</Text>
-            <Text>Тип: {file.type}</Text>
-            <Text>Размер: {file.size} bytes</Text>
+            <Text>{t("Uploader.text6")} {file.name}</Text>
+            <Text>{t("Uploader.text7")} {file.type}</Text>
+            <Text>{t("Uploader.text8")} {file.size} bytes</Text>
           </ul>
           <ProgressBar progress={progress} />
           <FileSuccess />
@@ -131,7 +133,7 @@ export const Uploader = () => {
 
       {file && (
         <Button primary onClick={handleUpload}>
-          Загрузить файл
+          {t("Uploader.Title2")}
         </Button>
       )}
       <Result status={status} />

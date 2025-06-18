@@ -1,4 +1,5 @@
 import React, { ChangeEvent, ChangeEventHandler, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { SearchIcon } from "shared/assets/SearchIcon";
 import { IconButton } from "shared/ui/button/IconButton";
 import styled from "styled-components";
@@ -26,7 +27,8 @@ export type SearchProps = {
 
 export const Search = (props: SearchProps) => {
   const { searchHandler } = props;
-  const [value, setValue] = useState("Найти...");
+  const { t } = useTranslation();
+  const [value, setValue] = useState(t("LanguageList.text3"));
 
    
  

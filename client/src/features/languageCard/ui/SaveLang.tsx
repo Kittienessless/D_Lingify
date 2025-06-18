@@ -4,6 +4,7 @@ import { LangAPI } from "shared/api";
 import { toast } from "react-toastify";
 import languageService from "shared/api/language/languageService";
 import { BASE_URL } from "shared/constances";
+import { useTranslation } from "react-i18next";
 
 export interface Iid {
   id: string;
@@ -11,6 +12,7 @@ export interface Iid {
 
 export const SaveLang = (id : Iid )=> {
   const [file, setFile] = useState<File | null>(null);
+  const { t } = useTranslation();
 
   async function handleDownloadFile() {
     try {
@@ -39,13 +41,13 @@ export const SaveLang = (id : Iid )=> {
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
     } catch (e) {
-      toast.error("Ошибка скачивания файла" + e);
+      toast.error(t("SaveLang.Title1") + e);
     }
   }
 
   return (
     <>
-      <Button onClick={() => handleDownloadFile()}>Скачать</Button>
+      <Button onClick={() => handleDownloadFile()}>{t("SaveLang.Title2")}</Button>
     </>
   );
 };

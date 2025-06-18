@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import ProfileCard from "shared/ui/profileCard/ui/ProfileCard.tsx";
 import Translate from "../../../features/translation/ui/Translate.tsx";
 import LanguageList from "widgets/languageWidget/ui/LanguageList";
@@ -7,6 +7,10 @@ import styled from "styled-components";
 import { Tabs as BaseTabs, Grid } from "antd";
 import { GenerateText } from "widgets/generateText/GenerateText";
 import { useTranslation } from "react-i18next";
+import { observer } from "mobx-react-lite";
+import { UserContext } from "app/providers/index.tsx";
+import { Loader } from "shared/ui/loaders/loader.tsx";
+import { LoginWidget } from "widgets/loginWidget/index.ts";
 const { useBreakpoint } = Grid;
 
 const Tabs = styled(BaseTabs)`
@@ -30,12 +34,25 @@ const ProfileDiv = styled.div`
   background-color: ${({ theme }) => theme.colors.bg};
 `;
 
-export const Profile: React.FC = () => {
+const Profile: React.FC = () => {
   const { t } = useTranslation();
   const screens = useBreakpoint();
+  const { store } = useContext(UserContext);
 
-   const isVertical = screens.lg || screens.xl || screens.xxl;  
+  const isVertical = screens.lg || screens.xl || screens.xxl;
 
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      store.checkAuth();
+    }
+  }, [store.isAuth]);
+  
+  if (store.isLoading) {
+    return <Loader></Loader>;
+  }
+  if (!store.isAuth) {
+    return <LoginWidget />;
+  }
   const tabPosition = isVertical ? "left" : "top";
   const items = [
     {
@@ -65,8 +82,15 @@ export const Profile: React.FC = () => {
     },
   ];
   return (
-    <ProfileDiv>
-      <Tabs tabPosition={tabPosition} items={items} />
-    </ProfileDiv>
+    <>
+      {store.isAuth ? (
+        <ProfileDiv>
+          <Tabs tabPosition={tabPosition} items={items} />
+        </ProfileDiv>
+      ) : (
+        "Invalid authentication"
+      )}
+    </>
   );
 };
+export default observer(Profile);

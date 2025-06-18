@@ -5,6 +5,7 @@ import { GetAllUsers } from "./GetAllUsers";
 import { GetAllLangs } from "./GetAllLangs";
 import GetStatistic from "./GetStatistic";
 import { Space } from "shared/ui/space";
+import { useTranslation } from "react-i18next";
 const { useBreakpoint } = Grid;
 
 const Tabs = styled(BaseTabs)`
@@ -24,23 +25,6 @@ const Tabs = styled(BaseTabs)`
   }
 `;
 
-const items = [
-  {
-    label: "Пользователи",
-    children: <GetAllUsers></GetAllUsers>,
-    key: "1",
-  },
-  {
-    label: "Языки",
-    children: <GetAllLangs></GetAllLangs>,
-    key: "2",
-  },
-  {
-    label: "Статистика",
-    children: <GetStatistic></GetStatistic>,
-    key: "3",
-  },
-];
 const ProfileDiv = styled.div`
   background-color: ${({ theme }) => theme.colors.bg};
   color: ${({ theme }) => theme.colors.font};
@@ -50,11 +34,29 @@ const ProfileDiv = styled.div`
 
 export const AdminDashBoard = () => {
   const screens = useBreakpoint();
+  const { t } = useTranslation();
 
   const isVertical = screens.lg || screens.xl || screens.xxl;
 
   const tabPosition = isVertical ? "left" : "top";
 
+const items = [
+  {
+    label: t("admin.text1"),
+    children: <GetAllUsers></GetAllUsers>,
+    key: "1",
+  },
+  {
+    label: t("admin.text2"),
+    children: <GetAllLangs></GetAllLangs>,
+    key: "2",
+  },
+  {
+    label: t("admin.text3"),
+    children: <GetStatistic></GetStatistic>,
+    key: "3",
+  },
+];
   return (
     <ProfileDiv>
       <Tabs tabPosition={tabPosition} items={items} />

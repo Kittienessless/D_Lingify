@@ -17,6 +17,7 @@ import { FilterDropdownProps } from "antd/es/table/interface";
 import { SearchOutlined } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
 import languageService from "shared/api/language/languageService";
+import { useTranslation } from "react-i18next";
 
 interface DataType {
   id: string;
@@ -35,6 +36,7 @@ export const GetAllLangs = () => {
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
   const [editingKey, setEditingKey] = useState("");
+  const { t } = useTranslation();
 
    
   const handleSearch = (
@@ -166,19 +168,19 @@ export const GetAllLangs = () => {
 
   const columns: TableColumnsType<DataType> = [
     {
-      title: "Назание",
+      title:  t("admin.title1"),
       dataIndex: "Title",
       key: "Title",
       ...getColumnSearchProps("Title"),
     },
     {
-      title: "Описание",
+      title:t("admin.title2"),
       dataIndex: "Description",
       key: "Description",
       ...getColumnSearchProps("Description"),
     },
     {
-      title: "Автор",
+      title: t("admin.title3"),
       dataIndex: "userID",
       key: "userID",
       ...getColumnSearchProps("userID"),
@@ -190,7 +192,7 @@ export const GetAllLangs = () => {
   };
   return (
     <>
-      <Text>Список пользователей</Text>
+      <Text>{t("admin.header2")}</Text>
       <Space height="m" />
 
       <Table<DataType>

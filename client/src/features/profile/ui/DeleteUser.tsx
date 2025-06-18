@@ -11,11 +11,13 @@ import { ERROR_ARTICLE_DELETE } from "shared/constances/errors.ts";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "app/providers";
+import { useTranslation } from "react-i18next";
 
  
 export const DeleteUser = () => {
   const navigate = useNavigate();
   const { store } = useContext(UserContext);
+  const { t } = useTranslation();
 
   function handleDelete(){
     if (store.isAuth) {
@@ -32,28 +34,28 @@ export const DeleteUser = () => {
           renderOpener={({ onOpen }) => (
             <IconButton
               icon={<TrashBinIcon />}
-              title={"Удалить аккаунт"}
+              title={t("DeleteUser.text1")}
               onClick={onOpen}
             >
-              Удалить аккаунт
+              {t("DeleteUser.text1")}
             </IconButton>
           )}
           renderContent={({ onClose }) => (
             <Modal
-              title="Вы уверены?"
+              title={t("DeleteUser.text2")}
               onClose={onClose}
               width={400}
               footer={
                 <div>
-                  <Button onClick={handleDelete}>Удалить</Button>
+                  <Button onClick={handleDelete}>{t("DeleteUser.text3")}</Button>
                   <Button primary onClick={onClose}>
-                    Отмена
+                   {t("DeleteUser.text4")}
                   </Button>
                 </div>
               }
             >
               <VStack gap={20}>
-                <Text>Удалить аккаунт?</Text>
+                <Text>{t("DeleteUser.text5")}</Text>
               </VStack>
             </Modal>
           )}

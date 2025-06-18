@@ -1,5 +1,6 @@
+import { observer } from "mobx-react-lite";
 import styled from "styled-components";
-import { ProfileWidget } from "widgets/profileWidget";
+import ProfileWidget  from "widgets/profileWidget/ui/ProfileWidget.tsx";
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.bg};
   width: 100%;
@@ -17,7 +18,7 @@ const Container = styled.div`
   margin-top: 100px;
  `;
 
-export const ProfilePage = () => {
+ const ProfilePage = () => {
   return (
     <Wrapper>
     <Container>
@@ -27,3 +28,4 @@ export const ProfilePage = () => {
 
   );
 };
+export default observer(ProfilePage)

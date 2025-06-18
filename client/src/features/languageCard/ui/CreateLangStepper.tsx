@@ -24,6 +24,7 @@ import Input from "antd/es/input/Input";
 import { Descriptions, Form } from "antd";
 import NeuralLang from "./NeuralLang.tsx";
 import Confirmation from "./Confirmation.tsx";
+import { useTranslation } from "react-i18next";
 
 
 const Wrapper = styled.div`
@@ -66,14 +67,16 @@ const StyledInput = styled.input`
 
 const Introduction = () => {
   const { navigateTo } = UseCreateLangHook();
+    const { t } = useTranslation();
+  
   return (
     <Wrapper>
       <Space height="m"></Space>
       <Text size={"18px"} height="s">
-        Добро пожаловать в мастер создания языка!
+        {t("Introduction.header1")}
       </Text>
       <Text size={"16px"} height="s">
-        Введите данные языка или загрузите с помощью мастера загрузки
+        {t("Introduction.header2")}
       </Text>
       <Space height="s"></Space>
       <div
@@ -84,7 +87,7 @@ const Introduction = () => {
         }}
       >
         {" "}
-        <Button onClick={() => navigateTo("LangInfo")}>Далее</Button>
+        <Button onClick={() => navigateTo("LangInfo")}>{t("Introduction.button")}</Button>
       </div>
     </Wrapper>
   );
@@ -92,6 +95,7 @@ const Introduction = () => {
 
 const LangInfo = () => {
   const { store } = useContext(UserContext);
+  const { t } = useTranslation();
 
   const { navigateTo, handleSetData } = UseCreateLangHook();
   // const [isEmpty, setIsEmpty] = useState(true);
@@ -117,13 +121,13 @@ const LangInfo = () => {
     <Wrapper>
       <Space height="m"></Space>
       <Text size={"16px"} weight={400}>
-        Пожалуста введите информацию о языке
+        {t("LangInfo.header1")}
       </Text>
       <Divider></Divider>
       <Space height="s"></Space>
       <InputContainer>
         <Text size={"16px"} weight={500}>
-          Название*:{" "}
+           {t("LangInfo.input2")}
         </Text>
         <Space height="s"></Space>
 
@@ -133,7 +137,7 @@ const LangInfo = () => {
           className="desc"
           
           onChange={(e) => onChangeName(e)}
-          placeholder={"Введите описание языка..."}
+          placeholder= {t("LangInfo.placeholder2")}
         />
         {/*  {isEmpty && (
           <Text size={"12px"} weight={400}>
@@ -144,7 +148,7 @@ const LangInfo = () => {
 
         <Divider></Divider>
         <Text size={"16px"} weight={400}>
-          Описание:{" "}
+           {t("LangInfo.input1")}
         </Text>
         <Space height="s"></Space>
 
@@ -154,7 +158,7 @@ const LangInfo = () => {
           
           className="desc"
           onChange={(e) => onChangeDesc(e)}
-          placeholder={"Введите описание языка..."}
+          placeholder={t("LangInfo.placeholder1")}
         />
         {/*   {isEmpty && (
           <Text size={"12px"} weight={400}>
@@ -171,8 +175,8 @@ const LangInfo = () => {
           justifyContent: "center",
         }}
       >
-        <Button onClick={() => navigateTo("Introduction")}>Назад</Button>
-        <Button onClick={handleNext}>Далее</Button>
+        <Button onClick={() => navigateTo("Introduction")}>{t("LangInfo.button1")}</Button>
+        <Button onClick={handleNext}>={t("LangInfo.button2")}=</Button>
       </div>
     </Wrapper>
   );

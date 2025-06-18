@@ -78,32 +78,32 @@ export const ArticleWidget: React.FC = () => {
           <ul>
             <li>
               <Link to="section1" smooth={true} duration={500}>
-                Создание языка
+                {t("main.title1")}
               </Link>
             </li>
             <li>
               <Link to="section2" smooth={true} duration={500}>
-                Редактирование языка
+                 {t("main.title2")}
               </Link>{" "}
             </li>
             <li>
               <Link to="section3" smooth={true} duration={500}>
-                Создание языка с помощью нейронных сетей
+                 {t("main.title3")}
               </Link>{" "}
             </li>
             <li>
               <Link to="section4" smooth={true} duration={500}>
-                Управление языками
+                 {t("main.title4")}
               </Link>{" "}
             </li>
             <li>
               <Link to="section5" smooth={true} duration={500}>
-                Управление аккаунтом
+                 {t("main.title5")}
               </Link>{" "}
             </li>
             <li>
               <Link to="section6" smooth={true} duration={500}>
-                Настройки сайта
+                 {t("main.title6")}
               </Link>{" "}
             </li>
           </ul>

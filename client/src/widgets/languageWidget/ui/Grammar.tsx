@@ -5,6 +5,7 @@ import Card from "antd/es/card/Card";
 import { borderRadius } from "shared/lib/borderRadius";
 import { Text } from "shared/ui/text";
 import { UserContext } from "app/providers";
+import { useTranslation } from "react-i18next";
 
 const GrammarContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.bg};
@@ -34,6 +35,7 @@ export const Grammar: React.FC = () => {
   const { store } = useContext(UserContext);
 
   const [nounRules, setNounRules] = useState<any[]>([]);
+  const { t } = useTranslation();
 
   const [verbRules, setVerbRules] = useState<any[]>([]);
   const [pronounRules, setPronounRules] = useState<any[]>([]);
@@ -82,10 +84,10 @@ export const Grammar: React.FC = () => {
   // Функция удаления строки
   const onDelete = (key: string) => {
     Modal.confirm({
-      title: "Удалить слово?",
-      content: "Вы уверены, что хотите удалить это слово из словаря?",
-      okText: "Да",
-      cancelText: "Нет",
+      title: t("Grammar.text1"),
+      content:  t("Grammar.text2"),
+      okText:  t("Grammar.text3"),
+      cancelText:  t("Grammar.text4"),
       onOk() {
         setNounRules((prevData) => prevData.filter((item) => item.key !== key));
       },
@@ -95,30 +97,30 @@ export const Grammar: React.FC = () => {
     <GrammarContainer>
       <CardLang>
         <Text height="s" size={"12pt"}>
-          Существительные
+          { t("Grammar.text5")}
         </Text>
         <Table
           dataSource={nounRules}
           columns={[
-            { title: "Правило", dataIndex: "rule", key: "key" },
+            { title: t("Grammar.text6"), dataIndex: "rule", key: "key" },
             {
-              title: "Действия",
+              title:  t("Grammar.text7"),
               key: "actions",
               render: (_, record) =>
                 record.key === editingKey ? (
                   <Space>
                     <Button type="primary" onClick={handleSave}>
-                      Сохранить
+                      {t("Grammar.text8")}
                     </Button>
-                    <Button onClick={handleCancel}>Отмена</Button>
+                    <Button onClick={handleCancel}>{t("Grammar.text9")}</Button>
                   </Space>
                 ) : (
                   <Space>
                     <Button type="link" onClick={() => onEdit(record)}>
-                      Редактировать
+                      {t("Grammar.text10")}
                     </Button>
                     <Button danger onClick={() => onDelete(record.key)}>
-                      Удалить
+                      {t("Grammar.text11")}
                     </Button>
                   </Space>
                 ),
@@ -131,29 +133,29 @@ export const Grammar: React.FC = () => {
         <Text height="s" size={"12pt"}>
           Глаголы
         </Text>
-
+ {t("Grammar.text12")}
         <Table
           dataSource={verbRules}
           columns={[
-            { title: "Правило", dataIndex: "rule", key: "rule" },
+            { title: t("Grammar.text6"), dataIndex: "rule", key: "key" },
             {
-              title: "Действия",
+              title:  t("Grammar.text7"),
               key: "actions",
               render: (_, record) =>
                 record.key === editingKey ? (
                   <Space>
                     <Button type="primary" onClick={handleSave}>
-                      Сохранить
+                      {t("Grammar.text8")}
                     </Button>
-                    <Button onClick={handleCancel}>Отмена</Button>
+                    <Button onClick={handleCancel}>{t("Grammar.text9")}</Button>
                   </Space>
                 ) : (
                   <Space>
                     <Button type="link" onClick={() => onEdit(record)}>
-                      Редактировать
+                      {t("Grammar.text10")}
                     </Button>
                     <Button danger onClick={() => onDelete(record.key)}>
-                      Удалить
+                      {t("Grammar.text11")}
                     </Button>
                   </Space>
                 ),
@@ -164,31 +166,31 @@ export const Grammar: React.FC = () => {
       </CardLang>
       <CardLang>
         <Text height="s" size={"12pt"}>
-          Местоимения
+           {t("Grammar.text13")}
         </Text>
 
         <Table
           dataSource={pronounRules}
           columns={[
-            { title: "Правило", dataIndex: "rule", key: "rule" },
+            { title: t("Grammar.text6"), dataIndex: "rule", key: "key" },
             {
-              title: "Действия",
+              title:  t("Grammar.text7"),
               key: "actions",
               render: (_, record) =>
                 record.key === editingKey ? (
                   <Space>
                     <Button type="primary" onClick={handleSave}>
-                      Сохранить
+                      {t("Grammar.text8")}
                     </Button>
-                    <Button onClick={handleCancel}>Отмена</Button>
+                    <Button onClick={handleCancel}>{t("Grammar.text9")}</Button>
                   </Space>
                 ) : (
                   <Space>
                     <Button type="link" onClick={() => onEdit(record)}>
-                      Редактировать
+                      {t("Grammar.text10")}
                     </Button>
                     <Button danger onClick={() => onDelete(record.key)}>
-                      Удалить
+                      {t("Grammar.text11")}
                     </Button>
                   </Space>
                 ),
@@ -199,31 +201,31 @@ export const Grammar: React.FC = () => {
       </CardLang>
       <CardLang>
         <Text height="s" size={"12pt"}>
-          Прилагательные
+           {t("Grammar.text14")}
         </Text>
 
         <Table
           dataSource={adjectiveRules}
-          columns={[
-            { title: "Правило", dataIndex: "rule", key: "rule" },
+         columns={[
+            { title: t("Grammar.text6"), dataIndex: "rule", key: "key" },
             {
-              title: "Действия",
+              title:  t("Grammar.text7"),
               key: "actions",
               render: (_, record) =>
                 record.key === editingKey ? (
                   <Space>
                     <Button type="primary" onClick={handleSave}>
-                      Сохранить
+                      {t("Grammar.text8")}
                     </Button>
-                    <Button onClick={handleCancel}>Отмена</Button>
+                    <Button onClick={handleCancel}>{t("Grammar.text9")}</Button>
                   </Space>
                 ) : (
                   <Space>
                     <Button type="link" onClick={() => onEdit(record)}>
-                      Редактировать
+                      {t("Grammar.text10")}
                     </Button>
                     <Button danger onClick={() => onDelete(record.key)}>
-                      Удалить
+                      {t("Grammar.text11")}
                     </Button>
                   </Space>
                 ),
@@ -234,31 +236,31 @@ export const Grammar: React.FC = () => {
       </CardLang>
       <CardLang>
         <Text height="s" size={"12pt"}>
-          Наречия
+          {t("Grammar.text15")}
         </Text>
 
         <Table
           dataSource={adverbRules}
-          columns={[
-            { title: "Правило", dataIndex: "rule", key: "rule" },
+         columns={[
+            { title: t("Grammar.text6"), dataIndex: "rule", key: "key" },
             {
-              title: "Действия",
+              title:  t("Grammar.text7"),
               key: "actions",
               render: (_, record) =>
                 record.key === editingKey ? (
                   <Space>
                     <Button type="primary" onClick={handleSave}>
-                      Сохранить
+                      {t("Grammar.text8")}
                     </Button>
-                    <Button onClick={handleCancel}>Отмена</Button>
+                    <Button onClick={handleCancel}>{t("Grammar.text9")}</Button>
                   </Space>
                 ) : (
                   <Space>
                     <Button type="link" onClick={() => onEdit(record)}>
-                      Редактировать
+                      {t("Grammar.text10")}
                     </Button>
                     <Button danger onClick={() => onDelete(record.key)}>
-                      Удалить
+                      {t("Grammar.text11")}
                     </Button>
                   </Space>
                 ),

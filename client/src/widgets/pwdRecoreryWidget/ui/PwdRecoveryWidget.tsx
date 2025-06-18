@@ -5,6 +5,7 @@ import { RecoverPwd } from "features/profile";
 import { SUCCESSFUL_PWD_RECOVER } from "shared/constances";
 import { Text } from "shared/ui/text";
  import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const Flex = styled.div`
   padding: 10px;
@@ -62,7 +63,8 @@ const Flex = styled.div`
 export const PwdRecoveryWidget = () => {
   const [result, setResult] = useState("");
   const [error, setError] = useState("");
-   
+     const { t } = useTranslation();
+
 
   return (
     <Flex>
@@ -72,7 +74,7 @@ export const PwdRecoveryWidget = () => {
         size={"22px"}
         weight={500}
       >
-        Восстановление пароля
+       {t("RecoverPwd.Header")}
       </Text>{" "}
       <RecoverPwd  ></RecoverPwd>
       {result && <>{result}</>}

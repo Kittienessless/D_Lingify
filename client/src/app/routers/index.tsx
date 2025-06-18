@@ -11,7 +11,7 @@ import clsx from "clsx";
 
 import { useThemeMode } from "../styles/themes/useThemeMode.ts";
 import Layout  from "app/layout/Layout.tsx";
-import { ProfilePage } from "pages/userPage";
+import ProfilePage  from "pages/userPage/ProfilePage.tsx";
 import { HandbookPage } from "pages/handbookPage";
 import { AboutPage } from "pages/aboutPage";
 import { CreateLanguagePage } from "pages/createLanguagePage";

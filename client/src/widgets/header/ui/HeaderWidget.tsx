@@ -18,6 +18,7 @@ import { LogoNew } from "shared/assets/LogoNew";
 import styled from "styled-components";
 import { UserContext } from "app/providers";
 import { observer } from "mobx-react-lite";
+import { useTranslation } from "react-i18next";
 
 const Menu = styled(BaseMenu)`
   .ant-menu-title-content {
@@ -109,70 +110,10 @@ const Menu = styled(BaseMenu)`
 
 type MenuItem = Required<MenuProps>["items"][number];
 
-const MenuNotAuth: MenuItem[] = [
-  {
-    label: "Руководство",
-    key: "Handbook",
-    icon: <PlusCircleOutlined />,
-  },
 
-  {
-    label: " О проекте",
-    key: "About",
-    icon: <FireIcon />,
-  },
-];
-
-const itemsAuth: MenuItem[] = [
-  {
-    label: " Создать язык",
-    key: "Language",
-    icon: <EditOutlined />,
-  },
-  {
-    label: "Руководство",
-    key: "Handbook",
-    icon: <PlusCircleOutlined />,
-  },
-  {
-    label: "Профиль",
-    key: "Profile",
-    icon: <UserOutlined />,
-  },
-  {
-    label: " О проекте",
-    key: "About",
-    icon: <FireIcon />,
-  },
-];
-const items: MenuItem[] = [
-  {
-    label: " Создать язык",
-    key: "Language",
-    icon: <EditOutlined />,
-  },
-  {
-    label: "Руководство",
-    key: "Handbook",
-    icon: <PlusCircleOutlined />,
-  },
-  {
-    label: "Профиль",
-    key: "Profile",
-    icon: <UserOutlined />,
-  },
-  {
-    label: " О проекте",
-    key: "About",
-    icon: <FireIcon />,
-  },
-  {
-    label: "Админ",
-    key: "Admin",
-    icon: <NodeIndexOutlined />,
-  },
-];
 const HeaderWidget: React.FC = () => {
+    const { t } = useTranslation();
+
   const navigate = useNavigate();
   const headerStyle: React.CSSProperties = {
     textAlign: "center",
@@ -189,7 +130,69 @@ const HeaderWidget: React.FC = () => {
       store.checkAdmin();
     }
   }, [store.isAuth, store.isAdmin]);
+const MenuNotAuth: MenuItem[] = [
+  {
+    label: t("Header.text1"),
+    key: "Handbook",
+    icon: <PlusCircleOutlined />,
+  },
 
+  {
+    label: t("Header.text2"),
+    key: "About",
+    icon: <FireIcon />,
+  },
+];
+
+const itemsAuth: MenuItem[] = [
+  {
+    label: t("Header.text3"),
+    key: "Language",
+    icon: <EditOutlined />,
+  },
+  {
+    label: t("Header.text1"),
+    key: "Handbook",
+    icon: <PlusCircleOutlined />,
+  },
+  {
+    label: t("Header.text4"),
+    key: "Profile",
+    icon: <UserOutlined />,
+  },
+  {
+    label: t("Header.text2"),
+    key: "About",
+    icon: <FireIcon />,
+  },
+];
+const items: MenuItem[] = [
+  {
+    label: t("Header.text3"),
+    key: "Language",
+    icon: <EditOutlined />,
+  },
+  {
+    label: t("Header.text1"),
+    key: "Handbook",
+    icon: <PlusCircleOutlined />,
+  },
+  {
+    label: t("Header.text4"),
+    key: "Profile",
+    icon: <UserOutlined />,
+  },
+  {
+    label: t("Header.text2"),
+    key: "About",
+    icon: <FireIcon />,
+  },
+  {
+    label:t("Header.text5"),
+    key: "Admin",
+    icon: <NodeIndexOutlined />,
+  },
+];
   return (
     <div
       style={{

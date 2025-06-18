@@ -5,6 +5,7 @@ import { Register } from "features/profile";
 
 import { Text } from "shared/ui/text";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const Flex = styled.div`
   padding: 10px;
@@ -67,6 +68,7 @@ const Flex = styled.div`
 export const RegisterWidget: React.FC = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Flex>
@@ -76,7 +78,7 @@ export const RegisterWidget: React.FC = () => {
         size={"22px"}
         weight={500}
       >
-        Регистрация
+        {t("Register.Header")}
       </Text>
       <Register />
     </Flex>

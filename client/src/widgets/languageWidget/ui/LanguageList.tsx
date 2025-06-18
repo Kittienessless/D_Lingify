@@ -84,7 +84,14 @@ const LanguageList: React.FC = () => {
   if (!store.isAuth) {
     return <LoginWidget />;
   }
-
+const options: Option[] = [
+  {
+    id: "1",
+    label: t("LanguageList.text1"),
+    value: "Title",
+  },
+  { id: "2", label: t("LanguageList.text2"), value: "Date" },
+];
   const searchHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
     setSearchContentData(e.currentTarget.value);

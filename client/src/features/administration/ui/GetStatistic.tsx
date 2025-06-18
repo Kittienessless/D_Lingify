@@ -1,7 +1,9 @@
 import { UserContext } from "app/providers";
 import { observer } from "mobx-react-lite";
 import react, { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import AdminService from "shared/api/user/AdminServive";
+import { Text } from "shared/ui/text";
 
 export type Statistic = {
   id: string;
@@ -11,6 +13,7 @@ export type Statistic = {
 
 const GetStatistic = () => {
   const { store } = useContext(UserContext);
+  const { t } = useTranslation();
 
   const [userStats, setUserStats] = useState<Statistic>();
   const [langStats, setLangStats] = useState<Statistic>();
@@ -34,6 +37,8 @@ const GetStatistic = () => {
   }, [store.isAuth]);
 
   return (
+    <>
+      <Text>{t("admin.header3")}</Text>
     <div
       style={{
         display: "grid",
@@ -55,7 +60,7 @@ const GetStatistic = () => {
       >
         <div style={{ fontSize: "24pt" }}>{userStats?.value}</div>
         <div style={{ marginTop: "8px", fontSize: "14px" }}>
-          {userStats?.label}
+          {t("admin.title7")}
         </div>
       </div>
 
@@ -69,10 +74,11 @@ const GetStatistic = () => {
       >
         <div style={{ fontSize: "24pt" }}>{langStats?.value}</div>
         <div style={{ marginTop: "8px", fontSize: "14px" }}>
-          {langStats?.label}
+          {t("admin.title8")}
         </div>
       </div>
     </div>
+    </>
   );
 };
 

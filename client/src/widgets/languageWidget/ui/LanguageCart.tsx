@@ -17,11 +17,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import languageService from "shared/api/language/languageService";
 import { BASE_URL } from "shared/constances";
 import { DownloadIcon } from "shared/assets/DownloadIcon";
+import { useTranslation } from "react-i18next";
 interface CartProps {
   id: string;
   title: string;
   desc: string;
- 
 }
 
 const HeaderContainer = styled.div`
@@ -29,7 +29,7 @@ const HeaderContainer = styled.div`
   z-index: -1;
 `;
 
-export function LanguageCart({ id, title, desc ,}: CartProps) {
+export function LanguageCart({ id, title, desc }: CartProps) {
   const Container = styled.div`
     background-color: ${({ theme }) => theme.colors.container};
     color: ${({ theme }) => theme.colors.font};
@@ -43,6 +43,7 @@ export function LanguageCart({ id, title, desc ,}: CartProps) {
     word-break: break-word;
   `;
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   function OnEdit(key: string) {
     navigate(`/redactLanguage/${key}`);
@@ -86,29 +87,29 @@ export function LanguageCart({ id, title, desc ,}: CartProps) {
       {id!}
       <HeaderContainer>
         <Menu
-          title="Настройки языка"
+          title={t("LanguageCart.text1")}
           renderOpener={({ props: { ref, ...props } }) => (
             <OpenMenuButton ref={ref} {...props} />
           )}
           renderContent={({ view, onClose }) => {
             const options: MenuOptionProps[] = [
               {
-                text: "Редактировать язык",
+                text: t("LanguageCart.text2"),
                 onSelect: () => {
                   OnEdit(id!);
                 },
                 icon: <EditIcon />,
               },
-           
+
               {
-                text: "Скачать язык",
+                text: t("LanguageCart.text3"),
                 onSelect: () => {
                   OnDownload(id!);
                 },
                 icon: <DownloadIcon />,
               },
               {
-                text: "Удалить язык",
+                text: t("LanguageCart.text4"),
                 onSelect: () => {
                   OnDelete(id!);
                 },

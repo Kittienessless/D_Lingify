@@ -12,6 +12,7 @@ import { Grammar } from "./Grammar";
 import { Dictionary } from "./Dictionary";
 import { LanguagePreferences } from "./LanguagePreferences";
 import { UserContext } from "app/providers";
+import { useTranslation } from "react-i18next";
 
 const Tabs = styled(BaseTabs)`
   .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
@@ -61,14 +62,14 @@ const { useBreakpoint } = Grid;
 export const RedactLanguage: React.FC = () => {
   const [langInfo, setLangInfo] = useState<ILanguage>();
   const { id } = useParams();
-    const { store } = useContext(UserContext);
+  const { store } = useContext(UserContext);
+  const { t } = useTranslation();
 
   const [error, setError] = useState("");
   const [file, setFile] = useState<FormData>();
   useEffect(() => {
     const fetchLangData = async () => {
       try {
-        
         const response = await languageService.getLanguage(id!);
         setLangInfo(response.data.lang);
 
@@ -76,14 +77,12 @@ export const RedactLanguage: React.FC = () => {
         setFile(fileResponse.data);
 
         let fileObject = JSON.parse(fileResponse.data);
-         console.log(fileObject) 
-        console.log(fileObject.choices[0].message.content) 
+        console.log(fileObject);
+        console.log(fileObject.choices[0].message.content);
         store.setCurrentLang(response.data.lang);
-        const parsedFile = JSON.parse(fileObject.choices[0].message.content)
-       console.log('current file ' + parsedFile.rules.noun)
+        const parsedFile = JSON.parse(fileObject.choices[0].message.content);
+        console.log("current file " + parsedFile.rules.noun);
         store.setCurrentFile(parsedFile);
-
-
       } catch (e) {
         if (e instanceof Error) {
           setError(e.message);
@@ -100,18 +99,18 @@ export const RedactLanguage: React.FC = () => {
   const tabPosition = isVertical ? "left" : "top";
   const items = [
     {
-      label: "Грамматика",
+      label: t("RedactLanguage.text1"),
       children: <Grammar />,
       key: "1",
     },
 
     {
-      label: "Словарь",
+      label: t("RedactLanguage.text2"),
       children: <Dictionary />,
       key: "2",
     },
     {
-      label: "Настройки",
+      label: t("RedactLanguage.text3"),
       children: <LanguagePreferences />,
       key: "3",
     },

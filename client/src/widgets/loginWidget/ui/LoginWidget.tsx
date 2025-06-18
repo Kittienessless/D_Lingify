@@ -1,6 +1,7 @@
 import  Login  from "features/profile/ui/Login";
 import styled from "styled-components";
 import { Text } from "shared/ui/text";
+import { useTranslation } from "react-i18next";
 
 const Flex = styled.div`
   padding: 10px;
@@ -56,6 +57,8 @@ const Flex = styled.div`
 `;
 
 export const LoginWidget = () => {
+    const { t } = useTranslation();
+
   return (
     <Flex>
       <Text
@@ -64,7 +67,7 @@ export const LoginWidget = () => {
         size={"22px"}
         weight={500}
       >
-        Авторизация
+       {t("Login.Header")}
       </Text>
       <Login />
     </Flex>

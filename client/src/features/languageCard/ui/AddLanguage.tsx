@@ -11,10 +11,12 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "shared/ui/button/index.tsx";
 import { Modal } from "shared/ui/modal";
 import { Opener } from "../../../shared/lib/Opener.tsx";
+import { useTranslation } from "react-i18next";
  
 export const AddLanguage = () => {
   const navigate = useNavigate();
-  //TODO: добавить в виде json lang?
+  const { t } = useTranslation();
+
   async function createLang() {
     try {
    
@@ -29,7 +31,7 @@ export const AddLanguage = () => {
   }
   return (
     <>
-      <Button primary onClick={()=>createLang()}>Создать язык</Button>
+      <Button primary onClick={()=>createLang()}>{t("LanguageList.text4")}</Button>
     </>
   );
 };

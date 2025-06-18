@@ -24,6 +24,7 @@ import Input from "antd/es/input/Input";
 import { Form, Select } from "antd";
 import { Button as AntdButon } from "antd";
 import Confirmation from "./Confirmation.tsx";
+import { useTranslation } from "react-i18next";
 const Wrapper = styled.div`
   margin: 0px auto;
   max-width: 40%;
@@ -130,6 +131,7 @@ const NeuralLang = () => {
   const [Prompt, setPrompt] = useState("");
   const { store } = useContext(UserContext);
   const [form] = Form.useForm();
+  const { t } = useTranslation();
 
   const [rules, setRules] = useState<any | null>(null);
 
@@ -161,6 +163,7 @@ const NeuralLang = () => {
   };
   return (
     <Wrapper>
+      <Text>{t("NeuralLang.header")}</Text>
       <Space height="m"></Space>
       <Form
         form={form}
@@ -180,129 +183,146 @@ const NeuralLang = () => {
         }}
       >
         <Form.Item
-          label="Объем словаря"
+          label={t("NeuralLang.title1")}
           name="vocabularySize"
-          rules={[
-            { required: true, message: "Пожалуйста, введите объем словаря" },
-          ]}
+          rules={[{ required: true, message: t("NeuralLang.title3") }]}
         >
           <Input type="number" min={1} />
         </Form.Item>
 
         <Form.Item
-          label="Части речи"
+          label={t("NeuralLang.title2")}
           name="partsOfSpeech"
-          rules={[{ required: true, message: "Выберите части речи" }]}
+          rules={[{ required: true, message: t("NeuralLang.title4") }]}
         >
-          <Select mode="multiple" placeholder="Выберите части речи">
-            <Select.Option value="noun">Существительное</Select.Option>
-            <Select.Option value="verb">Глагол</Select.Option>
-            <Select.Option value="adjective">Прилагательное</Select.Option>
-            <Select.Option value="adverb">Наречие</Select.Option>
-            <Select.Option value="pronoun">Местоимение</Select.Option>
-            <Select.Option value="numeral">Числительное</Select.Option>
-            <Select.Option value="preposition">Предлог</Select.Option>
-            <Select.Option value="conjunction">Союз</Select.Option>
-            <Select.Option value="interjection">Междометие</Select.Option>
+          <Select mode="multiple" placeholder={t("NeuralLang.title4")}>
+            <Select.Option value="noun">{t("NeuralLang.title5")}</Select.Option>
+            <Select.Option value="verb">{t("NeuralLang.title6")}</Select.Option>
+            <Select.Option value="adjective">
+              {t("NeuralLang.title7")}
+            </Select.Option>
+            <Select.Option value="adverb">
+              {t("NeuralLang.title8")}
+            </Select.Option>
+            <Select.Option value="pronoun">
+              {t("NeuralLang.title9")}
+            </Select.Option>
+            <Select.Option value="numeral">
+              {t("NeuralLang.title10")}
+            </Select.Option>
+            <Select.Option value="preposition">
+              {t("NeuralLang.title11")}
+            </Select.Option>
+            <Select.Option value="conjunction">
+              {t("NeuralLang.title12")}
+            </Select.Option>
+            <Select.Option value="interjection">
+              {t("NeuralLang.title13")}
+            </Select.Option>
           </Select>
         </Form.Item>
         <Form.Item
-          label="Используемые буквы латиницы"
+          label={t("NeuralLang.title14")}
           name="latinLetters"
-          tooltip="Введите буквы через запятую или пробел"
+          tooltip={t("NeuralLang.title15")}
         >
-          <Input placeholder="Например, a,b,c или a b c" />
+          <Input placeholder={t("NeuralLang.title16")} />
         </Form.Item>
         <Form.Item
-          label="Морфологическая сложность"
+          label={t("NeuralLang.title17")}
           name="morphologicalComplexity"
           rules={[
             {
               required: true,
-              message: "Выберите уровень морфологической сложности",
+              message: t("NeuralLang.title18"),
             },
           ]}
         >
           <Select>
-            <Select.Option value="simple">Простая</Select.Option>
-            <Select.Option value="moderate">Умеренная</Select.Option>
-            <Select.Option value="complex">Сложная</Select.Option>
+            <Select.Option value="simple">
+              {t("NeuralLang.title19")}
+            </Select.Option>
+            <Select.Option value="moderate">
+              {t("NeuralLang.title20")}
+            </Select.Option>
+            <Select.Option value="complex">
+              {t("NeuralLang.title21")}
+            </Select.Option>
           </Select>
         </Form.Item>
 
         <Form.Item
-          label="Тип синтаксиса"
+          label={t("NeuralLang.title22")}
           name="syntaxType"
-          rules={[{ required: true, message: "Выберите тип синтаксиса" }]}
+          rules={[{ required: true, message: t("NeuralLang.title23") }]}
         >
           <Select>
-            <Select.Option value="SVO">
-              SVO (подлежащее-сказуемое-дополнение)
-            </Select.Option>
-            <Select.Option value="SOV">
-              SOV (подлежащее-дополнение-сказуемое)
-            </Select.Option>
-            <Select.Option value="VSO">
-              VSO (сказуемое-подлежащее-дополнение)
-            </Select.Option>
+            <Select.Option value="SVO">{t("NeuralLang.title24")}</Select.Option>
+            <Select.Option value="SOV">{t("NeuralLang.title25")}</Select.Option>
+            <Select.Option value="VSO">{t("NeuralLang.title26")}</Select.Option>
           </Select>
         </Form.Item>
 
         <Form.Item
-          label="Грамматические категории"
+          label={t("NeuralLang.title27")}
           name="grammaticalCategories"
-          rules={[
-            { required: true, message: "Выберите грамматические категории" },
-          ]}
+          rules={[{ required: true, message: t("NeuralLang.title28") }]}
         >
           {/* Можно использовать Input или Select с множественным выбором */}
           {/* Для простоты используем Input */}
-          <Input placeholder="Например, gender, number, case" />
+          <Input placeholder={t("NeuralLang.title29")} />
         </Form.Item>
 
         <Form.Item
-          label="Стиль и тон"
+          label={t("NeuralLang.title30")}
           name="styleTone"
-          rules={[{ required: true, message: "Выберите стиль и тон" }]}
+          rules={[{ required: true, message: t("NeuralLang.title31") }]}
         >
           <Select>
-            <Select.Option value="formal">Формальный</Select.Option>
-            <Select.Option value="informal">Неформальный</Select.Option>
-            <Select.Option value="poetic">Поэтический</Select.Option>
-            <Select.Option value="technical">Технический</Select.Option>
+            <Select.Option value="formal">
+              {t("NeuralLang.title32")}
+            </Select.Option>
+            <Select.Option value="informal">
+              {t("NeuralLang.title33")}
+            </Select.Option>
+            <Select.Option value="poetic">
+              {t("NeuralLang.title34")}
+            </Select.Option>
+            <Select.Option value="technical">
+              {t("NeuralLang.title35")}
+            </Select.Option>
           </Select>
         </Form.Item>
 
-        <Form.Item label="Фонетическая система" name="phoneticSystem">
-          <Input placeholder="Описание фонетической системы" />
+        <Form.Item label={t("NeuralLang.title36")} name="phoneticSystem">
+          <Input placeholder={t("NeuralLang.title37")} />
         </Form.Item>
 
-        <Form.Item label="Правила словообразования" name="wordFormationRules">
-          <Input placeholder="Правила словообразования" />
+        <Form.Item label={t("NeuralLang.title38")} name="wordFormationRules">
+          <Input placeholder={t("NeuralLang.title39")} />
         </Form.Item>
 
-        <Form.Item
-          label="Уровень регулярности правил"
-          name="ruleRegularityLevel"
-        >
+        <Form.Item label={t("NeuralLang.title40")} name="ruleRegularityLevel">
           <Select>
-            <Select.Option value="strict">Строгий</Select.Option>
-            <Select.Option value="moderate">Умеренный</Select.Option>
-            <Select.Option value="loose">Свободный</Select.Option>
+            <Select.Option value="strict">
+              {t("NeuralLang.title41")}
+            </Select.Option>
+            <Select.Option value="moderate">
+              {t("NeuralLang.title42")}
+            </Select.Option>
+            <Select.Option value="loose">
+              {t("NeuralLang.title43")}
+            </Select.Option>
           </Select>
         </Form.Item>
 
         <Form.Item>
-          <AntdButon htmlType="submit">Сохранить настройки</AntdButon>
+          <AntdButon htmlType="submit">{t("NeuralLang.title44")}</AntdButon>
         </Form.Item>
       </Form>
       <Space height="s"></Space>
       <Text size={"14px"} weight={400}>
-        Вы можете создать язык с помощью Искусственного Интеллекта основанного
-        на GigaChat. Введите описание языка и Ваш запрос с описанием ниже. Вы
-        можете указать жетальное количество слов (не более 10.000 слов), правила
-        и другие данные. ИИ их обработает и выдаст результат. Если результат Вас
-        не устроит, в редакторе языка Вы сможете отредактировать нужные поля.
+        {t("NeuralLang.title45")}
       </Text>
       <Space height="s"></Space>
       <InputContainer>
@@ -312,12 +332,12 @@ const NeuralLang = () => {
           className="desc"
           onChange={(e) => setPrompt(e.target.value)}
           required={true}
-          placeholder={"Введите описание вашего запроса для ИИ* ..."}
+          placeholder={t("NeuralLang.title46")}
         />
       </InputContainer>
 
       <Space height="s"></Space>
-      <Button onClick={handleUseAI}>Создать вместе с ИИ</Button>
+      <Button onClick={handleUseAI}>{t("NeuralLang.button3")}</Button>
       <Space height="s"></Space>
       <Divider></Divider>
 
@@ -328,8 +348,10 @@ const NeuralLang = () => {
           justifyContent: "center",
         }}
       >
-        <Button onClick={() => navigateTo("LangInfo")}>Назад</Button>
-        <Button onClick={handleNext}>Далее</Button>
+        <Button onClick={() => navigateTo("LangInfo")}>
+          {t("NeuralLang.button1")}
+        </Button>
+        <Button onClick={handleNext}>{t("NeuralLang.button2")}</Button>
       </div>
     </Wrapper>
   );

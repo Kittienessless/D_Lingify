@@ -12,6 +12,7 @@ import axios, { AxiosResponse } from "axios";
 import { BASE_URL } from "shared/constances";
 import { JSX } from "react/jsx-runtime";
 import { observer } from "mobx-react-lite";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const [form] = Form.useForm();
@@ -19,6 +20,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { store } = useContext(UserContext);
+  const { t } = useTranslation();
 
   function loginHandler() {
     store.login(email, password);
@@ -53,7 +55,7 @@ const Login = () => {
     <Form form={form} name="login" initialValues={{ remember: true }}>
       <Form.Item
         name="email"
-        rules={[{ required: true, message: "Please input your Username!" }]}
+        rules={[{ required: true, message: t("Login.text1")}]}
       >
         <Input
           value={email}
@@ -63,12 +65,12 @@ const Login = () => {
             height: 40,
           }}
           prefix={<UserOutlined />}
-          placeholder="Email"
+          placeholder={t("Login.text2")}
         />
       </Form.Item>
       <Form.Item
         name="password"
-        rules={[{ required: true, message: "Please input your Password!" }]}
+        rules={[{ required: true, message: t("Login.text3")}]}
       >
         <Input
           style={{
@@ -79,7 +81,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           prefix={<LockOutlined />}
           type="password"
-          placeholder="Password"
+          placeholder={t("Login.text4")}
         />
       </Form.Item>
       <Form.Item>
@@ -94,7 +96,7 @@ const Login = () => {
               type="link"
               onClick={() => navigate("/Auth/recover")}
             >
-              Забыли пароль?
+              {t("Login.text5")}
             </Button>
           </Space>
         </Flex>
@@ -111,7 +113,7 @@ const Login = () => {
           block
           type="primary"
         >
-          Войти
+          {t("Login.text6")}
         </Button>
 
         <Form.Item style={{ marginTop: 10, width: "100%" }}>
@@ -127,7 +129,7 @@ const Login = () => {
               googleLogin();
             }}
           >
-            Войти с помощью Google
+            {t("Login.text7")}
           </Button>
         </Form.Item>
 
@@ -140,7 +142,7 @@ const Login = () => {
           type="link"
           onClick={() => navigate("/Auth/register")}
         >
-          или зарегистрируйтесь сейчас!
+         {t("Login.text8")}
         </Button>
       </Form.Item>
     </Form>

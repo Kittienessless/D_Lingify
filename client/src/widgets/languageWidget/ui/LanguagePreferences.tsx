@@ -19,6 +19,7 @@ import { TrashBinIcon } from "shared/assets/TrashBinIcon.tsx";
 import { Uploader } from "features/languageCard/index.ts";
 import { UploadIcon } from "shared/assets/UploadIcon.tsx";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 const PrefLang = styled.div`
   background-color: ${({ theme }) => theme.colors.container};
   color: ${({ theme }) => theme.colors.font};
@@ -47,6 +48,7 @@ export const LanguagePreferences: React.FC = () => {
   const [desc, setDesc] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const { store } = useContext(UserContext);
+  const { t } = useTranslation();
 
   async function handleDownloadFile(key: string) {
     try {
@@ -83,22 +85,22 @@ export const LanguagePreferences: React.FC = () => {
       <div>
       <PrefLang>
         <Text height="s" size={"12pt"}>
-          Изменить название языка
+          {t("LanguagePreferences.text1")}
         </Text>
         <HStack gap={40}>
           <Opener
             renderOpener={({ onOpen }) => (
               <IconButton
                 icon={<EditIcon />}
-                title={"Изменить название языка?"}
+                title={t("LanguagePreferences.text12")}
                 onClick={onOpen}
               >
-                Изменить название
+                {t("LanguagePreferences.text13")}
               </IconButton>
             )}
             renderContent={({ onClose }) => (
               <Modal
-                title="Вы уверены?"
+                title={t("LanguagePreferences.text14")}
                 onClose={onClose}
                 width={400}
                 footer={
@@ -110,15 +112,15 @@ export const LanguagePreferences: React.FC = () => {
                         onChange={(e) => setTitle(e.target.value)}
                       />
                     </InputContainer>
-                    <Button onClick={handleEditTitle}>Изменить</Button>
+                    <Button onClick={handleEditTitle}>{t("LanguagePreferences.text15")}</Button>
                     <Button primary onClick={onClose}>
-                      Отмена
+                      {t("LanguagePreferences.text6")}
                     </Button>
                   </div>
                 }
               >
                 <VStack gap={20}>
-                  <Text>Изменить название: </Text>
+                  <Text>{t("LanguagePreferences.text16")}</Text>
                 </VStack>
               </Modal>
             )}
@@ -127,22 +129,22 @@ export const LanguagePreferences: React.FC = () => {
       </PrefLang>
       <PrefLang>
         <Text height="s" size={"12pt"}>
-          Изменить описание языка
+          {t("LanguagePreferences.text2")}
         </Text>
         <HStack gap={40}>
           <Opener
             renderOpener={({ onOpen }) => (
               <IconButton
                 icon={<EditIcon />}
-                title={"Изменить описание языка?"}
+                title={t("LanguagePreferences.text21")}
                 onClick={onOpen}
               >
-                Изменить название
+               {t("LanguagePreferences.text21")}
               </IconButton>
             )}
             renderContent={({ onClose }) => (
               <Modal
-                title="Вы уверены?"
+                title={t("LanguagePreferences.text14")}
                 onClose={onClose}
                 width={400}
                 footer={
@@ -154,15 +156,15 @@ export const LanguagePreferences: React.FC = () => {
                         onChange={(e) => setDesc(e.target.value)}
                       />
                     </InputContainer>
-                    <Button onClick={handleEditTitle}>Изменить</Button>
+                    <Button onClick={handleEditTitle}>{t("LanguagePreferences.text15")}</Button>
                     <Button primary onClick={onClose}>
-                      Отмена
+                      {t("LanguagePreferences.text16")}
                     </Button>
                   </div>
                 }
               >
                 <VStack gap={20}>
-                  <Text>Изменить описание: </Text>
+                  <Text>{t("LanguagePreferences.text22")}</Text>
                 </VStack>
               </Modal>
             )}
@@ -171,41 +173,41 @@ export const LanguagePreferences: React.FC = () => {
       </PrefLang>
       <PrefLang>
         <Text height="s" size={"12pt"}>
-          Изменить вид карточки языка
+         {t("LanguagePreferences.text3")}
         </Text>
         <IconButton
           onClick={() => handleShowCards()}
-          title="Показать карточки"
-          icon={isOpen ? <ArrowRightOutlined /> : <ArrowLeftOutlined />}
+          title={t("LanguagePreferences.text4")}
+          icon={isOpen ? <ArrowLeftOutlined /> :  <ArrowRightOutlined /> }
         />
       </PrefLang>
       <PrefLang>
         <Text height="s" size={"12pt"}>
-          Скачать язык
+          {t("LanguagePreferences.text5")}
         </Text>
         <IconButton
           onClick={() => handleDownloadFile(store.currentLang.id)}
-          title="Скачать язык"
+          title={t("LanguagePreferences.text5")}
           icon={<DownloadIcon />}
         />
       </PrefLang>
       <PrefLang>
         <Text height="s" size={"12pt"}>
-          Импортировать словарь
+          {t("LanguagePreferences.text6")}
         </Text>
         <IconButton
           onClick={() => handleUploaderFile(store.currentLang.id)}
-          title="Импортировать словарь"
+          title={t("LanguagePreferences.text6")}
           icon={<UploadIcon />}
         />
       </PrefLang>
       <PrefLang>
         <Text height="s" size={"12pt"}>
-          Удалить язык
+          {t("LanguagePreferences.text7")}
         </Text>
         <IconButton
           onClick={() => OnDelete(store.currentLang.id)}
-          title="Удалить язык"
+          title={t("LanguagePreferences.text7")}
           icon={<TrashBinIcon />}
         />
       </PrefLang>
