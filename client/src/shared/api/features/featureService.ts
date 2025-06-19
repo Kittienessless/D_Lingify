@@ -11,14 +11,14 @@ export default class featureService {
   static async translate(
     text: string,
     langID: string
-  ): Promise<AxiosResponse> {
-    return await $api.post(`${BASE_URL}/feature/translate`, {
+  ): Promise<AxiosResponse<any>>{
+    return await $api.post<any>(`${BASE_URL}/feature/translate`, {
       text,
       langID,
     });
   }
 
-  static async generate(selectedLanguage: string): Promise<AxiosResponse> {
-    return await $api.post(`${BASE_URL}/feature/text`, { selectedLanguage });
+  static async generate(langID: string): Promise<AxiosResponse<any>> {
+    return await $api.post<any>(`${BASE_URL}/feature/text`, { langID });
   }
 }

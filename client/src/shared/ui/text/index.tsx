@@ -77,6 +77,27 @@ export const text = ({
         backdrop-filter: blur(100px);
       }
     `};
+  @media (width <= 1350px) {
+    ${height &&
+    css`
+      line-height: ${lineHeight.l} !important;
+    `};
+     
+  }
+  @media (width <= 1050px) {
+    ${height &&
+    css`
+      line-height: ${lineHeight.m} !important;
+    `};
+      
+  }
+    @media (width <= 900px) {
+    ${height &&
+    css`
+      line-height: ${lineHeight.s} !important;
+    `};
+      
+  }
 `;
 
 export const Text = styled.p<TextProps>`

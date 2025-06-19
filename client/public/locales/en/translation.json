@@ -134,6 +134,7 @@
     "Translate1": "Select language... ",
     "Translate2": "Write text here... ",
     "Translate3": "Translation... ",
+    "Translate4": "Translate ",
 
     "Generate1": "Here you can generate the desired text in your created language using Artificial Intelligence.",
     "Generate2": "Generated text will appear here... ",
@@ -315,5 +316,9 @@
     "text2": "Creation Date",
     "text3": "Search...",
     "text4": "Create Language"
+  },
+    "translator": {
+    "text1": "English",
+    "text2": "Russian"
   }
 }

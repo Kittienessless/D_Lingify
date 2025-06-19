@@ -16,6 +16,7 @@ import { Option } from "../../shared/types/Option.tsx";
 import { Select } from "shared/ui/dropdown";
 import { Space } from "shared/ui/space/Space.tsx";
 import { useTranslation } from "react-i18next";
+import featureService from "shared/api/features/featureService.ts";
 
 export const GenerateText = () => {
   const { store } = useContext(UserContext);
@@ -47,7 +48,20 @@ export const GenerateText = () => {
     background-color: ${({ theme }) => theme.colors.bg};
     color: ${({ theme }) => theme.colors.font};
   `;
-  function handlerGenerate() {}
+ const OnGenerateHelper = async () => {
+  setText("");
+     try {
+
+       const res = await featureService.generate(selectedItem!.id);
+       console.log(res)
+       let fileObject = JSON.parse(res.data);
+       console.log(res.data);
+       const parsedFile = JSON.stringify(fileObject.choices[0].message.content);
+       console.log(parsedFile);
+ 
+       setText(parsedFile);
+     } catch (e) {}
+   };
   function onChosenHelper(selectedItem: any) {
     setSelectedItem(selectedItem);
   }
@@ -65,7 +79,7 @@ export const GenerateText = () => {
       />
       <Space height="s" />
 
-      <Button primary={true} onClick={handlerGenerate}>
+      <Button primary={true} onClick={OnGenerateHelper}>
         {t("profile.Generate3")}
       </Button>
       <Space height="s" />
@@ -75,7 +89,7 @@ export const GenerateText = () => {
         readonly
         value={text}
         placeholder={t("profile.Generate2")}
-        maxlength={1000}
+        maxlength={2000}
       />
     </Container>
   );

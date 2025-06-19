@@ -37,22 +37,9 @@ const ProfileDiv = styled.div`
 const Profile: React.FC = () => {
   const { t } = useTranslation();
   const screens = useBreakpoint();
-  const { store } = useContext(UserContext);
 
   const isVertical = screens.lg || screens.xl || screens.xxl;
 
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      store.checkAuth();
-    }
-  }, [store.isAuth]);
-  
-  if (store.isLoading) {
-    return <Loader></Loader>;
-  }
-  if (!store.isAuth) {
-    return <LoginWidget />;
-  }
   const tabPosition = isVertical ? "left" : "top";
   const items = [
     {
@@ -83,13 +70,9 @@ const Profile: React.FC = () => {
   ];
   return (
     <>
-      {store.isAuth ? (
-        <ProfileDiv>
-          <Tabs tabPosition={tabPosition} items={items} />
-        </ProfileDiv>
-      ) : (
-        "Invalid authentication"
-      )}
+      <ProfileDiv>
+        <Tabs tabPosition={tabPosition} items={items} />
+      </ProfileDiv>
     </>
   );
 };

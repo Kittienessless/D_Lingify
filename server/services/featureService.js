@@ -10,7 +10,10 @@ const ApiError = require("../exceptions/api-error.js");
 class featureService {
   async generateTextNeural(bearer, path) {
     try {
-      const contentData = filesService.readJsonFile(path);
+   //todo: заменить строку
+   //    const contentData = filesService.readJsonFile(path);
+
+   //todo: написать системный промпт
       const data = JSON.stringify({
         model: "GigaChat-2-Max",
         messages: [

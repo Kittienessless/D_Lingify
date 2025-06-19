@@ -74,9 +74,6 @@ export function LanguageCart({ id, title, desc }: CartProps) {
     }
   }
 
-  function OnShow(key: string) {
-    navigate(`/redactLanguage/${key}`);
-  }
   function OnDownload(key: string) {
     handleDownloadFile(key);
   }

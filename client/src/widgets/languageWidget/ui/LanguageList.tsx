@@ -126,15 +126,10 @@ const options: Option[] = [
           })
         );
     }
-    console.log(selectedItem);
-    console.log(langInfo);
-  }
-
-  async function OnDelete() {
-   
     
   }
 
+ 
   return (
     <ContainerList>
       <FeaturedContainer>
@@ -164,13 +159,14 @@ const options: Option[] = [
         )
 
         .map((lang, index) => (
-          <li key={index}>
+          <div key={index}>
             <LanguageCart
               id={lang.id}
               title={lang.Title}
               desc={lang.Description}
+               
             />
-          </li>
+          </div>
         ))}
 
       {selectedItem && <div></div>}

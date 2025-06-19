@@ -100,6 +100,21 @@ export const Dictionary: React.FC = () => {
           text
         ),
     },
+     {
+      title: "Свойство",
+      dataIndex: "property",
+      key: "property",
+      sorter: (a: any, b: any) => a.translate.localeCompare(b.translate),
+      render: (text: any, record: any) =>
+        record.key === editingKey ? (
+          <Input
+            value={editTranslation}
+            onChange={(e) => setEditTranslation(e.target.value)}
+          />
+        ) : (
+          text
+        ),
+    },
     {
       title: t("Dictionary.text7"),
       key: "actions",
