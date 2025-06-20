@@ -171,7 +171,7 @@ export const LanguagePreferences: React.FC = () => {
           />
         </HStack>
       </PrefLang>
-      <PrefLang>
+      {/* <PrefLang>
         <Text height="s" size={"12pt"}>
          {t("LanguagePreferences.text3")}
         </Text>
@@ -180,7 +180,7 @@ export const LanguagePreferences: React.FC = () => {
           title={t("LanguagePreferences.text4")}
           icon={isOpen ? <ArrowLeftOutlined /> :  <ArrowRightOutlined /> }
         />
-      </PrefLang>
+      </PrefLang> */}
       <PrefLang>
         <Text height="s" size={"12pt"}>
           {t("LanguagePreferences.text5")}
@@ -212,7 +212,7 @@ export const LanguagePreferences: React.FC = () => {
         />
       </PrefLang>
       </div>
-      {isOpen && <LangCards></LangCards>}
+   {/*    {isOpen && <LangCards></LangCards>} */}
     </div>
   );
 };

@@ -37,20 +37,18 @@ const LanguageContainer = styled.div`
   padding: 1em;
   margin: 2em;
 `;
+
 const TitleContainer = styled.div`
+background:${({ theme }) => theme.gradients[1]};
   display: flex;
   flex-direction: column;
   color: ${({ theme }) => theme.colors.fontContrast};
   padding: 2em;
   text-wrap: no-wrap;
-  background: linear-gradient(
-    135deg,
-    rgb(117, 109, 240) 21%,
-    rgb(242, 205, 197) 100%
-  );
   height: 20vh;
   width: 100%;
   ${borderRadius.m};
+  
 `;
 
 const LangTabs = styled.div`
@@ -115,6 +113,7 @@ export const RedactLanguage: React.FC = () => {
       key: "3",
     },
   ];
+
   return (
     <LanguageContainer>
       <TitleContainer>
@@ -131,6 +130,7 @@ export const RedactLanguage: React.FC = () => {
         </Text>
         <Text height="s" size={"16px"}></Text>
       </TitleContainer>
+
       <LangTabs>
         <Tabs tabPosition={tabPosition} items={items} />
       </LangTabs>
