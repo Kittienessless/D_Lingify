@@ -49,7 +49,7 @@ export const lightTheme: DefaultTheme = {
     not: "none",
   },
   border : {
-    color: '1px solid  rgb(0, 23, 41)',
+    color: 'rgb(0, 23, 41)',
    }
 };
 
@@ -76,6 +76,7 @@ export const darkTheme: DefaultTheme = {
     not: "none",
   },
   border : {
-    primary: "#0091ff",
+    color: "#0091ff",
+    
    }
 };

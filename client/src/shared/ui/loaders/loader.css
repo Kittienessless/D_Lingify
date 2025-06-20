@@ -1,13 +1,31 @@
 .loader {
-  width: 50px;
-  aspect-ratio: 1;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  background: #0091FF;
-  -webkit-mask: radial-gradient(circle closest-side at 50% 40%,#0000 94%, #000);
-  transform-origin: 50% 40%;
-  animation: l25 1s infinite linear;
- 
+  display: inline-block;
+  border-top: 4px solid #FFF;
+  border-right: 4px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
 }
-@keyframes l25 {
-  100% {transform: rotate(1turn)}
+.loader::after {
+  content: '';  
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border-left: 4px solid #008cff;
+  border-bottom: 4px solid transparent;
+  animation: rotation 0.5s linear infinite reverse;
 }
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 

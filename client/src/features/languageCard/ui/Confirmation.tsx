@@ -12,6 +12,7 @@ import { borderRadius } from "shared/lib/borderRadius";
 import { Divider } from "shared/ui/divider";
 import { LangAPI } from "shared/api";
 import { useTranslation } from "react-i18next";
+import { Loader } from "shared/ui/loaders";
 
 const Wrapper = styled.div`
   margin: 0px auto;
@@ -54,31 +55,45 @@ const StyledInput = styled.input`
 const Confirmation = () => {
   const { store } = useContext(UserContext);
   const { t } = useTranslation();
+  let resultNeural;
+  let result;
 
   const navigate = useNavigate();
 
   const createLanguage = async () => {
-    let resultNeural;
-    let result;
-    if (store.isNeural) {
-      resultNeural = await languageService.createNeural(
-        store.promptNeuralCreation,
-        store.language.Title,
-        store.language.Description,
-        store.rules
-      );
-    }
+    store.setLoading(true);
 
-    if (!store.isNeural) {
-      result = await languageService.create(
-        store.language!.Title,
-        store.language!.Description
-      );
+    try {
+      if (store.isNeural) {
+        resultNeural = await languageService.createNeural(
+          store.promptNeuralCreation,
+          store.language.Title,
+          store.language.Description,
+          store.rules
+        );
+      }
+
+      if (!store.isNeural) {
+        result = await languageService.create(
+          store.language!.Title,
+          store.language!.Description
+        );
+      }
+      store.setLoading(false);
+    } catch (e) {
+      console.log(e);
     }
+  };
+
+  function handleNext() {
     navigate(
       `/redactLanguage/${result!.data.id ? result!.data.id : resultNeural!.data.id}`
     );
-  };
+  }
+
+  if (store.isLoading) {
+    return <Loader></Loader>;
+  }
   return (
     <Wrapper>
       <Space height="m"></Space>
@@ -101,8 +116,15 @@ const Confirmation = () => {
         }}
       >
         <Button style={{ width: "fit-content" }} onClick={createLanguage}>
-          {t("confirmation.header2")}
+          Создать язык
         </Button>
+        {!store.isLoading ? (
+          <Loader />
+        ) : (
+          <Button style={{ width: "fit-content" }} onClick={handleNext}>
+             Редактировать
+          </Button>
+        )}
       </div>
     </Wrapper>
   );

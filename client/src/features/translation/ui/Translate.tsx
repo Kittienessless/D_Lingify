@@ -68,6 +68,9 @@ const Translate = () => {
 
   const TranslateCont = styled.div`
     display: flex;
+    @media (width <= 1000px) {
+     flex-direction: column;
+    }
   `;
 
   const ContainerTranslate = styled.div`

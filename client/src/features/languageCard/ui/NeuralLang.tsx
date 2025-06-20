@@ -1,30 +1,18 @@
-import React, {
-  useContext,
-  useEffect,
-  useState,
-  useSyncExternalStore,
-} from "react";
+import { useContext, useState } from "react";
 import { UseCreateLangHook } from "shared/lib/hook/UseCreateLangHook";
-import { StepperProvider } from "shared/ui/stepper/ui/StepperContext";
-import { Uploader } from "features/languageCard/ui/Uploader";
 import { Button } from "shared/ui/button";
-import { Stepper } from "../../../shared/ui/stepper/ui/Stepper.tsx";
 import styled from "styled-components";
 import { Text } from "shared/ui/text";
-import { Navigate, useNavigate } from "react-router-dom";
 import { Divider } from "shared/ui/divider";
 import { Space } from "shared/ui/space/Space.tsx";
 import { borderRadius } from "shared/lib/borderRadius.tsx";
-import { LangAPI } from "shared/api/index.ts";
-import languageService from "shared/api/language/languageService.ts";
 import { UserContext } from "app/providers";
-import { ILanguage } from "entities/language/index.ts";
 import { observer } from "mobx-react-lite";
 import Input from "antd/es/input/Input";
-import { Form, Select } from "antd";
+import { Form, Select, Grid } from "antd";
 import { Button as AntdButon } from "antd";
-import Confirmation from "./Confirmation.tsx";
 import { useTranslation } from "react-i18next";
+import { WithHint } from "shared/ui/tooltip/WithHint.tsx";
 const Wrapper = styled.div`
   margin: 0px auto;
   max-width: 40%;
@@ -32,35 +20,9 @@ const Wrapper = styled.div`
 `;
 
 const InputContainer = styled.div`
-  display: block;
-  width: 100%;
-  background: ${({ theme }) => theme.colors.menu};
-  font-weight: 600;
-  margin: 15px;
-  ${borderRadius.m};
-  border: 1px solid ${({ theme }) => theme.colors.menu};
-  padding: 10px;
-`;
-const StyledInput = styled.input`
-  background: ${({ theme }) => theme.colors.menu};
-  height: auto;
+  background-color: ${({ theme }) => theme.colors.menu};
 
-  padding: 15px;
-  min-width: 40%;
-  border-color: transparent;
-  color: ${({ theme }) => theme.colors.font};
-
-  &:focus {
-    outline: none;
-    border: 1px solid rgb(197, 197, 197);
-    border-radius: 12px;
-  }
-  &.desc {
-    width: 100%;
-    height: auto;
-    padding: 15px;
-    resize: vertical !important;
-  }
+  ${borderRadius.s};
 `;
 
 export interface UppercaseLetters {
@@ -125,26 +87,25 @@ export interface LanguageGenerationSettings {
   ruleRegularityLevel: RuleRegularityLevel; // уровень регулярности правил
   latinLetters?: string[];
 }
+const { useBreakpoint } = Grid;
 
 const NeuralLang = () => {
-  const { navigateTo, handleSetData, data } = UseCreateLangHook();
+  const { navigateTo } = UseCreateLangHook();
   const [Prompt, setPrompt] = useState("");
   const { store } = useContext(UserContext);
   const [form] = Form.useForm();
   const { t } = useTranslation();
 
+ 
   const [rules, setRules] = useState<any | null>(null);
 
   const onFinish = (values: any) => {
-    console.log("Настройки языка:", values);
     const settings: LanguageGenerationSettings = {
       ...values,
       partsOfSpeech: values.partsOfSpeech,
       grammaticalCategories: values.grammaticalCategories,
     };
     setRules(settings);
-    console.log("Объект настроек:", rules);
-
     store.setRules(settings);
   };
 
@@ -161,10 +122,35 @@ const NeuralLang = () => {
       console.log(e + "\n ошибка создания языка с помощью ИИ");
     }
   };
+  const screens = useBreakpoint();
+
+  // Определяем ширину в зависимости от ширины экрана
+  const getWidth = () => {
+    if (screens.xl) {
+      return 1000; // очень широкий экран
+    } else if (screens.lg) {
+      return 600; // большой экран
+    } else if (screens.md) {
+      return 400; // средний экран
+    } else if (screens.sm) {
+      return 300; // маленький экран
+    } else {
+      return "100%"; // очень маленький или мобильный
+    }
+  };
+
+  const width = getWidth();
+
+ 
+
   return (
     <Wrapper>
-      <Text>{t("NeuralLang.header")}</Text>
       <Space height="m"></Space>
+      <Text size={"16px"} weight={400}>
+        {t("NeuralLang.header")}
+      </Text>
+      <Space height="m"></Space>
+      <Divider></Divider>
       <Form
         form={form}
         layout="vertical"
@@ -187,7 +173,26 @@ const NeuralLang = () => {
           name="vocabularySize"
           rules={[{ required: true, message: t("NeuralLang.title3") }]}
         >
-          <Input type="number" min={1} />
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Input
+              style={{ width: width, minWidth: "50px" }}
+              type="number"
+              min={5}
+              max={800}
+            />
+            <WithHint
+              hint={
+                "Количество слов в словаре. Минимум слов - 5, максимум - 800. Обратите внимание, что слова создаются произвольно, некоторые из них частоиспользуемые, некоторые - нет"
+              }
+            >
+              <Text></Text>
+            </WithHint>
+          </div>
         </Form.Item>
 
         <Form.Item
@@ -195,38 +200,69 @@ const NeuralLang = () => {
           name="partsOfSpeech"
           rules={[{ required: true, message: t("NeuralLang.title4") }]}
         >
-          <Select mode="multiple" placeholder={t("NeuralLang.title4")}>
-            <Select.Option value="noun">{t("NeuralLang.title5")}</Select.Option>
-            <Select.Option value="verb">{t("NeuralLang.title6")}</Select.Option>
-            <Select.Option value="adjective">
-              {t("NeuralLang.title7")}
-            </Select.Option>
-            <Select.Option value="adverb">
-              {t("NeuralLang.title8")}
-            </Select.Option>
-            <Select.Option value="pronoun">
-              {t("NeuralLang.title9")}
-            </Select.Option>
-            <Select.Option value="numeral">
-              {t("NeuralLang.title10")}
-            </Select.Option>
-            <Select.Option value="preposition">
-              {t("NeuralLang.title11")}
-            </Select.Option>
-            <Select.Option value="conjunction">
-              {t("NeuralLang.title12")}
-            </Select.Option>
-            <Select.Option value="interjection">
-              {t("NeuralLang.title13")}
-            </Select.Option>
-          </Select>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Select mode="multiple" placeholder={t("NeuralLang.title4")}>
+              <Select.Option value="noun">
+                {t("NeuralLang.title5")}
+              </Select.Option>
+              <Select.Option value="verb">
+                {t("NeuralLang.title6")}
+              </Select.Option>
+              <Select.Option value="adjective">
+                {t("NeuralLang.title7")}
+              </Select.Option>
+              <Select.Option value="adverb">
+                {t("NeuralLang.title8")}
+              </Select.Option>
+              <Select.Option value="pronoun">
+                {t("NeuralLang.title9")}
+              </Select.Option>
+              <Select.Option value="numeral">
+                {t("NeuralLang.title10")}
+              </Select.Option>
+              <Select.Option value="preposition">
+                {t("NeuralLang.title11")}
+              </Select.Option>
+              <Select.Option value="conjunction">
+                {t("NeuralLang.title12")}
+              </Select.Option>
+              <Select.Option value="interjection">
+                {t("NeuralLang.title13")}
+              </Select.Option>
+            </Select>
+            <WithHint
+              hint={
+                "Нужно выбрать те части речи, которые будут присутствовать в Вашем языке. Обратите внимание, что представлены не все части речи. В дальнейшем будут добавлены и другие."
+              }
+            >
+              <></>
+            </WithHint>
+          </div>
         </Form.Item>
-        <Form.Item
-          label={t("NeuralLang.title14")}
-          name="latinLetters"
-          tooltip={t("NeuralLang.title15")}
-        >
-          <Input placeholder={t("NeuralLang.title16")} />
+        <Form.Item label={t("NeuralLang.title14")} name="latinLetters">
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Input
+              style={{ width: width, minWidth: "50px" }}
+              placeholder={t("NeuralLang.title16")}
+            />
+            <WithHint
+              hint={
+                "Введите через запятую или пробел: a,b,c... / a b c .. . Введены все латинские буквы которые будут использованы для генерации языка. Обратите внимание, что при генерации языка с отсутствующими буквами могут быть ошибки."
+              }
+            >
+              <></>
+            </WithHint>
+          </div>
         </Form.Item>
         <Form.Item
           label={t("NeuralLang.title17")}
@@ -238,17 +274,31 @@ const NeuralLang = () => {
             },
           ]}
         >
-          <Select>
-            <Select.Option value="simple">
-              {t("NeuralLang.title19")}
-            </Select.Option>
-            <Select.Option value="moderate">
-              {t("NeuralLang.title20")}
-            </Select.Option>
-            <Select.Option value="complex">
-              {t("NeuralLang.title21")}
-            </Select.Option>
-          </Select>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Select>
+              <Select.Option value="simple">
+                {t("NeuralLang.title19")}
+              </Select.Option>
+              <Select.Option value="moderate">
+                {t("NeuralLang.title20")}
+              </Select.Option>
+              <Select.Option value="complex">
+                {t("NeuralLang.title21")}
+              </Select.Option>
+            </Select>
+            <WithHint
+              hint={
+                "Морфологическая сложность — это степень внутренней структурированности слова, определяемая количеством и типами морфем, из которых оно состоит. Чем больше морфем и сложнее их связь, тем выше морфологическая сложность."
+              }
+            >
+              <></>
+            </WithHint>
+          </div>
         </Form.Item>
 
         <Form.Item
@@ -256,11 +306,31 @@ const NeuralLang = () => {
           name="syntaxType"
           rules={[{ required: true, message: t("NeuralLang.title23") }]}
         >
-          <Select>
-            <Select.Option value="SVO">{t("NeuralLang.title24")}</Select.Option>
-            <Select.Option value="SOV">{t("NeuralLang.title25")}</Select.Option>
-            <Select.Option value="VSO">{t("NeuralLang.title26")}</Select.Option>
-          </Select>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Select>
+              <Select.Option value="SVO">
+                {t("NeuralLang.title24")}
+              </Select.Option>
+              <Select.Option value="SOV">
+                {t("NeuralLang.title25")}
+              </Select.Option>
+              <Select.Option value="VSO">
+                {t("NeuralLang.title26")}
+              </Select.Option>
+            </Select>
+            <WithHint
+              hint={
+                "Это труктура, определяющая порядок и связь слов и частей речи, например, простое, сложносочиненное или сложноподчиненное. Он показывает, как компоненты предложения объединены для выражения смысловой целостности."
+              }
+            >
+              <></>
+            </WithHint>
+          </div>
         </Form.Item>
 
         <Form.Item
@@ -268,9 +338,24 @@ const NeuralLang = () => {
           name="grammaticalCategories"
           rules={[{ required: true, message: t("NeuralLang.title28") }]}
         >
-          {/* Можно использовать Input или Select с множественным выбором */}
-          {/* Для простоты используем Input */}
-          <Input placeholder={t("NeuralLang.title29")} />
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Input
+              style={{ width: width, minWidth: "50px" }}
+              placeholder={t("NeuralLang.title29")}
+            />
+            <WithHint
+              hint={
+                "Грамматические категории — это свойства слов, отражающие их грамматическую роль и изменение, например, род, число, время или падеж. Они показывают, как слова изменяются и связаны в предложении для выражения грамматических отношений."
+              }
+            >
+              <></>
+            </WithHint>
+          </div>
         </Form.Item>
 
         <Form.Item
@@ -278,42 +363,104 @@ const NeuralLang = () => {
           name="styleTone"
           rules={[{ required: true, message: t("NeuralLang.title31") }]}
         >
-          <Select>
-            <Select.Option value="formal">
-              {t("NeuralLang.title32")}
-            </Select.Option>
-            <Select.Option value="informal">
-              {t("NeuralLang.title33")}
-            </Select.Option>
-            <Select.Option value="poetic">
-              {t("NeuralLang.title34")}
-            </Select.Option>
-            <Select.Option value="technical">
-              {t("NeuralLang.title35")}
-            </Select.Option>
-          </Select>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Select>
+              <Select.Option value="formal">
+                {t("NeuralLang.title32")}
+              </Select.Option>
+              <Select.Option value="informal">
+                {t("NeuralLang.title33")}
+              </Select.Option>
+              <Select.Option value="poetic">
+                {t("NeuralLang.title34")}
+              </Select.Option>
+              <Select.Option value="technical">
+                {t("NeuralLang.title35")}
+              </Select.Option>
+            </Select>
+            <WithHint
+              hint={
+                "Стиль речи — это совокупность языковых средств, определяющих характер и тональность высказывания, например, научный, художественный или деловой. Он показывает, как подбираются слова и конструкции для достижения определенного коммуникативного эффекта."
+              }
+            >
+              <></>
+            </WithHint>
+          </div>
         </Form.Item>
 
         <Form.Item label={t("NeuralLang.title36")} name="phoneticSystem">
-          <Input placeholder={t("NeuralLang.title37")} />
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Input
+              style={{ width: width, minWidth: "50px" }}
+              placeholder={t("NeuralLang.title37")}
+            />
+            <WithHint
+              hint={
+                "Фонетическая система — это совокупность звуков речи, представленных в Международном фонетическом алфавите (IPA), включая гласные, согласные и их артикуляционные особенности. Она определяет звуковой строй языка и правила их произношения."
+              }
+            >
+              <></>
+            </WithHint>
+          </div>
         </Form.Item>
 
         <Form.Item label={t("NeuralLang.title38")} name="wordFormationRules">
-          <Input placeholder={t("NeuralLang.title39")} />
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Input
+              style={{ width: width, minWidth: "50px" }}
+              placeholder={t("NeuralLang.title39")}
+            />
+            <WithHint
+              hint={
+                "Правила словообразования — это системы морфологических и лексических закономерностей, по которым образуются новые слова в языке. Они определяют, как из корней, аффиксов и других морфем создаются слова с новыми значениями."
+              }
+            >
+              <Text></Text>
+            </WithHint>
+          </div>
         </Form.Item>
 
         <Form.Item label={t("NeuralLang.title40")} name="ruleRegularityLevel">
-          <Select>
-            <Select.Option value="strict">
-              {t("NeuralLang.title41")}
-            </Select.Option>
-            <Select.Option value="moderate">
-              {t("NeuralLang.title42")}
-            </Select.Option>
-            <Select.Option value="loose">
-              {t("NeuralLang.title43")}
-            </Select.Option>
-          </Select>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Select>
+              <Select.Option value="strict">
+                {t("NeuralLang.title41")}
+              </Select.Option>
+              <Select.Option value="moderate">
+                {t("NeuralLang.title42")}
+              </Select.Option>
+              <Select.Option value="loose">
+                {t("NeuralLang.title43")}
+              </Select.Option>
+            </Select>
+            <WithHint
+              hint={
+                "Регулярность правил языка — это систематичность и предсказуемость в применении морфологических и синтаксических закономерностей. Строгая регулярность предполагает строгое соблюдение правил без исключений, умеренная — наличие некоторых исключений, а свободная — значительное разнообразие и гибкость в применении правил."
+              }
+            >
+              <></>
+            </WithHint>
+          </div>
         </Form.Item>
 
         <Form.Item>
@@ -326,8 +473,9 @@ const NeuralLang = () => {
       </Text>
       <Space height="s"></Space>
       <InputContainer>
-        <StyledInput
+        <Input
           name="Description"
+          style={{ width: width, maxWidth: "100%", height: "auto" }}
           type="text"
           className="desc"
           onChange={(e) => setPrompt(e.target.value)}
@@ -335,10 +483,17 @@ const NeuralLang = () => {
           placeholder={t("NeuralLang.title46")}
         />
       </InputContainer>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Button onClick={handleUseAI}>{t("NeuralLang.button3")}</Button>
+      </div>
 
-      <Space height="s"></Space>
-      <Button onClick={handleUseAI}>{t("NeuralLang.button3")}</Button>
-      <Space height="s"></Space>
+      <Space height="m"></Space>
       <Divider></Divider>
 
       <div
@@ -351,7 +506,9 @@ const NeuralLang = () => {
         <Button onClick={() => navigateTo("LangInfo")}>
           {t("NeuralLang.button1")}
         </Button>
-        <Button onClick={handleNext}>{t("NeuralLang.button2")}</Button>
+        <Button   onClick={handleNext}>
+          {t("NeuralLang.button2")}
+        </Button>
       </div>
     </Wrapper>
   );

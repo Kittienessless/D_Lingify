@@ -26,7 +26,6 @@ import NeuralLang from "./NeuralLang.tsx";
 import Confirmation from "./Confirmation.tsx";
 import { useTranslation } from "react-i18next";
 
-
 const Wrapper = styled.div`
   margin: 0px auto;
   max-width: 40%;
@@ -67,15 +66,15 @@ const StyledInput = styled.input`
 
 const Introduction = () => {
   const { navigateTo } = UseCreateLangHook();
-    const { t } = useTranslation();
-  
+  const { t } = useTranslation();
+
   return (
     <Wrapper>
       <Space height="m"></Space>
-      <Text size={"18px"} height="s">
+      <Text size={"16pt"} height="s">
         {t("Introduction.header1")}
       </Text>
-      <Text size={"16px"} height="s">
+      <Text size={"14pt"} height="s">
         {t("Introduction.header2")}
       </Text>
       <Space height="s"></Space>
@@ -87,7 +86,9 @@ const Introduction = () => {
         }}
       >
         {" "}
-        <Button onClick={() => navigateTo("LangInfo")}>{t("Introduction.button")}</Button>
+        <Button onClick={() => navigateTo("LangInfo")}>
+          {t("Introduction.button")}
+        </Button>
       </div>
     </Wrapper>
   );
@@ -96,27 +97,33 @@ const Introduction = () => {
 const LangInfo = () => {
   const { store } = useContext(UserContext);
   const { t } = useTranslation();
+  const [form] = Form.useForm();
 
   const { navigateTo, handleSetData } = UseCreateLangHook();
-  // const [isEmpty, setIsEmpty] = useState(true);
-  // const [isEmptyPrompt, setisEmptyPrompt] = useState(true);
-  //const [isDisable, setIsDisable] = useState(true);
+
   const [Title, setLangName] = useState("");
   const [Description, setDescLang] = useState("");
 
+  const isFieldsFilled = () => {
+    const values = form.getFieldsValue();
+    return Object.values(values).every(
+      (val: any) => val && val.trim().length >= 2
+    );
+  };
+
   const handleNext = async () => {
     await store.setLanguage(Title, Description);
- 
-
     navigateTo("CreateLangNeural");
   };
-  const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    store.setLanguage(Title, Description);
-    setLangName(e.currentTarget.value);
+
+  const onFinish = (values: any) => {
+    console.log("Success:", values);
   };
-  const onChangeDesc = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDescLang(e.currentTarget.value);
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
   };
+
   return (
     <Wrapper>
       <Space height="m"></Space>
@@ -125,64 +132,59 @@ const LangInfo = () => {
       </Text>
       <Divider></Divider>
       <Space height="s"></Space>
-      <InputContainer>
-        <Text size={"16px"} weight={500}>
-           {t("LangInfo.input2")}
-        </Text>
-        <Space height="s"></Space>
 
-        <StyledInput
-          name="Title"
-          type="text"
-          className="desc"
-          
-          onChange={(e) => onChangeName(e)}
-          placeholder= {t("LangInfo.placeholder2")}
-        />
-        {/*  {isEmpty && (
-          <Text size={"12px"} weight={400}>
-            Название не должно быть пустым!
-          </Text>
-        )} */}
-        <Space height="s"></Space>
-
-        <Divider></Divider>
-        <Text size={"16px"} weight={400}>
-           {t("LangInfo.input1")}
-        </Text>
-        <Space height="s"></Space>
-
-        <StyledInput
-          name="Description"
-          type="text"
-          
-          className="desc"
-          onChange={(e) => onChangeDesc(e)}
-          placeholder={t("LangInfo.placeholder1")}
-        />
-        {/*   {isEmpty && (
-          <Text size={"12px"} weight={400}>
-            Описание не должно быть пустым!
-          </Text>
-        )} */}
-      </InputContainer>
-      <Space height="s"></Space>
-
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
+      <Form
+        form={form}
+        layout="vertical"
+        initialValues={{ title: "", desc: "" }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
       >
-        <Button onClick={() => navigateTo("Introduction")}>{t("LangInfo.button1")}</Button>
-        <Button onClick={handleNext}>={t("LangInfo.button2")}=</Button>
-      </div>
+        <Form.Item
+          label={t("Label.title")}
+          name="title"
+          rules={[
+            { required: true, message: t("Message.input1") },
+            { min: 2, message: t("Message.min") },
+            { max: 200, message: t("Message.max") },
+          ]}
+        >
+          <Input
+            value={Title}
+            onChange={(e) => setLangName(e.target.value)}
+            placeholder={t("Placeholder.title")}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label={t("Label.desc")}
+          name="desc"
+          rules={[
+            { required: true, message: t("Message.input2") },
+            { min: 2, message: t("Message.min") },
+            { max: 200, message: t("Message.max") },
+          ]}
+        >
+          <Input
+            value={Description}
+            onChange={(e) => setDescLang(e.target.value)}
+            placeholder={t("Placeholder.desc")}
+          />
+        </Form.Item>
+
+        <div style={{ display: "flex" }}>
+          <Button onClick={() => navigateTo("Introduction")}>
+            {t("LangInfo.button1")}
+          </Button>
+          <Button primary isDisabled={!isFieldsFilled()} onClick={handleNext}>
+            {t("LangInfo.button2")}
+          </Button>
+        </div>
+      </Form>
     </Wrapper>
   );
 };
 export default observer(LangInfo);
-
 
 // Define the steps for the stepper
 const steps = [

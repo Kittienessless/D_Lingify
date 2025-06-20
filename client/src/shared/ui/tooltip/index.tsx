@@ -17,7 +17,9 @@ import {
 import { ReactNode, useRef, useState } from 'react'
 import styled from 'styled-components'
 
- 
+import { borderRadius } from '../../lib/borderRadius'
+import { getColor } from '../../lib/getters'
+
 export interface RenderOpenerProps extends Record<string, unknown> {
   ref: (node: ReferenceType | null) => void
 }
@@ -26,18 +28,18 @@ interface TooltipProps {
   content?: ReactNode
   renderOpener: (props: RenderOpenerProps) => ReactNode
   placement?: Placement
+  style?: React.CSSProperties
 }
 
 const Container = styled.div`
-  border-radius: 8px;
-  background:  ${({ theme }) => theme.colors.bg  })};
-  color:  ${({ theme }) => theme.colors.font  })};
-  border: 1px solid rgb(63, 63, 63);
+  ${borderRadius.s};
+  background-color:  ${({ theme }) => theme.colors.container};
+  border: 1px solid  ${({ theme }) => theme.colors.container};
+  color: ${({ theme }) => theme.colors.font};
   padding: 8px 12px;
   max-width: 320px;
   white-space: initial;
   line-height: 1.5;
-  color: white;
 `
 
 export const Tooltip = ({ content, renderOpener, placement }: TooltipProps) => {

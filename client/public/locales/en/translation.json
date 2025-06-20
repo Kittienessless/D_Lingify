@@ -320,5 +320,23 @@
     "translator": {
     "text1": "English",
     "text2": "Russian"
+  },
+  "Label": {
+    "title": "Title",
+    "desc": "Description"
+  },
+  "Message": {
+    "input1": "Please enter the title",
+    "input2": "Please enter the description",
+    "min": "Minimum of 2 characters",
+    "max": "Maximum of 200 characters"
+  },
+  "Placeholder": {
+    "title": "Enter title",
+    "desc": "Enter description"
+  },
+  "Button": {
+    "back": "Back",
+    "next": "Next"
   }
 }

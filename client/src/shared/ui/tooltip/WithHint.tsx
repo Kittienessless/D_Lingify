@@ -8,13 +8,16 @@ import { IconWrapper } from '../../assets/IconWrapper'
 import { ChildrenProp } from '../../lib/props'
 
 import { Tooltip } from '.'
+import { borderRadius } from 'shared/lib/borderRadius'
 
 interface WithHintProps extends ChildrenProp {
   hint?: ReactNode
+   
 }
 
 const Container = styled(IconWrapper)`
   ${horizontalPadding(4)};
+  
 `
 
 export const WithHint = ({ children, hint }: WithHintProps) => {

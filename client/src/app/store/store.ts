@@ -49,7 +49,7 @@ export default class Store {
   setCurrentLang(currentLang: ILanguage) {
     this.currentLang = currentLang;
   }
-  setCurrentFile(currentFile:   any) {
+  setCurrentFile(currentFile: any) {
     this.currentFile = currentFile;
   }
   setUser(user: user) {

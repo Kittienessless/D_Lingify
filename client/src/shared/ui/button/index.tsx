@@ -111,10 +111,8 @@ export function Button({
               <StyledButton ref={ref} {...containerProps} {...tooltipRest}>
                 {content}
               </StyledButton>
-            )}
-          />
-        )}
-      />
+            )} />
+        )}      />
     );
   }
 
