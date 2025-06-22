@@ -54,6 +54,8 @@ export const Grammar: React.FC = () => {
   const [editingKey, setEditingKey] = useState<string | null>(null);
   const [editWord, setEditWord] = useState<string>("");
   const [editTranslation, setEditTranslation] = useState<string>("");
+  const [newRule, setNewRule] = useState({ rule: "" });
+  const [adding, setAdding] = useState(false);
 
   // Функция для начала редактирования
   const onEdit = (record: any) => {
@@ -61,7 +63,30 @@ export const Grammar: React.FC = () => {
     setEditWord(record.word);
     setEditTranslation(record.translation);
   };
-
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewRule({ ...newRule, rule: e.target.value });
+  };
+  const HandleAdd = async () => {
+    if (!newRule.rule || newRule.rule.length < 2 || newRule.rule.length > 100) {
+      alert("Пожалуйста, введите текст длиной от 2 до 100 символов.");
+      return;
+    }
+    setAdding(true);
+    try {
+      // Здесь ваш асинхронный вызов для добавления данных
+      await new Promise((resolve) => setTimeout(resolve, 500)); // пример задержки
+      const newData = {
+        key: Date.now().toString(),
+        rule: newRule.rule,
+      };
+      setNounRules([...nounRules, newData]);
+      setNewRule({ rule: "" });
+    } catch (error) {
+      console.error("Ошибка при добавлении:", error);
+    } finally {
+      setAdding(false);
+    }
+  };
   // Функция для сохранения изменений
   const handleSave = () => {
     if (editingKey) {
@@ -85,9 +110,9 @@ export const Grammar: React.FC = () => {
   const onDelete = (key: string) => {
     Modal.confirm({
       title: t("Grammar.text1"),
-      content:  t("Grammar.text2"),
-      okText:  t("Grammar.text3"),
-      cancelText:  t("Grammar.text4"),
+      content: t("Grammar.text2"),
+      okText: t("Grammar.text3"),
+      cancelText: t("Grammar.text4"),
       onOk() {
         setNounRules((prevData) => prevData.filter((item) => item.key !== key));
       },
@@ -97,14 +122,14 @@ export const Grammar: React.FC = () => {
     <GrammarContainer>
       <CardLang>
         <Text height="s" size={"12pt"}>
-          { t("Grammar.text5")}
+          {t("Grammar.text5")}
         </Text>
         <Table
           dataSource={nounRules}
           columns={[
             { title: t("Grammar.text6"), dataIndex: "rule", key: "key" },
             {
-              title:  t("Grammar.text7"),
+              title: t("Grammar.text7"),
               key: "actions",
               render: (_, record) =>
                 record.key === editingKey ? (
@@ -128,18 +153,36 @@ export const Grammar: React.FC = () => {
           ]}
           pagination={false}
         />
+        <div
+          style={{
+            marginTop: 16,
+            display: "flex",
+            gap: "8px",
+            alignItems: "center",
+          }}
+        >
+          <Input
+            placeholder={t("Введите новое правило")}
+            value={newRule.rule}
+            onChange={handleInputChange}
+            minLength={2}
+            maxLength={100}
+          />
+          <Button type="primary" onClick={HandleAdd} disabled={adding}>
+            {adding ? t("Загрузка...") : t("Добавить")}
+          </Button>
+        </div>
       </CardLang>
       <CardLang>
         <Text height="s" size={"12pt"}>
-          Глаголы
+          {t("Grammar.text12")}
         </Text>
- {t("Grammar.text12")}
         <Table
           dataSource={verbRules}
           columns={[
             { title: t("Grammar.text6"), dataIndex: "rule", key: "key" },
             {
-              title:  t("Grammar.text7"),
+              title: t("Grammar.text7"),
               key: "actions",
               render: (_, record) =>
                 record.key === editingKey ? (
@@ -166,7 +209,7 @@ export const Grammar: React.FC = () => {
       </CardLang>
       <CardLang>
         <Text height="s" size={"12pt"}>
-           {t("Grammar.text13")}
+          {t("Grammar.text13")}
         </Text>
 
         <Table
@@ -174,7 +217,7 @@ export const Grammar: React.FC = () => {
           columns={[
             { title: t("Grammar.text6"), dataIndex: "rule", key: "key" },
             {
-              title:  t("Grammar.text7"),
+              title: t("Grammar.text7"),
               key: "actions",
               render: (_, record) =>
                 record.key === editingKey ? (
@@ -201,15 +244,15 @@ export const Grammar: React.FC = () => {
       </CardLang>
       <CardLang>
         <Text height="s" size={"12pt"}>
-           {t("Grammar.text14")}
+          {t("Grammar.text14")}
         </Text>
 
         <Table
           dataSource={adjectiveRules}
-         columns={[
+          columns={[
             { title: t("Grammar.text6"), dataIndex: "rule", key: "key" },
             {
-              title:  t("Grammar.text7"),
+              title: t("Grammar.text7"),
               key: "actions",
               render: (_, record) =>
                 record.key === editingKey ? (
@@ -241,10 +284,10 @@ export const Grammar: React.FC = () => {
 
         <Table
           dataSource={adverbRules}
-         columns={[
+          columns={[
             { title: t("Grammar.text6"), dataIndex: "rule", key: "key" },
             {
-              title:  t("Grammar.text7"),
+              title: t("Grammar.text7"),
               key: "actions",
               render: (_, record) =>
                 record.key === editingKey ? (

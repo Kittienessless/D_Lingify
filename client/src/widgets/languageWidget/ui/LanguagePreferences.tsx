@@ -20,6 +20,8 @@ import { Uploader } from "features/languageCard/index.ts";
 import { UploadIcon } from "shared/assets/UploadIcon.tsx";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
+import { WithHint } from "shared/ui/tooltip/WithHint.tsx";
+import { Form, Input } from "antd";
 const PrefLang = styled.div`
   background-color: ${({ theme }) => theme.colors.container};
   color: ${({ theme }) => theme.colors.font};
@@ -43,12 +45,16 @@ const LangCards = styled.div`
 
   margin: 1em;
 `;
-export const LanguagePreferences: React.FC = () => {
+interface ILP {
+  id: string | undefined;
+}
+export const LanguagePreferences = ({ id }: ILP) => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const { store } = useContext(UserContext);
   const { t } = useTranslation();
+  const [form] = Form.useForm();
 
   async function handleDownloadFile(key: string) {
     try {
@@ -72,106 +78,182 @@ export const LanguagePreferences: React.FC = () => {
       console.log(e);
     }
   }
-  async function handleUploaderFile(key: string) {}
+  async function handleUploaderFile(key: string) {
+
+  }
   async function OnDelete(key: string) {
     await languageService.delete(key);
   }
-  function handleEditTitle() {}
+  const handleEditTitle = async (title: string) => {
+    const res = await languageService.changeTitle(id!, title);
+    store.setCurrentLang(res.data);
+    setTitle(store.currentLang!.Title);
+  };
+  const handleEditDesc = async (desc: string) => {
+    const res = await languageService.changeDesc(id!, desc);
+    store.setCurrentLang(res.data);
+    setDesc(store.currentLang!.Description);
+  };
+
   function handleShowCards() {
     setIsOpen(!isOpen);
   }
+  const handleCancel = () => {};
+
   return (
-    <div style={{display: 'flex'}}>
+    <div style={{ display: "flex" }}>
       <div>
-      <PrefLang>
-        <Text height="s" size={"12pt"}>
-          {t("LanguagePreferences.text1")}
-        </Text>
-        <HStack gap={40}>
-          <Opener
-            renderOpener={({ onOpen }) => (
-              <IconButton
-                icon={<EditIcon />}
-                title={t("LanguagePreferences.text12")}
-                onClick={onOpen}
-              >
-                {t("LanguagePreferences.text13")}
-              </IconButton>
-            )}
-            renderContent={({ onClose }) => (
-              <Modal
-                title={t("LanguagePreferences.text14")}
-                onClose={onClose}
-                width={400}
-                footer={
-                  <div>
-                    <InputContainer>
-                      <input
-                        value={title}
-                        type="text"
-                        onChange={(e) => setTitle(e.target.value)}
-                      />
-                    </InputContainer>
-                    <Button onClick={handleEditTitle}>{t("LanguagePreferences.text15")}</Button>
-                    <Button primary onClick={onClose}>
-                      {t("LanguagePreferences.text6")}
-                    </Button>
-                  </div>
-                }
-              >
-                <VStack gap={20}>
-                  <Text>{t("LanguagePreferences.text16")}</Text>
-                </VStack>
-              </Modal>
-            )}
-          />
-        </HStack>
-      </PrefLang>
-      <PrefLang>
-        <Text height="s" size={"12pt"}>
-          {t("LanguagePreferences.text2")}
-        </Text>
-        <HStack gap={40}>
-          <Opener
-            renderOpener={({ onOpen }) => (
-              <IconButton
-                icon={<EditIcon />}
-                title={t("LanguagePreferences.text21")}
-                onClick={onOpen}
-              >
-               {t("LanguagePreferences.text21")}
-              </IconButton>
-            )}
-            renderContent={({ onClose }) => (
-              <Modal
-                title={t("LanguagePreferences.text14")}
-                onClose={onClose}
-                width={400}
-                footer={
-                  <div>
-                    <InputContainer>
-                      <input
-                        value={desc}
-                        type="text"
-                        onChange={(e) => setDesc(e.target.value)}
-                      />
-                    </InputContainer>
-                    <Button onClick={handleEditTitle}>{t("LanguagePreferences.text15")}</Button>
-                    <Button primary onClick={onClose}>
-                      {t("LanguagePreferences.text16")}
-                    </Button>
-                  </div>
-                }
-              >
-                <VStack gap={20}>
-                  <Text>{t("LanguagePreferences.text22")}</Text>
-                </VStack>
-              </Modal>
-            )}
-          />
-        </HStack>
-      </PrefLang>
-      {/* <PrefLang>
+      {/*   <PrefLang>
+          <Text height="s" size={"12pt"}>
+            {t("LanguagePreferences.text1")}
+          </Text>
+          <HStack gap={40}>
+            <Opener
+              renderOpener={({ onOpen }) => (
+                <IconButton
+                  icon={<EditIcon />}
+                  title={t("LanguagePreferences.text12")}
+                  onClick={onOpen}
+                >
+                  {t("LanguagePreferences.text13")}
+                </IconButton>
+              )}
+              renderContent={({ onClose }) => (
+                <Modal
+                  title={t("LanguagePreferences.text14")}
+                  onClose={onClose}
+                  width={400}
+                  footer={
+                    <div>
+                      <Form>
+                        <Form.Item
+                          label={t("NeuralLangInput.title14")}
+                          name="latinLetters1"
+                        >
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                            }}
+                          >
+                            <Input
+                              style={{ width: "40px", minWidth: "50px" }}
+                              value={title}
+                              placeholder={t("NeuralLangInput.title16")}
+                              onChange={(e) => setTitle(e.target.value)}
+                            />
+                            <WithHint
+                              hint={t("NeuralLangInput.hintLatinLetters")}
+                            >
+                              <></>
+                            </WithHint>
+                          </div>
+                        </Form.Item>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Button
+                            primary
+                            onClick={() => handleEditTitle(title)}
+                          >
+                            {t("LanguagePreferences.text15")}
+                          </Button>
+                          <Button primary onClick={onClose}>
+                            {t("LanguagePreferences.text16")}
+                          </Button>
+                        </div>
+                      </Form>
+                    </div>
+                  }
+                >
+                  <VStack gap={20}>
+                    <Text>{t("LanguagePreferences.text16")}</Text>
+                  </VStack>
+                </Modal>
+              )}
+            />
+          </HStack>
+        </PrefLang>
+        <PrefLang>
+          <Text height="s" size={"12pt"}>
+            {t("LanguagePreferences.text2")}
+          </Text>
+          <HStack gap={40}>
+            <Opener
+              renderOpener={({ onOpen }) => (
+                <IconButton
+                  icon={<EditIcon />}
+                  title={t("LanguagePreferences.text21")}
+                  onClick={onOpen}
+                >
+                  {t("LanguagePreferences.text21")}
+                </IconButton>
+              )}
+              renderContent={({ onClose }) => (
+                <Modal
+                  title={t("LanguagePreferences.text14")}
+                  onClose={onClose}
+                  width={400}
+                  footer={
+                    <div>
+                      <InputContainer>
+                        <Form>
+                          <Form.Item
+                            label={t("NeuralLangInput1.title14")}
+                            name="latinLetters"
+                          >
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                              }}
+                            >
+                              <Input
+                                style={{ width: "40px", minWidth: "50px" }}
+                                value={desc}
+                                placeholder={t("NeuralLangInput1.title16")}
+                                onChange={(e) => setDesc(e.target.value)}
+                              />
+                              <WithHint
+                                hint={t("NeuralLangInput1.hintLatinLetters")}
+                              >
+                                <></>
+                              </WithHint>
+                            </div>
+                          </Form.Item>
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                            }}
+                          >
+                            <Button
+                              primary
+                              onClick={() => handleEditDesc(desc)}
+                            >
+                              {t("LanguagePreferences.text15")}
+                            </Button>
+                            <Button primary onClick={onClose}>
+                              {t("LanguagePreferences.text16")}
+                            </Button>
+                          </div>
+                        </Form>
+                      </InputContainer>
+                    </div>
+                  }
+                >
+                  <VStack gap={20}>
+                    <Text>{t("LanguagePreferences.text22")}</Text>
+                  </VStack>
+                </Modal>
+              )}
+            />
+          </HStack>
+        </PrefLang> */}
+        {/* <PrefLang>
         <Text height="s" size={"12pt"}>
          {t("LanguagePreferences.text3")}
         </Text>
@@ -181,38 +263,38 @@ export const LanguagePreferences: React.FC = () => {
           icon={isOpen ? <ArrowLeftOutlined /> :  <ArrowRightOutlined /> }
         />
       </PrefLang> */}
-      <PrefLang>
-        <Text height="s" size={"12pt"}>
-          {t("LanguagePreferences.text5")}
-        </Text>
-        <IconButton
-          onClick={() => handleDownloadFile(store.currentLang.id)}
-          title={t("LanguagePreferences.text5")}
-          icon={<DownloadIcon />}
-        />
-      </PrefLang>
-      <PrefLang>
-        <Text height="s" size={"12pt"}>
-          {t("LanguagePreferences.text6")}
-        </Text>
-        <IconButton
-          onClick={() => handleUploaderFile(store.currentLang.id)}
-          title={t("LanguagePreferences.text6")}
-          icon={<UploadIcon />}
-        />
-      </PrefLang>
-      <PrefLang>
-        <Text height="s" size={"12pt"}>
-          {t("LanguagePreferences.text7")}
-        </Text>
-        <IconButton
-          onClick={() => OnDelete(store.currentLang.id)}
-          title={t("LanguagePreferences.text7")}
-          icon={<TrashBinIcon />}
-        />
-      </PrefLang>
+        <PrefLang>
+          <Text height="s" size={"12pt"}>
+            {t("LanguagePreferences.text5")}
+          </Text>
+          <IconButton
+            onClick={() => handleDownloadFile(store.currentLang!.id)}
+            title={t("LanguagePreferences.text5")}
+            icon={<DownloadIcon />}
+          />
+        </PrefLang>
+      {/*   <PrefLang>
+          <Text height="s" size={"12pt"}>
+            {t("LanguagePreferences.text6")}
+          </Text>
+          <IconButton
+            onClick={() => handleUploaderFile(store.currentLang!.id)}
+            title={t("LanguagePreferences.text6")}
+            icon={<UploadIcon />}
+          />
+        </PrefLang> */}
+        <PrefLang>
+          <Text height="s" size={"12pt"}>
+            {t("LanguagePreferences.text7")}
+          </Text>
+          <IconButton
+            onClick={() => OnDelete(store.currentLang!.id)}
+            title={t("LanguagePreferences.text7")}
+            icon={<TrashBinIcon />}
+          />
+        </PrefLang>
       </div>
-   {/*    {isOpen && <LangCards></LangCards>} */}
+      {/*    {isOpen && <LangCards></LangCards>} */}
     </div>
   );
 };

@@ -23,35 +23,25 @@ const Container = styled.div`
   }
 `;
 const Card = styled.div`
-  background-color: ${({ theme }) => theme.colors.container};
-  color: ${({ theme }) => theme.colors.font};
   padding: 1em;
   margin-bottom: 1em;
   ${borderRadius.m};
-  width: 80%;
+  width: 90%;
   height: 100%;
-  margin-left: 5em;
+  margin-left: 2em;
   @media (width <= 1350px) {
     width: 100%;
     margin-left: 0;
   }
 `;
 
-const ImageCard = styled.img`
-  max-width: 15%;
-
-  @media (width <= 1350px) {
-    max-width: 10%;
-  }
-`;
 const Menu = styled.div`
-  color: ${({ theme }) => theme.colors.font};
+  color: ${({ theme }) => theme.colors.font} !important;
   background-color: ${({ theme }) => theme.colors.container};
   ${borderRadius.m};
-  min-width: 15em;
   text-wrap: wrap;
-  padding: 2em;
-  margin: 3em;
+  padding: 1em;
+  margin-right: 1em;
   height: 100%;
   @media (width <= 1350px) {
     width: 100%;
@@ -61,6 +51,11 @@ const Menu = styled.div`
   & :hover {
     cursor: pointer;
   }
+`;
+
+const SectionLi = styled.li`
+  margin-bottom: 0.5em;
+  color: ${({ theme }) => theme.colors.font} !important;
 `;
 export const ArticleWidget: React.FC = () => {
   const { t } = useTranslation();
@@ -76,40 +71,40 @@ export const ArticleWidget: React.FC = () => {
       <Container>
         <Menu>
           <ul>
-            <li>
+            <SectionLi>
               <Link to="section1" smooth={true} duration={500}>
                 {t("main.title1")}
               </Link>
-            </li>
-            <li>
+            </SectionLi>
+            <SectionLi>
               <Link to="section2" smooth={true} duration={500}>
-                 {t("main.title2")}
+                {t("main.title2")}
               </Link>{" "}
-            </li>
-            <li>
+            </SectionLi>
+            <SectionLi>
               <Link to="section3" smooth={true} duration={500}>
-                 {t("main.title3")}
+                {t("main.title3")}
               </Link>{" "}
-            </li>
-            <li>
+            </SectionLi>
+            <SectionLi>
               <Link to="section4" smooth={true} duration={500}>
-                 {t("main.title4")}
+                {t("main.title4")}
               </Link>{" "}
-            </li>
-            <li>
+            </SectionLi>
+            <SectionLi>
               <Link to="section5" smooth={true} duration={500}>
-                 {t("main.title5")}
+                {t("main.title5")}
               </Link>{" "}
-            </li>
-            <li>
+            </SectionLi>
+            <SectionLi>
               <Link to="section6" smooth={true} duration={500}>
-                 {t("main.title6")}
+                {t("main.title6")}
               </Link>{" "}
-            </li>
+            </SectionLi>
           </ul>
         </Menu>
 
-        <div>
+        <Card>
           <Element name="section1">
             <ShowMore
               text={t("handbook.section1")}
@@ -152,7 +147,7 @@ export const ArticleWidget: React.FC = () => {
               src={Girl5}
             />
           </Element>
-        </div>
+        </Card>
       </Container>
     </>
   );

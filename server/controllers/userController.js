@@ -52,8 +52,7 @@ class userController {
     try {
       const reset = req.params.link;
       await userService.GetResetLink(reset);
-      return  res.redirect(`${process.env.CLIENT_URL}#/Auth/recoverNewPassword`);
-      
+      return res.redirect(`${process.env.CLIENT_URL}#/Auth/recoverNewPassword`);
     } catch (e) {
       console.log(e);
       next(e);
@@ -113,24 +112,54 @@ class userController {
     }
   }
 
-  async updInfo(req, res) {
+  async changeFamilyName(req, res) {
     const token = req.cookies["token"];
-
-    const user = await tokenService.findToken(token);
-    if (!user) return res.json("unauthorized").status(401);
-
-    const { given_name, family_name } = req.body;
+    const { familyName } = req.body;
+    console.log(familyName);
+    const userID = await getDb().models.Token.findOne({
+      where: { refreshToken: token },
+    });
+    if (!userID) return res.status(401).json("unauthorized");
 
     const updUser = await getDb()
       .models.User.findOne({
-        where: { user_id: user.userID },
+        where: { user_id: userID.userID },
       })
       .then((account) => {
-        account.given_name = given_name ? given_name : null;
-        account.family_name = family_name ? family_name : null;
+        account.familyName = familyName;
         account.save();
+        console.log("saved");
       });
-    const userData = new UserDto(updUser);
+
+    const getUser = await getDb().models.User.findOne({
+      where: { user_id: userID.userID },
+    });
+    const userData = new UserDto(getUser);
+    return res.json(userData);
+  }
+  async changeGivenName(req, res) {
+    const token = req.cookies["token"];
+    const { given_name } = req.body;
+    console.log(given_name);
+    const userID = await getDb().models.Token.findOne({
+      where: { refreshToken: token },
+    });
+    if (!userID) return res.status(401).json("unauthorized");
+
+    const updUser = await getDb()
+      .models.User.findOne({
+        where: { user_id: userID.userID },
+      })
+      .then((account) => {
+        account.given_name = given_name;
+        account.save();
+        console.log("saved");
+      });
+
+    const getUser = await getDb().models.User.findOne({
+      where: { user_id: userID.userID },
+    });
+    const userData = new UserDto(getUser);
     return res.json(userData);
   }
 }

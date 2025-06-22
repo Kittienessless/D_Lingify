@@ -96,7 +96,6 @@ const NeuralLang = () => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
 
- 
   const [rules, setRules] = useState<any | null>(null);
 
   const onFinish = (values: any) => {
@@ -141,8 +140,6 @@ const NeuralLang = () => {
 
   const width = getWidth();
 
- 
-
   return (
     <Wrapper>
       <Space height="m"></Space>
@@ -185,11 +182,7 @@ const NeuralLang = () => {
               min={5}
               max={800}
             />
-            <WithHint
-              hint={
-                "Количество слов в словаре. Минимум слов - 5, максимум - 800. Обратите внимание, что слова создаются произвольно, некоторые из них частоиспользуемые, некоторые - нет"
-              }
-            >
+            <WithHint hint={t("hints.wordCount")}>
               <Text></Text>
             </WithHint>
           </div>
@@ -235,11 +228,7 @@ const NeuralLang = () => {
                 {t("NeuralLang.title13")}
               </Select.Option>
             </Select>
-            <WithHint
-              hint={
-                "Нужно выбрать те части речи, которые будут присутствовать в Вашем языке. Обратите внимание, что представлены не все части речи. В дальнейшем будут добавлены и другие."
-              }
-            >
+            <WithHint hint={t("hints.partsOfSpeech")}>
               <></>
             </WithHint>
           </div>
@@ -255,11 +244,7 @@ const NeuralLang = () => {
               style={{ width: width, minWidth: "50px" }}
               placeholder={t("NeuralLang.title16")}
             />
-            <WithHint
-              hint={
-                "Введите через запятую или пробел: a,b,c... / a b c .. . Введены все латинские буквы которые будут использованы для генерации языка. Обратите внимание, что при генерации языка с отсутствующими буквами могут быть ошибки."
-              }
-            >
+            <WithHint hint={t("hints.alphabet")}>
               <></>
             </WithHint>
           </div>
@@ -291,11 +276,7 @@ const NeuralLang = () => {
                 {t("NeuralLang.title21")}
               </Select.Option>
             </Select>
-            <WithHint
-              hint={
-                "Морфологическая сложность — это степень внутренней структурированности слова, определяемая количеством и типами морфем, из которых оно состоит. Чем больше морфем и сложнее их связь, тем выше морфологическая сложность."
-              }
-            >
+            <WithHint hint={t("hints.morphologicalComplexity")}>
               <></>
             </WithHint>
           </div>
@@ -323,11 +304,7 @@ const NeuralLang = () => {
                 {t("NeuralLang.title26")}
               </Select.Option>
             </Select>
-            <WithHint
-              hint={
-                "Это труктура, определяющая порядок и связь слов и частей речи, например, простое, сложносочиненное или сложноподчиненное. Он показывает, как компоненты предложения объединены для выражения смысловой целостности."
-              }
-            >
+            <WithHint hint={t("hints.wordOrder")}>
               <></>
             </WithHint>
           </div>
@@ -348,11 +325,7 @@ const NeuralLang = () => {
               style={{ width: width, minWidth: "50px" }}
               placeholder={t("NeuralLang.title29")}
             />
-            <WithHint
-              hint={
-                "Грамматические категории — это свойства слов, отражающие их грамматическую роль и изменение, например, род, число, время или падеж. Они показывают, как слова изменяются и связаны в предложении для выражения грамматических отношений."
-              }
-            >
+            <WithHint hint={t("hints.sentenceStructure")}>
               <></>
             </WithHint>
           </div>
@@ -383,11 +356,7 @@ const NeuralLang = () => {
                 {t("NeuralLang.title35")}
               </Select.Option>
             </Select>
-            <WithHint
-              hint={
-                "Стиль речи — это совокупность языковых средств, определяющих характер и тональность высказывания, например, научный, художественный или деловой. Он показывает, как подбираются слова и конструкции для достижения определенного коммуникативного эффекта."
-              }
-            >
+            <WithHint hint={t("hints.speechStyle")}>
               <></>
             </WithHint>
           </div>
@@ -404,11 +373,7 @@ const NeuralLang = () => {
               style={{ width: width, minWidth: "50px" }}
               placeholder={t("NeuralLang.title37")}
             />
-            <WithHint
-              hint={
-                "Фонетическая система — это совокупность звуков речи, представленных в Международном фонетическом алфавите (IPA), включая гласные, согласные и их артикуляционные особенности. Она определяет звуковой строй языка и правила их произношения."
-              }
-            >
+            <WithHint hint={t("hints.phoneticSystem")}>
               <></>
             </WithHint>
           </div>
@@ -425,11 +390,7 @@ const NeuralLang = () => {
               style={{ width: width, minWidth: "50px" }}
               placeholder={t("NeuralLang.title39")}
             />
-            <WithHint
-              hint={
-                "Правила словообразования — это системы морфологических и лексических закономерностей, по которым образуются новые слова в языке. Они определяют, как из корней, аффиксов и других морфем создаются слова с новыми значениями."
-              }
-            >
+            <WithHint hint={t("hints.wordFormationRules")}>
               <Text></Text>
             </WithHint>
           </div>
@@ -453,11 +414,7 @@ const NeuralLang = () => {
                 {t("NeuralLang.title43")}
               </Select.Option>
             </Select>
-            <WithHint
-              hint={
-                "Регулярность правил языка — это систематичность и предсказуемость в применении морфологических и синтаксических закономерностей. Строгая регулярность предполагает строгое соблюдение правил без исключений, умеренная — наличие некоторых исключений, а свободная — значительное разнообразие и гибкость в применении правил."
-              }
-            >
+            <WithHint hint={t("hints.languageRegularity")}>
               <></>
             </WithHint>
           </div>
@@ -506,9 +463,7 @@ const NeuralLang = () => {
         <Button onClick={() => navigateTo("LangInfo")}>
           {t("NeuralLang.button1")}
         </Button>
-        <Button   onClick={handleNext}>
-          {t("NeuralLang.button2")}
-        </Button>
+        <Button onClick={handleNext}>{t("NeuralLang.button2")}</Button>
       </div>
     </Wrapper>
   );

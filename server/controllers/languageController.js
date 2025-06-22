@@ -18,6 +18,7 @@ const LangsOptions = require("../dbo/langsOption.js");
 const crypto = require("crypto");
 const GigaChat = require("gigachat");
 const chatModule = require("./chatModule.js");
+const LangDto = require("../dbo/lang-dto.js");
 
 class languageController {
   async createLanguage(req, res) {
@@ -445,6 +446,65 @@ class languageController {
     }); */
 
     return res.status(200).json({ message: "success added to storage" });
+  }
+
+  async changeTitle(req, res) {
+    try {
+      const token = req.cookies["token"];
+      const { Title } = req.body;
+      const id = req.params.id;
+      console.log(id);
+      const isFind = await tokenService.findToken(token);
+      if (!isFind) return res.json("unauthorized").status(401);
+
+      const user = await tokenService.findToken(token);
+      if (!user) return res.json("unauthorized").status(401);
+
+      const language = await getDb()
+        .models.Language.findOne({
+          where: { id: id },
+        })
+        .then((lang) => {
+          lang.Title = Title;
+          lang.save();
+          console.log("saved");
+        });
+      const langData = await languageService.getCurrentLang(id);
+
+      return res.status(200).json(langData);
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ message: "gel all langs title error" });
+    }
+  }
+  async changeDesc(req, res) {
+    try {
+      const token = req.cookies["token"];
+      const { Description } = req.body;
+      const id = req.params.id;
+
+      const isFind = await tokenService.findToken(token);
+      if (!isFind) return res.json("unauthorized").status(401);
+
+      const user = await tokenService.findToken(token);
+      if (!user) return res.json("unauthorized").status(401);
+
+      const language = await getDb()
+        .models.Language.findOne({
+          where: { id: id },
+        })
+        .then((lang) => {
+          lang.Description = Description;
+          lang.save();
+          console.log("saved");
+        });
+      const langData = await languageService.getCurrentLang(id);
+
+      return res.status(200).json(langData);
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ message: "gel all langs title error" });
+    }
   }
 
   async getAllLangsTitle(req, res) {

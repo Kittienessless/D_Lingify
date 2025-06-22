@@ -37,7 +37,7 @@ export const Search = (props: SearchProps) => {
       <SearchInput
         type="search"
         name="search"
-        placeholder={value}
+        placeholder={t("LanguageList.text3")}
         onChange={(event) => searchHandler(event)}
          
       />

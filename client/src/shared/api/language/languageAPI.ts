@@ -2,8 +2,7 @@ import { BASE_URL } from "shared/constances";
 import { errorHandler } from "shared/constances";
 import { ILanguage } from "entities/language";
 import { upload } from "@testing-library/user-event/dist/upload";
-import Data from "features/languageCard/ui/Uploader";
-
+ 
 interface IKey {
   id: string;
   file: Blob | FormData | File;

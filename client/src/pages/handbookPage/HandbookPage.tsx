@@ -6,14 +6,12 @@ const Container = styled.div`
   color: ${({ theme }) => theme.colors.font};
   margin: 10px;
   position: relative;
-  padding: 10px;
+  padding: 20px;
   left: 50%;
   top: 50%;
   transform: translateY(-50%);
   transform: translateX(-50%);
-  max-width: 80vw;
-  min-width: 20vw;
-
+  max-width: 80vw; 
 `;
 
 export const HandbookPage = () => {

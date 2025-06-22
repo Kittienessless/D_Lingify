@@ -1,22 +1,27 @@
-
 const express = require("express");
-
+const backupManager = require("./db/backup.js");
+ 
 const authRouter = require("./routes/authRouter.js");
 const userRouter = require("./routes/userRouter.js");
 const languageRouter = require("./routes/languageRouter.js");
-const featureRouter = require('./routes/featureRouter.js')
-const adminRouter = require('./routes/adminRouter.js')
+const featureRouter = require("./routes/featureRouter.js");
+const adminRouter = require("./routes/adminRouter.js");
 require("dotenv").config();
 const cors = require("cors");
 const bodyParser = require("body-parser");
- const cookies = require("cookie-parser");
+const cookies = require("cookie-parser");
 const { initDb } = require("./db/db.js");
 const errorMiddleware = require("./middlewares/error-middleware.js");
 const server = express();
 const PORT = process.env.PORT;
 const rateLimit = require("express-rate-limit");
 const slowDown = require("express-slow-down");
-
+const { google } = require("googleapis");
+ 
+const fs = require("fs");
+const path = require("path");
+const { exec } = require("child_process");
+const archiver = require("archiver");  
 /* 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -65,17 +70,78 @@ server.use("/auth", authRouter);
 server.use("/user", userRouter);
 server.use("/lang", languageRouter);
 server.use("/feature", featureRouter);
-server.use("/admin", adminRouter );
+server.use("/admin", adminRouter);
 
 server.use(errorMiddleware);
 
+async function dailyBackup() {
+  try {
+    const backupPath = await backupManager.createBackup("daily");
+    console.log(`Backup sql created: ${backupPath}`);
+    await backupManager.rotateBackups("daily");
+  } catch (error) {
+    console.error("Backup failed:", error);
+  }
+}
+ 
+async function backupLocalStorage() {
+  const storagePath = "D:/Diploma/server/userStorage"; // Путь к хранилищу
+  const backupDir = "D:/Diploma/server/backups/localStorageBackUps"; // Каталог для бекапов
+  const backupName = `storage-backup-${new Date()
+    .toISOString()
+    .replace(/[:.]/g, "-")}.zip`;
+  const backupPath = path.join(backupDir, backupName);
+
+  // Создаем каталог для бекапов, если его нет
+  if (!fs.existsSync(backupDir)) {
+    fs.mkdirSync(backupDir, { recursive: true });
+  }
+
+  // Создаем архив
+  const output = fs.createWriteStream(backupPath);
+  const archive = archiver("zip", { zlib: { level: 9 } });
+
+  return new Promise((resolve, reject) => {
+    output.on("close", () => {
+      console.log(
+        `Backup  created: ${backupPath} (${archive.pointer()} bytes)`
+      );
+      resolve(backupPath);
+    });
+
+    archive.on("error", (err) => reject(err));
+
+    archive.pipe(output);
+    archive.directory(storagePath, false); // Второй параметр false - не включать корневой каталог в архив
+    archive.finalize();
+  });
+}
+
+const auth = new google.auth.GoogleAuth({
+  keyFile: process.env.GOOGLE_CLIENT_SECRET,
+  scopes: ["https://www.googleapis.com/auth/drive"],
+});
+
+
+async function dailyBackupStorage() {
+  try {
+    backupLocalStorage()
+      .then((backupPath) =>
+        console.log("Backup storage successful:", backupPath)
+      )
+      .catch((err) => console.error("Backup failed:", err));
+  } catch (error) {
+    console.error("Backup Storage failed:", error);
+  }
+} 
 const start = async () => {
   try {
     await initDb();
-
+    await dailyBackup();
+    
+     await dailyBackupStorage();
     server.listen(PORT, () => {
       console.log(`server is running on port  ${PORT}`);
-     
     });
   } catch (e) {
     console.log(e);

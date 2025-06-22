@@ -76,4 +76,4 @@ const Profile: React.FC = () => {
     </>
   );
 };
-export default observer(Profile);
+export default Profile;

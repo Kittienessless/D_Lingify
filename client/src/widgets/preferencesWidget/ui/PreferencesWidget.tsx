@@ -15,18 +15,6 @@ import { FireIcon } from "shared/assets/FireIcon.tsx";
 import { useTranslation } from "react-i18next";
 import { Button } from "shared/ui/button/index.tsx";
 
-const options: Option[] = [
-  {
-    id: "1",
-    label: "Английский",
-    value: "en",
-  },
-  {
-    id: "2",
-    label: "Русский",
-    value: "ru",
-  },
-];
 
 export const PreferencesWidget = () => {
   const [selectedLang, setSelectedLang] = useState<Option | null>(null);
@@ -39,6 +27,18 @@ export const PreferencesWidget = () => {
   const { t, i18n } = useTranslation();
 
   const mailto = "mailto:paraninaea@mer.ci.nsu.ru";
+const options: Option[] = [
+  {
+    id: "1",
+    label: t("total.en"),
+    value: "en",
+  },
+  {
+    id: "2",
+    label: t("total.ru"),
+    value: "ru",
+  },
+];
 
   const MiniContainer = styled.div`
     background: ${({ theme }) => theme.colors.container};
@@ -56,7 +56,7 @@ export const PreferencesWidget = () => {
 
   return (
     <PreferencesBlock>
-      <Text>Настройки аккаунта{t("profile.changeUserInterfaceLang")}</Text>
+      <Text>{t("profile.preferences1")}</Text>
       <Divider></Divider>
       <Space height="s"></Space>
       <MiniContainer>

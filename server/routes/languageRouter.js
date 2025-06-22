@@ -13,5 +13,7 @@ router.post('/upload', controller.upload);
 router.post('/getFile', controller.getFile);
 router.get('/getAllLangsTitle', controller.getAllLangsTitle);
 router.post('/download', controller.downloadFile);
+router.post('/changeTitle/:id', controller.changeTitle);
+router.post('/changeDesc/:id', controller.changeDesc);
 
 module.exports = router

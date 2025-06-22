@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "server for diploma with restfull api",
   "main": "index.js",
-  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
@@ -18,13 +17,16 @@
     "express": "^4.21.2",
     "express-validator": "^7.2.1",
     "nodemon": "^3.1.9",
+    "pg-dump": "^0.10.0",
     "react-router-dom": "^7.1.5",
     "sequelize": "^6.37.5"
   },
   "dependencies": {
     "@sequelize/core": "^7.0.0-alpha.44",
     "@sequelize/mssql": "^7.0.0-alpha.44",
+    "archiver": "^7.0.1",
     "axios": "^1.8.4",
+    "child_process": "^1.0.2",
     "compression": "^1.7.5",
     "crypto": "^1.0.1",
     "easy-yandex-s3": "^2.0.0",
@@ -33,6 +35,7 @@
     "express-slow-down": "^2.0.3",
     "gigachat": "^0.0.14",
     "google-auth-library": "^9.15.1",
+    "googleapis": "^150.0.1",
     "https": "^1.0.0",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
@@ -40,6 +43,7 @@
     "nanoid": "^3.3.4",
     "nodemailer": "^6.10.0",
     "officeparser": "^5.1.1",
+    "path": "^0.12.7",
     "pg": "^8.13.1",
     "pm2": "^5.4.3",
     "qs": "^6.14.0"

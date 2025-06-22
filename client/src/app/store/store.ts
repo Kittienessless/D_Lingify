@@ -27,7 +27,7 @@ export default class Store {
   isNeural = false;
   promptNeuralCreation = {} as string;
 
-  currentLang = {} as ILanguage;
+  currentLang = {} as ILanguage | null
   currentFile = {} as any;
 
   constructor() {
@@ -46,7 +46,7 @@ export default class Store {
   setPrompt(prompt: string) {
     this.promptNeuralCreation = prompt;
   }
-  setCurrentLang(currentLang: ILanguage) {
+  setCurrentLang(currentLang: ILanguage | null) {
     this.currentLang = currentLang;
   }
   setCurrentFile(currentFile: any) {
@@ -269,6 +269,15 @@ export default class Store {
     try {
       const response = await languageService.getAllLangsTitle();
       this.setlanguageTextArray(response.data);
+      console.log(response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  async changeGivenName(given_name : string) {
+    try {
+      const response = await UserService.changeGivenName(given_name);
+      this.setUser(response.data);
       console.log(response.data);
     } catch (e) {
       console.log(e);

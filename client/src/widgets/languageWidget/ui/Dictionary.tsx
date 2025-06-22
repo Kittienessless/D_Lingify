@@ -101,7 +101,7 @@ export const Dictionary: React.FC = () => {
         ),
     },
      {
-      title: "Свойство",
+      title:  t('total.createLanguage'),
       dataIndex: "property",
       key: "property",
       sorter: (a: any, b: any) => a.translate.localeCompare(b.translate),

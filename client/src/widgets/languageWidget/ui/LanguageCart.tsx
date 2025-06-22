@@ -18,10 +18,12 @@ import languageService from "shared/api/language/languageService";
 import { BASE_URL } from "shared/constances";
 import { DownloadIcon } from "shared/assets/DownloadIcon";
 import { useTranslation } from "react-i18next";
+
 interface CartProps {
   id: string;
   title: string;
   desc: string;
+   
 }
 
 const HeaderContainer = styled.div`
@@ -29,7 +31,7 @@ const HeaderContainer = styled.div`
   z-index: -1;
 `;
 
-export function LanguageCart({ id, title, desc }: CartProps) {
+export function LanguageCart({ id, title, desc } : CartProps) {
   const Container = styled.div`
     background-color: ${({ theme }) => theme.colors.container};
     color: ${({ theme }) => theme.colors.font};
@@ -49,7 +51,12 @@ export function LanguageCart({ id, title, desc }: CartProps) {
     navigate(`/redactLanguage/${key}`);
   }
   async function OnDelete(key: string) {
-    await languageService.delete(key);
+    try {
+      await languageService.delete(key);
+      
+    } catch (e) {
+      
+    }
   }
   async function handleDownloadFile(key: string) {
     try {
@@ -109,7 +116,7 @@ export function LanguageCart({ id, title, desc }: CartProps) {
                 text: t("LanguageCart.text4"),
                 onSelect: () => {
                   OnDelete(id!);
-                },
+                 },
                 icon: <TrashBinIcon />,
               },
             ];

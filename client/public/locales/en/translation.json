@@ -128,7 +128,13 @@
     "user5": "First Name: ",
     "user6": "Last Name:",
     "user7": "No data",
-
+    "user11": "User Profile",
+    "user22": "Email:",
+    "user33": "Activated",
+    "user44": "Not activated",
+    "user55": "First Name",
+    "user66": "Last Name",
+    "user77": "Not provided",
     "LangList": "Sort... ",
 
     "Translate1": "Select language... ",
@@ -317,7 +323,7 @@
     "text3": "Search...",
     "text4": "Create Language"
   },
-    "translator": {
+  "translator": {
     "text1": "English",
     "text2": "Russian"
   },
@@ -338,5 +344,43 @@
   "Button": {
     "back": "Back",
     "next": "Next"
-  }
+  },
+  "NeuralLangInput": {
+    "title14": "Your title",
+    "title16": "Enter title here...",
+    "hintLatinLetters": "Title should be from 2 to 100 symbols."
+  },
+  "NeuralLangInput1": {
+    "title14": "Your description",
+    "title16": "Enter description here...",
+    "hintLatinLetters": "Description must be between 2 and 100 characters"
+  },
+  "buttons": {
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "total": {
+    "totalElements": "Total items",
+    "displayed": "Displayed",
+    "pageInfo": "Page ",
+    "pageInfoFrom": "of ",
+
+    "noItemsFound": "No items found",
+    "createLanguage": "Create language",
+    "editButton": "Edit",
+    "ru": "Russian",
+    "en": "English"
+  },
+   "hints": {
+      "wordCount": "Number of words in the dictionary. Minimum 5, maximum 800. Note that words are generated randomly; some are common, some are not.",
+      "partsOfSpeech": "You need to select the parts of speech that will be present in your language. Note that not all parts of speech are shown; others will be added later.",
+      "alphabet": "Enter separated by commas or spaces: a,b,c... / a b c ... All Latin letters to be used for language generation are entered. Be aware that missing letters may cause errors during generation.",
+      "morphologicalComplexity": "Morphological complexity is the degree of internal structure of a word, determined by the number and types of morphemes it contains. The more morphemes and the more complex their connection, the higher the morphological complexity.",
+      "wordOrder": "This structure defines the order and connection of words and parts of speech, such as simple, compound or complex sentences. It shows how sentence components are combined to convey meaning.",
+      "sentenceStructure": "This structure defines the order and connection of words and parts of speech, such as simple, compound or complex sentences. It shows how sentence components are combined to convey meaning.",
+      "speechStyle": "Speech style is a set of linguistic means that determine the character and tone of speech; for example: scientific, artistic or business style. It shows how words and constructions are chosen to achieve a specific communicative effect.",
+      "phoneticSystem": "The phonetic system is the set of speech sounds represented in the International Phonetic Alphabet (IPA), including vowels and consonants with their articulatory features. It defines the sound structure of the language and pronunciation rules.",
+      "wordFormationRules": "Word formation rules are systems of morphological and lexical patterns by which new words are formed in a language. They determine how words with new meanings are created from roots and affixes.",
+      "languageRegularity": "The regularity of language rules refers to consistency and predictability in applying morphological and syntactic patterns."
+    }
 }

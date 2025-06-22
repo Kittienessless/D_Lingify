@@ -10,6 +10,14 @@ export default class languageService {
   static async create(Title: string, Description: string): Promise<AxiosResponse<ILanguage>> {
     return await $api.post(`${BASE_URL}/lang/createLang`, {Title, Description});
   }
+  
+  static async changeTitle(id: string, Title: string): Promise<AxiosResponse<ILanguage>> {
+    return await $api.post<ILanguage>(`${BASE_URL}/lang/changeTitle/${id}`, {Title});
+  }
+  static async changeDesc(id: string, Description: string): Promise<AxiosResponse<ILanguage>> {
+    return await $api.post<ILanguage>(`${BASE_URL}/lang/changeDesc/${id}`, {Description});
+  }
+  
   static async createNeural(
     Prompt : string, Title : string, Description : string, Rules : any
   ): Promise<AxiosResponse<ILanguage>> {

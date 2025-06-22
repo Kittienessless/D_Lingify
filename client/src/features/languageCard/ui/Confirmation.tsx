@@ -122,7 +122,7 @@ const Confirmation = () => {
           <Loader />
         ) : (
           <Button style={{ width: "fit-content" }} onClick={handleNext}>
-             Редактировать
+            {t("total.editButton")}
           </Button>
         )}
       </div>
