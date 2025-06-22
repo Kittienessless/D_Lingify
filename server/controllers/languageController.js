@@ -4,7 +4,7 @@ const { checkAuth } = require("../modules/user.js");
 const uuid = require("uuid");
 const axios = require("axios");
 const qs = require("qs");
-const { where } = require("sequelize");
+const { where, json } = require("sequelize");
 const filesService = require("../services/filesService.js");
 const JsonTemplate = require("../helpers/JsonTemplate.js");
 const languageService = require("../services/languageService.js");
@@ -36,7 +36,13 @@ class languageController {
         LangPath: path,
       });
       console.log(result);
-      const data = "";
+      const data = `{ "Title" :${Title} ,
+  "Desc" : ${Description}, "vocabular": [{key: "1", "word": "", "translate": "", "stress" :"", "property" : "", "IPA" : ""}],
+  "rules" :  {"noun": [{key: "1", "rule" : "rule 1"} ], "verb" : [{key: "1","rule": "rule 1"}], "pronoun" : 
+      [{key: "1","rule": "rule"}, {key: "1","rule": "rule 1"}],  "adjective" : [{key: "1","rule": "rule 1"}], "adverb" : 
+          [{key: "1","rule": "rule"} ], "conjunction" : [{key: "1", "rule": "rule 1"}],
+   "interjection" : [{key: "1","rule": "rule 1"}],
+  },"articles" : [{key: "1","rule": "rule 1"}],"nounGender" : [{key: "1","rule": "rule 1"}],"DegreesofComparison"  : [{key: "1","rule": "rule 1"}] }`;
       fs.writeFile(`${path}`, data, "utf8", function (err) {
         if (err) throw err;
         console.log("complete");
@@ -211,12 +217,12 @@ class languageController {
              правила в порядке сложности и каждое правило должно соответствовать своему месту 
             (к примеру, правила для существительных в группе правил для существительных). 
             Все слова должны быть написаны латиницей с помощью правил IPA. Примерная схема выходных данных - { "Title" : "" ,
-  "Desc" : "", "vocabular": [{"word": "", "translate": "", "stress" :"", "property" : ""}],
-  "rules" :  {"noun": [{"rule" : "rule 1"}, {"rule" : "rule 2"}], "verb" : [{"rule": "rule 1"}], "pronoun" : 
-      [{"rule": "rule rule"}, {"rule": "rule 1"}],  "adjective" : [{"rule": "rule 1"}, {"rule": "rule 1"}], "adverb" : 
-          [{"rule": "rule rule"}, {"2": "rule 1"}], "conjunction" : [{"rule": "rule 1"}],
-   "interjection" : [{"rule": "rule 1"}],
-  },"articles" : [{"rule": "rule 1"}],"nounGender" : [{"rule": "rule 1"}],"DegreesofComparison"  : [{"rule": "rule 1"}] 
+  "Desc" : "", "vocabular": [{key: "", "word": "", "translate": "", "stress" :"", "property" : "", "IPA" : ""}],
+  "rules" :  {"noun": [{key: "", "rule" : "rule 1"}, {key: "","rule" : "rule 2"}], "verb" : [{key: "","rule": "rule 1"}], "pronoun" : 
+      [{key: "","rule": "rule rule"}, {key: "","rule": "rule 1"}],  "adjective" : [{key: "","rule": "rule 1"}, {key: "","rule": "rule 1"}], "adverb" : 
+          [{key: "","rule": "rule rule"} ], "conjunction" : [{key: "", "rule": "rule 1"}],
+   "interjection" : [{key: "","rule": "rule 1"}],
+  },"articles" : [{key: "","rule": "rule 1"}],"nounGender" : [{key: "","rule": "rule 1"}],"DegreesofComparison"  : [{key: "","rule": "rule 1"}] }
     Пример: Слово на выдуманном языке: Naranha . Перевод: Зарево. Свойства: существительное, ударение на вторую гласную, 
     h произносится с придыханием, либо никак не произносится. мн. число - Naranhener (зарева), падежи как в русском языке, 
     Naranha, naranher, naranhane, naranheter, naransetor, en a naranhester.  Примечание: Если будут сложности с созданием слов, 
@@ -243,16 +249,10 @@ class languageController {
         },
         data: data,
       };
-      let answer;
-      const chatResult = await axios
-        .request(config)
-        .then((response) => {
-          console.log("data answer" + JSON.stringify(response.data));
-          answer = JSON.stringify(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      const chatResult = await axios.request(config);
+
+      const answerContent = chatResult.data.choices[0].message.content;
+
       const path = PATH + uuid.v4() + ".json";
 
       const result = await getDb().models.Language.create({
@@ -262,11 +262,15 @@ class languageController {
         LangPath: path,
       });
 
-      console.log(answer);
-      fs.writeFile(`${path}`, JSON.stringify(answer), "utf8", function (err) {
-        if (err) throw err;
-        console.log("complete");
-      });
+      fs.writeFile(
+        `${path}`,
+        JSON.stringify(answerContent),
+        "utf8",
+        function (err) {
+          if (err) throw err;
+          console.log("complete");
+        }
+      );
       return res.json(result);
     } catch (e) {
       console.log(e);
@@ -385,10 +389,7 @@ class languageController {
         { encoding: "utf-8" },
         function (err, data) {
           if (!err) {
-            console.log("received data: " + data);
-            res.writeHead(200, { "Content-Type": "application/json" });
-            res.write(data);
-            res.end();
+            res.json(JSON.parse(data));
           } else {
             console.log(err);
           }
@@ -529,6 +530,74 @@ class languageController {
         value: language.Title,
       }));
       return res.status(200).json(result);
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ message: "gel all langs title error" });
+    }
+  }
+
+  async SaveAllChangesRules(req, res) {
+    try {
+      const token = req.cookies["token"];
+      const id = req.params.id;
+      const { arg0 } = req.body;
+      const isFind = await tokenService.findToken(token);
+      if (!isFind) return res.json("unauthorized").status(401);
+
+      const langData = await languageService.getCurrentLang(id);
+      fs.readFile(
+        langData.lang.LangPath,
+        { encoding: "utf-8" },
+        (err, data) => {
+          if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Failed to read file" });
+          }
+          // Проверяем и парсим, если нужно
+          let fileObject = {};
+          if (typeof data === "string") {
+            try {
+              fileObject = JSON.parse(data);
+            } catch (err) {
+              console.error("Ошибка парсинга JSON:", err);
+              // Обработка ошибки
+            }
+          } else {
+            fileObject = data; // если уже объект
+          }
+
+          Object.keys(arg0).forEach((key) => {
+            if (typeof arg0[key] !== "undefined") {
+              fileObject.rules.noun = arg0.rules.noun;
+            }
+          });
+          fs.writeFile(
+            langData.lang.LangPath,
+            JSON.stringify(fileObject, null, 2), // красиво форматируем для удобства
+            "utf8",
+            (writeErr) => {
+              if (writeErr) {
+                console.error("Ошибка записи файла:", writeErr);
+                return res.status(500).json({ error: "Failed to write file" });
+              }
+              console.log("Файл успешно обновлен");
+              res.status(200).json({ message: "Rules saved successfully" });
+            }
+          );
+        }
+      );
+
+      fs.readFile(
+        langData.lang.LangPath,
+        { encoding: "utf-8" },
+        function (err, data) {
+          if (!err) {
+            res.json(JSON.parse(data));
+          } else {
+            console.log(err);
+          }
+        }
+      );
     } catch (e) {
       console.log(e);
       res.status(400).json({ message: "gel all langs title error" });

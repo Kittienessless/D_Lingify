@@ -137,9 +137,9 @@ async function dailyBackupStorage() {
 const start = async () => {
   try {
     await initDb();
-    await dailyBackup();
+   /*  await dailyBackup();
     
-     await dailyBackupStorage();
+    await dailyBackupStorage(); */
     server.listen(PORT, () => {
       console.log(`server is running on port  ${PORT}`);
     });

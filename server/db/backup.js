@@ -10,7 +10,7 @@ class BackupManager {
       user: process.env.DB_NAME,
       host: process.env.DB_HOST,
       database: process.env.DB_DATABASENAME,
-      password: process.env.DB_PASSWORD,
+      password: process.env.DB_PASSWORD_BACKUP,
       port: process.env.DB_PORT,
     };
   }
@@ -34,21 +34,28 @@ class BackupManager {
     await this.ensureDirectories();
 
     const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-    const backupName = `backup-${timestamp}.sql`;
+    const backupName = `backup-${timestamp}.tar`;
     const backupPath = path.join(this.backupRoot, type, backupName);
 
-    const command = `sudo pg_dump -U ${this.dbConfig.user} -p ${this.dbConfig.port} -h ${this.dbConfig.host} -d ${this.dbConfig.database} > ${backupPath}`;
+const pgDumpPath = `"C:\\Program Files\\PostgreSQL\\17\\bin\\pg_dump.exe"`; // укажите правильный путь
 
-    return new Promise((resolve, reject) => {
-      exec(
-        command,
-        { env: { PGPASSWORD: this.dbConfig.password } },
-        (error) => {
-          if (error) return reject(error);
-          resolve(backupPath);
-        }
-      );
+    const command = `pg_dump -U backup_user -h ${this.dbConfig.host} -p ${this.dbConfig.port} -d ${this.dbConfig.database} > ${backupPath}`;
+
+    const dumpCommand = `set PGPASSWORD=124C41+1 "C:\\Program Files\\PostgreSQL\\17\\bin\\psql.exe" -U postgres -h localhost -d Test10 > ${backupPath}`;
+
+    // запуск команды
+  return  exec(dumpCommand, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Ошибка при создании бэкапа: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        console.error(`stderr: ${stderr}`);
+        return;
+      }
+      console.log(`Бэкап успешно создан: ${backupPath}`);
     });
+  
   }
 
   async rotateBackups(type = "daily", maxCount = 30) {

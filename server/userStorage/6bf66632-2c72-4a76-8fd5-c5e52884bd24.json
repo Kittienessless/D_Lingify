@@ -1,1 +1,595 @@
-"{\"choices\":[{\"message\":{\"content\":\"{\\n  \\\"Title\\\": \\\"Ланкони\\\",\\n  \\\"Desc\\\": \\\"Язык создан для агрессивного и воинственного племени, живущего на юге континента. Он отличается резкими звуками, твёрдыми согласными и краткостью выражений.\\\",\\n  \\\"vocabular\\\": [\\n    {\\\"word\\\": \\\"Anu\\\", \\\"translate\\\": \\\"я\\\", \\\"stress\\\": \\\"ánu\\\"},\\n    {\\\"word\\\": \\\"Eru\\\", \\\"translate\\\": \\\"ты\\\", \\\"stress\\\": \\\"éru\\\"},\\n    {\\\"word\\\": \\\"Olu\\\", \\\"translate\\\": \\\"он\\\", \\\"stress\\\": \\\"ólú\\\"},\\n    {\\\"word\\\": \\\"Ila\\\", \\\"translate\\\": \\\"она\\\", \\\"stress\\\": \\\"ílà\\\"},\\n    {\\\"word\\\": \\\"Uta\\\", \\\"translate\\\": \\\"оно\\\", \\\"stress\\\": \\\"útà\\\"},\\n    {\\\"word\\\": \\\"Nunu\\\", \\\"translate\\\": \\\"мы\\\", \\\"stress\\\": \\\"núnù\\\"},\\n    {\\\"word\\\": \\\"Vere\\\", \\\"translate\\\": \\\"вы\\\", \\\"stress\\\": \\\"vérè\\\"},\\n    {\\\"word\\\": \\\"Yara\\\", \\\"translate\\\": \\\"они\\\", \\\"stress\\\": \\\"yárà\\\"},\\n    {\\\"word\\\": \\\"Eta\\\", \\\"translate\\\": \\\"этот\\\", \\\"stress\\\": \\\"étà\\\"},\\n    {\\\"word\\\": \\\"Tama\\\", \\\"translate\\\": \\\"тот\\\", \\\"stress\\\": \\\"támà\\\"},\\n    {\\\"word\\\": \\\"Kota\\\", \\\"translate\\\": \\\"что\\\", \\\"stress\\\": \\\"kótà\\\"},\\n    {\\\"word\\\": \\\"Mata\\\", \\\"translate\\\": \\\"кто\\\", \\\"stress\\\": \\\"mátà\\\"},\\n    {\\\"word\\\": \\\"Luna\\\", \\\"translate\\\": \\\"где\\\", \\\"stress\\\": \\\"lúnà\\\"},\\n    {\\\"word\\\": \\\"Zora\\\", \\\"translate\\\": \\\"когда\\\", \\\"stress\\\": \\\"zórà\\\"},\\n    {\\\"word\\\": \\\"Daka\\\", \\\"translate\\\": \\\"как\\\", \\\"stress\\\": \\\"dákà\\\"},\\n    {\\\"word\\\": \\\"Pona\\\", \\\"translate\\\": \\\"почему\\\", \\\"stress\\\": \\\"pónà\\\"},\\n    {\\\"word\\\": \\\"Sena\\\", \\\"translate\\\": \\\"потому что\\\", \\\"stress\\\": \\\"sénà\\\"},\\n    {\\\"word\\\": \\\"Rana\\\", \\\"translate\\\": \\\"и\\\", \\\"stress\\\": \\\"ránà\\\"},\\n    {\\\"word\\\": \\\"Ala\\\", \\\"translate\\\": \\\"а\\\", \\\"stress\\\": \\\"álà\\\"},\\n    {\\\"word\\\": \\\"Nu\\\", \\\"translate\\\": \\\"но\\\", \\\"stress\\\": \\\"nú\\\"},\\n    {\\\"word\\\": \\\"Elva\\\", \\\"translate\\\": \\\"или\\\", \\\"stress\\\": \\\"élva\\\"},\\n    {\\\"word\\\": \\\"Kalma\\\", \\\"translate\\\": \\\"если\\\", \\\"stress\\\": \\\"kálmà\\\"},\\n    {\\\"word\\\": \\\"Bala\\\", \\\"translate\\\": \\\"чтобы\\\", \\\"stress\\\": \\\"bálà\\\"},\\n    {\\\"word\\\": \\\"Isi\\\", \\\"translate\\\": \\\"был/была/было\\\", \\\"stress\\\": \\\"ísì\\\"},\\n    {\\\"word\\\": \\\"Esto\\\", \\\"translate\\\": \\\"есть\\\", \\\"stress\\\": \\\"ésò\\\"},\\n    {\\\"word\\\": \\\"Nete\\\", \\\"translate\\\": \\\"не\\\", \\\"stress\\\": \\\"néte\\\"},\\n    {\\\"word\\\": \\\"Da\\\", \\\"translate\\\": \\\"да\\\", \\\"stress\\\": \\\"dá\\\"},\\n    {\\\"word\\\": \\\"Ne\\\", \\\"translate\\\": \\\"нет\\\", \\\"stress\\\": \\\"né\\\"},\\n    {\\\"word\\\": \\\"Meja\\\", \\\"translate\\\": \\\"мой/моя/мое\\\", \\\"stress\\\": \\\"méjà\\\"},\\n    {\\\"word\\\": \\\"Teja\\\", \\\"translate\\\": \\\"твой/твоя/твоё\\\", \\\"stress\\\": \\\"téjà\\\"},\\n    {\\\"word\\\": \\\"Eja\\\", \\\"translate\\\": \\\"его\\\", \\\"stress\\\": \\\"éjà\\\"},\\n    {\\\"word\\\": \\\"Ija\\\", \\\"translate\\\": \\\"её\\\", \\\"stress\\\": \\\"íjà\\\"},\\n    {\\\"word\\\": \\\"Na\\\", \\\"translate\\\": \\\"наш/наша/наше\\\", \\\"stress\\\": \\\"ná\\\"},\\n    {\\\"word\\\": \\\"Va\\\", \\\"translate\\\": \\\"ваш/ваша/ваше\\\", \\\"stress\\\": \\\"vá\\\"},\\n    {\\\"word\\\": \\\"Keta\\\", \\\"translate\\\": \\\"кто-то\\\", \\\"stress\\\": \\\"kétà\\\"},\\n    {\\\"word\\\": \\\"Totra\\\", \\\"translate\\\": \\\"что-то\\\", \\\"stress\\\": \\\"tótrà\\\"},\\n    {\\\"word\\\": \\\"Tota\\\", \\\"translate\\\": \\\"всё\\\", \\\"stress\\\": \\\"tótà\\\"},\\n    {\\\"word\\\": \\\"Nimta\\\", \\\"translate\\\": \\\"ничего\\\", \\\"stress\\\": \\\"nímtà\\\"},\\n    {\\\"word\\\": \\\"Tanu\\\", \\\"translate\\\": \\\"там\\\", \\\"stress\\\": \\\"tánù\\\"},\\n    {\\\"word\\\": \\\"Enu\\\", \\\"translate\\\": \\\"здесь\\\", \\\"stress\\\": \\\"énù\\\"},\\n    {\\\"word\\\": \\\"Unu\\\", \\\"translate\\\": \\\"один\\\", \\\"stress\\\": \\\"únù\\\"},\\n    {\\\"word\\\": \\\"Du\\\", \\\"translate\\\": \\\"два\\\", \\\"stress\\\": \\\"dú\\\"},\\n    {\\\"word\\\": \\\"Trin\\\", \\\"translate\\\": \\\"три\\\", \\\"stress\\\": \\\"trín\\\"},\\n    {\\\"word\\\": \\\"Kuat\\\", \\\"translate\\\": \\\"четыре\\\", \\\"stress\\\": \\\"kuát\\\"},\\n    {\\\"word\\\": \\\"Penka\\\", \\\"translate\\\": \\\"пять\\\", \\\"stress\\\": \\\"pénkà\\\"},\\n    {\\\"word\\\": \\\"Seks\\\", \\\"translate\\\": \\\"шесть\\\", \\\"stress\\\": \\\"sékś\\\"},\\n    {\\\"word\\\": \\\"Septe\\\", \\\"translate\\\": \\\"семь\\\", \\\"stress\\\": \\\"séptè\\\"},\\n    {\\\"word\\\": \\\"Okto\\\", \\\"translate\\\": \\\"восемь\\\", \\\"stress\\\": \\\"óktò\\\"},\\n    {\\\"word\\\": \\\"Novem\\\", \\\"translate\\\": \\\"девять\\\", \\\"stress\\\": \\\"nóvém\\\"},\\n    {\\\"word\\\": \\\"Desim\\\", \\\"translate\\\": \\\"десять\\\", \\\"stress\\\": \\\"désím\\\"},\\n    {\\\"word\\\": \\\"Homo\\\", \\\"translate\\\": \\\"человек\\\", \\\"stress\\\": \\\"hómo\\\"},\\n    {\\\"word\\\": \\\"Dina\\\", \\\"translate\\\": \\\"день\\\", \\\"stress\\\": \\\"dínà\\\"},\\n    {\\\"word\\\": \\\"Tempus\\\", \\\"translate\\\": \\\"время\\\", \\\"stress\\\": \\\"témpsùs\\\"},\\n    {\\\"word\\\": \\\"Anno\\\", \\\"translate\\\": \\\"год\\\", \\\"stress\\\": \\\"ánno\\\"},\\n    {\\\"word\\\": \\\"Manus\\\", \\\"translate\\\": \\\"рука\\\", \\\"stress\\\": \\\"mánùs\\\"},\\n    {\\\"word\\\": \\\"Oculus\\\", \\\"translate\\\": \\\"глаз\\\", \\\"stress\\\": \\\"óklús\\\"},\\n    {\\\"word\\\": \\\"Domus\\\", \\\"translate\\\": \\\"дом\\\", \\\"stress\\\": \\\"dómùs\\\"},\\n    {\\\"word\\\": \\\"Urbs\\\", \\\"translate\\\": \\\"город\\\", \\\"stress\\\": \\\"úrbś\\\"},\\n    {\\\"word\\\": \\\"Labor\\\", \\\"translate\\\": \\\"работа\\\", \\\"stress\\\": \\\"lábòr\\\"},\\n    {\\\"word\\\": \\\"Vita\\\", \\\"translate\\\": \\\"жизнь\\\", \\\"stress\\\": \\\"vítà\\\"},\\n    {\\\"word\\\": \\\"Locus\\\", \\\"translate\\\": \\\"место\\\", \\\"stress\\\": \\\"lókùs\\\"},\\n    {\\\"word\\\": \\\"Verbum\\\", \\\"translate\\\": \\\"слово\\\", \\\"stress\\\": \\\"vérboũ\\\"},\\n    {\\\"word\\\": \\\"Res\\\", \\\"translate\\\": \\\"дело\\\", \\\"stress\\\": \\\"réś\\\"},\\n    {\\\"word\\\": \\\"Quaestio\\\", \\\"translate\\\": \\\"вопрос\\\", \\\"stress\\\": \\\"kwéstió\\\"},\\n    {\\\"word\\\": \\\"Respons\\\", \\\"translate\\\": \\\"ответ\\\", \\\"stress\\\": \\\"ráspòns\\\"},\\n    {\\\"word\\\": \\\"Amicus\\\", \\\"translate\\\": \\\"друг\\\", \\\"stress\\\": \\\"ámīcùs\\\"},\\n    {\\\"word\\\": \\\"Familia\\\", \\\"translate\\\": \\\"семья\\\", \\\"stress\\\": \\\"fámīliā\\\"},\\n    {\\\"word\\\": \\\"Matre\\\", \\\"translate\\\": \\\"мама\\\", \\\"stress\\\": \\\"mátrè\\\"},\\n    {\\\"word\\\": \\\"Patre\\\", \\\"translate\\\": \\\"папа\\\", \\\"stress\\\": \\\"pátrè\\\"},\\n    {\\\"word\\\": \\\"Infans\\\", \\\"translate\\\": \\\"ребенок\\\", \\\"stress\\\": \\\"ínfàńs\\\"},\\n    {\\\"word\\\": \\\"Puero\\\", \\\"translate\\\": \\\"мальчик\\\", \\\"stress\\\": \\\"púēró\\\"},\\n    {\\\"word\\\": \\\"Puella\\\", \\\"translate\\\": \\\"девочка\\\", \\\"stress\\\": \\\"púéllà\\\"},\\n    {\\\"word\\\": \\\"Vir\\\", \\\"translate\\\": \\\"мужчина\\\", \\\"stress\\\": \\\"vír\\\"},\\n    {\\\"word\\\": \\\"Mulier\\\", \\\"translate\\\": \\\"женщина\\\", \\\"stress\\\": \\\"múlìer\\\"},\\n    {\\\"word\\\": \\\"Monetas\\\", \\\"translate\\\": \\\"деньги\\\", \\\"stress\\\": \\\"monétas\\\"},\\n    {\\\"word\\\": \\\"Aqua\\\", \\\"translate\\\": \\\"вода\\\", \\\"stress\\\": \\\"áqũă\\\"},\\n    {\\\"word\\\": \\\"Cibus\\\", \\\"translate\\\": \\\"еда\\\", \\\"stress\\\": \\\"cíbus\\\"},\\n    {\\\"word\\\": \\\"Automobilis\\\", \\\"translate\\\": \\\"машина\\\", \\\"stress\\\": \\\"automobílis\\\"},\\n    {\\\"word\\\": \\\"Sol\\\", \\\"translate\\\": \\\"солнце\\\", \\\"stress\\\": \\\"sól\\\"},\\n    {\\\"word\\\": \\\"Caelum\\\", \\\"translate\\\": \\\"небо\\\", \\\"stress\\\": \\\"káelmùm\\\"},\\n    {\\\"word\\\": \\\"Terra\\\", \\\"translate\\\": \\\"земля\\\", \\\"stress\\\": \\\"térra\\\"},\\n    {\\\"word\\\": \\\"Mare\\\", \\\"translate\\\": \\\"море\\\", \\\"stress\\\": \\\"márè\\\"},\\n    {\\\"word\\\": \\\"Silva\\\", \\\"translate\\\": \\\"лес\\\", \\\"stress\\\": \\\"sílvà\\\"},\\n    {\\\"word\\\": \\\"Mons\\\", \\\"translate\\\": \\\"гора\\\", \\\"stress\\\": \\\"móńs\\\"},\\n    {\\\"word\\\": \\\"Fluvius\\\", \\\"translate\\\": \\\"река\\\", \\\"stress\\\": \\\"flúviūs\\\"},\\n    {\\\"word\\\": \\\"Flores\\\", \\\"translate\\\": \\\"цветок\\\", \\\"stress\\\": \\\"flōrès\\\"},\\n    {\\\"word\\\": \\\"Arbor\\\", \\\"translate\\\": \\\"дерево\\\", \\\"stress\\\": \\\"árbor\\\"},\\n    {\\\"word\\\": \\\"Avis\\\", \\\"translate\\\": \\\"птица\\\", \\\"stress\\\": \\\"ávis\\\"},\\n    {\\\"word\\\": \\\"Canis\\\", \\\"translate\\\": \\\"собака\\\", \\\"stress\\\": \\\"kánis\\\"},\\n    {\\\"word\\\": \\\"Felis\\\", \\\"translate\\\": \\\"кот\\\", \\\"stress\\\": \\\"félis\\\"},\\n    {\\\"word\\\": \\\"Bonus\\\", \\\"translate\\\": \\\"хорошо\\\", \\\"stress\\\": \\\"bónùs\\\"},\\n    {\\\"word\\\": \\\"Malus\\\", \\\"translate\\\": \\\"плохо\\\", \\\"stress\\\": \\\"málùs\\\"},\\n    {\\\"word\\\": \\\"Magnus\\\", \\\"translate\\\": \\\"большой\\\", \\\"stress\\\": \\\"mágňùs\\\"},\\n    {\\\"word\\\": \\\"Parvus\\\", \\\"translate\\\": \\\"маленький\\\", \\\"stress\\\": \\\"párwùs\\\"},\\n    {\\\"word\\\": \\\"Novus\\\", \\\"translate\\\": \\\"новый\\\", \\\"stress\\\": \\\"nówùs\\\"},\\n    {\\\"word\\\": \\\"Antiquus\\\", \\\"translate\\\": \\\"старый\\\", \\\"stress\\\": \\\"antíqwùs\\\"},\\n    {\\\"word\\\": \\\"Pulcher\\\", \\\"translate\\\": \\\"красивый\\\", \\\"stress\\\": \\\"púłćhèr\\\"},\\n    {\\\"word\\\": \\\"Tristis\\\", \\\"translate\\\": \\\"грустный\\\", \\\"stress\\\": \\\"trístis\\\"},\\n    {\\\"word\\\": \\\"Laetus\\\", \\\"translate\\\": \\\"радостный\\\", \\\"stress\\\": \\\"láėtus\\\"},\\n    {\\\"word\\\": \\\"Interessantis\\\", \\\"translate\\\": \\\"интересный\\\", \\\"stress\\\": \\\"intěressântịs\\\"},\\n    {\\\"word\\\": \\\"Fastidiosus\\\", \\\"translate\\\": \\\"скучный\\\", \\\"stress\\\": \\\"fastidiósùs\\\"}\\n  ],\\n  \\\"rules\\\": {\\n    \\\"noun\\\": [\\n      {\\\"rule\\\": \\\"Существительные имеют фиксированный род и склоняются по двум типам склонения: мужскому и женскому.\\\"},\\n      {\\\"rule\\\": \\\"Во множественном числе к существительным добавляется окончание '-er' для мужского рода и '-ar' для женского рода.\\\"}\\n    ],\\n    \\\"verb\\\": [\\n      {\\\"rule\\\": \\\"Глаголы спрягаются по лицам и числам. Окончания зависят от лица говорящего и числа объектов действия.\\\"},\\n      {\\\"rule\\\": \\\"В прошедшем времени используется суффикс '-si', а в будущем времени - префикс 'fu-' перед корнем глагола.\\\"}\\n    ],\\n    \\\"pronoun\\\": [\\n      {\\\"rule\\\": \\\"Местоимения различаются по лицу, числу и роду. Падежные формы образуются добавлением соответствующих окончаний (-n для винительного, -r для дательного и т.д.).\\\"}\\n    ],\\n    \\\"adjective\\\": [\\n      {\\\"rule\\\": \\\"Прилагательные обычно стоят после существительных и согласуются с ними в роде и числе.\\\"},\\n      {\\\"rule\\\": \\\"Степени сравнения прилагательных формируются добавлением суффиксов: сравнительная степень '-ior', превосходная степень '-issimus'.\\\"}\\n    ],\\n    \\\"adverb\\\": [\\n      {\\\"rule\\\": \\\"Наречия могут образовываться от прилагательных путем добавления окончания '-e'. Они неизменны и используются для модифицирования глаголов, прилагательных и других наречий.\\\"}\\n    ],\\n    \\\"conjunction\\\": [\\n      {\\\"rule\\\": \\\"Союзные слова ('и', 'но', 'или') являются неизменяемыми и соединяют предложения или однородные члены.\\\"}\\n    ]\\n  },\\n  \\\"articles\\\": [\\n    {\\\"rule\\\": \\\"Определённый артикль отсутствует. Неопределённый артикль представлен словом 'uni' для единственного числа и 'pluri' для множественного числа.\\\"}\\n  ],\\n  \\\"nounGender\\\": [\\n    {\\\"rule\\\": \\\"Все существительные делятся на мужской и женский род. Род определяется исторически сложившимися правилами и лексическими традициями языка.\\\"}\\n  ],\\n  \\\"DegreesofComparison\\\": [\\n    {\\\"rule\\\": \\\"Для образования степеней сравнения прилагательных используются специальные суффиксы и частицы.\\\"}\\n  ]\\n}\",\"role\":\"assistant\"},\"index\":0,\"finish_reason\":\"stop\"}],\"created\":1750403103,\"model\":\"GigaChat-2-Max:2.0.28.2\",\"object\":\"chat.completion\",\"usage\":{\"prompt_tokens\":1343,\"completion_tokens\":2887,\"total_tokens\":4230,\"precached_prompt_tokens\":1}}"
+{
+  "Title": "Ланкони",
+  "Desc": "Язык создан для агрессивного и воинственного племени, живущего на юге континента. Он отличается резкими звуками, твёрдыми согласными и краткостью выражений.",
+  "vocabular": [
+    {
+      "word": "Anu",
+      "translate": "я",
+      "stress": "ánu"
+    },
+    {
+      "word": "Eru",
+      "translate": "ты",
+      "stress": "éru"
+    },
+    {
+      "word": "Olu",
+      "translate": "он",
+      "stress": "ólú"
+    },
+    {
+      "word": "Ila",
+      "translate": "она",
+      "stress": "ílà"
+    },
+    {
+      "word": "Uta",
+      "translate": "оно",
+      "stress": "útà"
+    },
+    {
+      "word": "Nunu",
+      "translate": "мы",
+      "stress": "núnù"
+    },
+    {
+      "word": "Vere",
+      "translate": "вы",
+      "stress": "vérè"
+    },
+    {
+      "word": "Yara",
+      "translate": "они",
+      "stress": "yárà"
+    },
+    {
+      "word": "Eta",
+      "translate": "этот",
+      "stress": "étà"
+    },
+    {
+      "word": "Tama",
+      "translate": "тот",
+      "stress": "támà"
+    },
+    {
+      "word": "Kota",
+      "translate": "что",
+      "stress": "kótà"
+    },
+    {
+      "word": "Mata",
+      "translate": "кто",
+      "stress": "mátà"
+    },
+    {
+      "word": "Luna",
+      "translate": "где",
+      "stress": "lúnà"
+    },
+    {
+      "word": "Zora",
+      "translate": "когда",
+      "stress": "zórà"
+    },
+    {
+      "word": "Daka",
+      "translate": "как",
+      "stress": "dákà"
+    },
+    {
+      "word": "Pona",
+      "translate": "почему",
+      "stress": "pónà"
+    },
+    {
+      "word": "Sena",
+      "translate": "потому что",
+      "stress": "sénà"
+    },
+    {
+      "word": "Rana",
+      "translate": "и",
+      "stress": "ránà"
+    },
+    {
+      "word": "Ala",
+      "translate": "а",
+      "stress": "álà"
+    },
+    {
+      "word": "Nu",
+      "translate": "но",
+      "stress": "nú"
+    },
+    {
+      "word": "Elva",
+      "translate": "или",
+      "stress": "élva"
+    },
+    {
+      "word": "Kalma",
+      "translate": "если",
+      "stress": "kálmà"
+    },
+    {
+      "word": "Bala",
+      "translate": "чтобы",
+      "stress": "bálà"
+    },
+    {
+      "word": "Isi",
+      "translate": "был/была/было",
+      "stress": "ísì"
+    },
+    {
+      "word": "Esto",
+      "translate": "есть",
+      "stress": "ésò"
+    },
+    {
+      "word": "Nete",
+      "translate": "не",
+      "stress": "néte"
+    },
+    {
+      "word": "Da",
+      "translate": "да",
+      "stress": "dá"
+    },
+    {
+      "word": "Ne",
+      "translate": "нет",
+      "stress": "né"
+    },
+    {
+      "word": "Meja",
+      "translate": "мой/моя/мое",
+      "stress": "méjà"
+    },
+    {
+      "word": "Teja",
+      "translate": "твой/твоя/твоё",
+      "stress": "téjà"
+    },
+    {
+      "word": "Eja",
+      "translate": "его",
+      "stress": "éjà"
+    },
+    {
+      "word": "Ija",
+      "translate": "её",
+      "stress": "íjà"
+    },
+    {
+      "word": "Na",
+      "translate": "наш/наша/наше",
+      "stress": "ná"
+    },
+    {
+      "word": "Va",
+      "translate": "ваш/ваша/ваше",
+      "stress": "vá"
+    },
+    {
+      "word": "Keta",
+      "translate": "кто-то",
+      "stress": "kétà"
+    },
+    {
+      "word": "Totra",
+      "translate": "что-то",
+      "stress": "tótrà"
+    },
+    {
+      "word": "Tota",
+      "translate": "всё",
+      "stress": "tótà"
+    },
+    {
+      "word": "Nimta",
+      "translate": "ничего",
+      "stress": "nímtà"
+    },
+    {
+      "word": "Tanu",
+      "translate": "там",
+      "stress": "tánù"
+    },
+    {
+      "word": "Enu",
+      "translate": "здесь",
+      "stress": "énù"
+    },
+    {
+      "word": "Unu",
+      "translate": "один",
+      "stress": "únù"
+    },
+    {
+      "word": "Du",
+      "translate": "два",
+      "stress": "dú"
+    },
+    {
+      "word": "Trin",
+      "translate": "три",
+      "stress": "trín"
+    },
+    {
+      "word": "Kuat",
+      "translate": "четыре",
+      "stress": "kuát"
+    },
+    {
+      "word": "Penka",
+      "translate": "пять",
+      "stress": "pénkà"
+    },
+    {
+      "word": "Seks",
+      "translate": "шесть",
+      "stress": "sékś"
+    },
+    {
+      "word": "Septe",
+      "translate": "семь",
+      "stress": "séptè"
+    },
+    {
+      "word": "Okto",
+      "translate": "восемь",
+      "stress": "óktò"
+    },
+    {
+      "word": "Novem",
+      "translate": "девять",
+      "stress": "nóvém"
+    },
+    {
+      "word": "Desim",
+      "translate": "десять",
+      "stress": "désím"
+    },
+    {
+      "word": "Homo",
+      "translate": "человек",
+      "stress": "hómo"
+    },
+    {
+      "word": "Dina",
+      "translate": "день",
+      "stress": "dínà"
+    },
+    {
+      "word": "Tempus",
+      "translate": "время",
+      "stress": "témpsùs"
+    },
+    {
+      "word": "Anno",
+      "translate": "год",
+      "stress": "ánno"
+    },
+    {
+      "word": "Manus",
+      "translate": "рука",
+      "stress": "mánùs"
+    },
+    {
+      "word": "Oculus",
+      "translate": "глаз",
+      "stress": "óklús"
+    },
+    {
+      "word": "Domus",
+      "translate": "дом",
+      "stress": "dómùs"
+    },
+    {
+      "word": "Urbs",
+      "translate": "город",
+      "stress": "úrbś"
+    },
+    {
+      "word": "Labor",
+      "translate": "работа",
+      "stress": "lábòr"
+    },
+    {
+      "word": "Vita",
+      "translate": "жизнь",
+      "stress": "vítà"
+    },
+    {
+      "word": "Locus",
+      "translate": "место",
+      "stress": "lókùs"
+    },
+    {
+      "word": "Verbum",
+      "translate": "слово",
+      "stress": "vérboũ"
+    },
+    {
+      "word": "Res",
+      "translate": "дело",
+      "stress": "réś"
+    },
+    {
+      "word": "Quaestio",
+      "translate": "вопрос",
+      "stress": "kwéstió"
+    },
+    {
+      "word": "Respons",
+      "translate": "ответ",
+      "stress": "ráspòns"
+    },
+    {
+      "word": "Amicus",
+      "translate": "друг",
+      "stress": "ámīcùs"
+    },
+    {
+      "word": "Familia",
+      "translate": "семья",
+      "stress": "fámīliā"
+    },
+    {
+      "word": "Matre",
+      "translate": "мама",
+      "stress": "mátrè"
+    },
+    {
+      "word": "Patre",
+      "translate": "папа",
+      "stress": "pátrè"
+    },
+    {
+      "word": "Infans",
+      "translate": "ребенок",
+      "stress": "ínfàńs"
+    },
+    {
+      "word": "Puero",
+      "translate": "мальчик",
+      "stress": "púēró"
+    },
+    {
+      "word": "Puella",
+      "translate": "девочка",
+      "stress": "púéllà"
+    },
+    {
+      "word": "Vir",
+      "translate": "мужчина",
+      "stress": "vír"
+    },
+    {
+      "word": "Mulier",
+      "translate": "женщина",
+      "stress": "múlìer"
+    },
+    {
+      "word": "Monetas",
+      "translate": "деньги",
+      "stress": "monétas"
+    },
+    {
+      "word": "Aqua",
+      "translate": "вода",
+      "stress": "áqũă"
+    },
+    {
+      "word": "Cibus",
+      "translate": "еда",
+      "stress": "cíbus"
+    },
+    {
+      "word": "Automobilis",
+      "translate": "машина",
+      "stress": "automobílis"
+    },
+    {
+      "word": "Sol",
+      "translate": "солнце",
+      "stress": "sól"
+    },
+    {
+      "word": "Caelum",
+      "translate": "небо",
+      "stress": "káelmùm"
+    },
+    {
+      "word": "Terra",
+      "translate": "земля",
+      "stress": "térra"
+    },
+    {
+      "word": "Mare",
+      "translate": "море",
+      "stress": "márè"
+    },
+    {
+      "word": "Silva",
+      "translate": "лес",
+      "stress": "sílvà"
+    },
+    {
+      "word": "Mons",
+      "translate": "гора",
+      "stress": "móńs"
+    },
+    {
+      "word": "Fluvius",
+      "translate": "река",
+      "stress": "flúviūs"
+    },
+    {
+      "word": "Flores",
+      "translate": "цветок",
+      "stress": "flōrès"
+    },
+    {
+      "word": "Arbor",
+      "translate": "дерево",
+      "stress": "árbor"
+    },
+    {
+      "word": "Avis",
+      "translate": "птица",
+      "stress": "ávis"
+    },
+    {
+      "word": "Canis",
+      "translate": "собака",
+      "stress": "kánis"
+    },
+    {
+      "word": "Felis",
+      "translate": "кот",
+      "stress": "félis"
+    },
+    {
+      "word": "Bonus",
+      "translate": "хорошо",
+      "stress": "bónùs"
+    },
+    {
+      "word": "Malus",
+      "translate": "плохо",
+      "stress": "málùs"
+    },
+    {
+      "word": "Magnus",
+      "translate": "большой",
+      "stress": "mágňùs"
+    },
+    {
+      "word": "Parvus",
+      "translate": "маленький",
+      "stress": "párwùs"
+    },
+    {
+      "word": "Novus",
+      "translate": "новый",
+      "stress": "nówùs"
+    },
+    {
+      "word": "Antiquus",
+      "translate": "старый",
+      "stress": "antíqwùs"
+    },
+    {
+      "word": "Pulcher",
+      "translate": "красивый",
+      "stress": "púłćhèr"
+    },
+    {
+      "word": "Tristis",
+      "translate": "грустный",
+      "stress": "trístis"
+    },
+    {
+      "word": "Laetus",
+      "translate": "радостный",
+      "stress": "láėtus"
+    },
+    {
+      "word": "Interessantis",
+      "translate": "интересный",
+      "stress": "intěressântịs"
+    },
+    {
+      "word": "Fastidiosus",
+      "translate": "скучный",
+      "stress": "fastidiósùs"
+    }
+  ],
+  "rules": {
+    "noun": [
+      {
+        "rule": "Существительные имеют фиксированный род и склоняются по двум типам склонения: мужскому и женскому."
+      },
+      {
+        "rule": "Во множественном числе к существительным добавляется окончание '-er' для мужского рода и '-ar' для женского рода."
+      },
+      {
+        "key": "noun-2",
+        "rule": "dfgdfg"
+      },
+      {
+        "key": "noun-3",
+        "rule": "dfgdfg"
+      },
+      {
+        "key": "noun-4",
+        "rule": "ssssssss"
+      },
+      {
+        "key": "noun-5",
+        "rule": "dfff"
+      },
+      {
+        "key": "noun-6",
+        "rule": "dfg"
+      },
+      {
+        "key": "noun-7",
+        "rule": "12123123"
+      },
+      {
+        "key": "noun-8",
+        "rule": "1231233333333333333333"
+      }
+    ],
+    "verb": [
+      {
+        "rule": "Глаголы спрягаются по лицам и числам. Окончания зависят от лица говорящего и числа объектов действия."
+      },
+      {
+        "rule": "В прошедшем времени используется суффикс '-si', а в будущем времени - префикс 'fu-' перед корнем глагола."
+      }
+    ],
+    "pronoun": [
+      {
+        "rule": "Местоимения различаются по лицу, числу и роду. Падежные формы образуются добавлением соответствующих окончаний (-n для винительного, -r для дательного и т.д.)."
+      }
+    ],
+    "adjective": [
+      {
+        "rule": "Прилагательные обычно стоят после существительных и согласуются с ними в роде и числе."
+      },
+      {
+        "rule": "Степени сравнения прилагательных формируются добавлением суффиксов: сравнительная степень '-ior', превосходная степень '-issimus'."
+      }
+    ],
+    "adverb": [
+      {
+        "rule": "Наречия могут образовываться от прилагательных путем добавления окончания '-e'. Они неизменны и используются для модифицирования глаголов, прилагательных и других наречий."
+      }
+    ],
+    "conjunction": [
+      {
+        "rule": "Союзные слова ('и', 'но', 'или') являются неизменяемыми и соединяют предложения или однородные члены."
+      }
+    ]
+  },
+  "articles": [
+    {
+      "rule": "Определённый артикль отсутствует. Неопределённый артикль представлен словом 'uni' для единственного числа и 'pluri' для множественного числа."
+    }
+  ],
+  "nounGender": [
+    {
+      "rule": "Все существительные делятся на мужской и женский род. Род определяется исторически сложившимися правилами и лексическими традициями языка."
+    }
+  ],
+  "DegreesofComparison": [
+    {
+      "rule": "Для образования степеней сравнения прилагательных используются специальные суффиксы и частицы."
+    }
+  ]
+}

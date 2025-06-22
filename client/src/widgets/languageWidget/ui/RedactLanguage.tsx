@@ -100,7 +100,7 @@ export const RedactLanguage: React.FC = () => {
   const [error, setError] = useState("");
   const [Title, setTitle] = useState("");
   const [Desc, setDesc] = useState("");
-  const [file, setFile] = useState<FormData>();
+  const [file, setFile] = useState<any>();
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -113,7 +113,7 @@ export const RedactLanguage: React.FC = () => {
         setIsEditingF(false);
       } catch (e) {}
     }
-  }, [store.currentLang ]);
+  }, [store.currentLang]);
 
   const screens = useBreakpoint();
 
@@ -128,12 +128,18 @@ export const RedactLanguage: React.FC = () => {
       setDesc(response.data.lang.Description);
       const fileResponse = await languageService.getFileLang(id!);
       setFile(fileResponse.data);
+      const vocabularPares =
+        typeof fileResponse.data === "string"
+          ? JSON.parse(fileResponse.data)
+          : fileResponse.data;
 
-      let fileObject = JSON.parse(fileResponse.data);
+      store.setCurrentFile(vocabularPares);
+      console.log(store.currentFile);
 
-      const parsedFile = JSON.parse(fileObject.choices[0].message.content);
-
-      store.setCurrentFile(parsedFile);
+      /*   const firstVocabItem = vocabularPares.vocabular[0];
+      console.log(firstVocabItem.word); // "ama"
+      console.log(firstVocabItem.translate); // "я
+ */
     } catch (e) {
       if (e instanceof Error) {
         setError(e.message);
@@ -163,18 +169,16 @@ export const RedactLanguage: React.FC = () => {
 
   const handleEdit = () => {
     setIsEditing(true);
-    
   };
   const handleEditF = () => {
     setIsEditingF(true);
-    
   };
   const handleCancel = () => {
     setIsEditing(false);
-   };
+  };
   const handleCancelF = () => {
     setIsEditingF(false);
-   };
+  };
   const handleSave = async (title: string) => {
     try {
       const res = await languageService.changeTitle(id!, title);
@@ -323,10 +327,10 @@ export const RedactLanguage: React.FC = () => {
             </Form>
           </>
         )}
-        <div style={{marginTop: '1em'}}>
-        <Text height="s" size={"14px"}>
-          {error}
-        </Text>
+        <div style={{ marginTop: "1em" }}>
+          <Text height="s" size={"14px"}>
+            {error}
+          </Text>
         </div>
         <Text height="s" size={"16px"}></Text>
       </TitleContainer>

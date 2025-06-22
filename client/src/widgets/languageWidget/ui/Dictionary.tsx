@@ -1,81 +1,119 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 
-import { Table, Button, Input, Space, Modal } from "antd";
+import { Table, Button, Input, Space, Modal, Form } from "antd";
 import styled from "styled-components";
 import { borderRadius } from "shared/lib/borderRadius";
 import { UserContext } from "app/providers";
 import { ColumnsType } from "antd/es/table";
 import { useTranslation } from "react-i18next";
+import { VocabularyItem } from "./Grammar";
+
+type WordItem = {
+  key: string;
+  word: string;
+  translate: string;
+  stress?: string;
+  property?: string;
+  IPA?: string;
+};
 
 export const Dictionary: React.FC = () => {
-  const [newWord, setNewWord] = useState<string>("");
   const { store } = useContext(UserContext);
   const { t } = useTranslation();
+  const [vocabular, setVocabular] = useState<WordItem[]>([]);
+  const [form] = Form.useForm();
+  const [dictionaryWords, setDictionaryWords] = useState<any[]>([]);
 
-  const [dictionaryWords, setDictionaryWords] = useState<any[] | null>([]);
-  // Для словаря с пагинацией
-  const [editingKey, setEditingKey] = useState<string | null>(null);
-  const [editWord, setEditWord] = useState<string>("");
-  const [editTranslation, setEditTranslation] = useState<string>("");
-  // Поля поиска
   const [searchWord, setSearchWord] = useState("");
   const [searchTranslation, setSearchTranslation] = useState("");
 
-  // Фильтрованные данные
-  const filteredData = dictionaryWords?.filter(
-    (item?) =>
-      item?.word.toLowerCase().includes(searchWord?.toLowerCase()) &&
-      item?.translate.toLowerCase().includes(searchTranslation?.toLowerCase())
-      
-  );
-  // Функция для начала редактирования
-  const onEdit = (record: any) => {
+  const [editIndex, setEditIndex] = useState<number | null>(null);
+  const [editWordData, setEditWordData] = useState<VocabularyItem | null>(null);
+
+  const [editingKey, setEditingKey] = useState<string | null>(null);
+  const [editWord, setEditWord] = useState("");
+  const [editTranslation, setEditTranslation] = useState("");
+
+  const [data, setData] = useState<WordItem[]>([]);
+
+  const [word, setword] = useState<string>("");
+  const [translate, settranslate] = useState<string>("");
+  const [stress, setstress] = useState<string>("");
+  const [property, setproperty] = useState<string>("");
+  const [IPA, setIPA] = useState<string>("");
+
+  const [newWord, setNewWord] = useState<WordItem>({
+    key: "",
+    word: "",
+    stress: "",
+    translate: "",
+    property: "",
+    IPA: "",
+  });
+
+  // Обработчик начала редактирования
+  const onEdit = (record: WordItem) => {
     setEditingKey(record.key);
-    setEditWord(record.word);
-    setEditTranslation(record.translation);
+    setEditWord(record.word!);
+    setEditTranslation(record.translate);
   };
 
-  // Функция для сохранения изменений
-  const handleSave = () => {
-    if (editingKey) {
-      setDictionaryWords((prevData) =>
-        prevData!.map((item) =>
-          item.key === editingKey
-            ? { ...item, word: editWord, translation: editTranslation }
-            : item
-        )
-      );
-      setEditingKey(null);
+  // Отмена редактирования
+  const handleCancel = () => {
+    setEditingKey(null);
+    setEditWord("");
+    setEditTranslation("");
+  };
+
+  // Сохранение изменений
+  const handleSave = (key: string) => {
+    setData((prev) =>
+      prev.map((item) =>
+        item.key === key
+          ? { ...item, word: editWord, translate: editTranslation }
+          : item
+      )
+    );
+    handleCancel();
+  };
+
+  // Удаление слова
+  const handleDeleteVocabular = (key: string) => {
+    setData((prev) => prev.filter((item) => item.key !== key));
+    if (editingKey === key) {
+      handleCancel();
     }
   };
 
-  // Функция для отмены редактирования
-  const handleCancel = () => {
-    setEditingKey(null);
-  };
-
-  // Функция удаления строки
-  const onDelete = (key: string) => {
-    Modal.confirm({
-      title: t("Dictionary.text1"),
-      content: t("Dictionary.text2"),
-      okText: t("Dictionary.text3"),
-      cancelText: t("Dictionary.text4"),
-      onOk() {
-        setDictionaryWords((prevData) =>
-          prevData!.filter((item) => item.key !== key)
-        );
-      },
+  // Добавление нового слова
+  const handleAddWord = () => {
+    if (word.trim().length < 1) return;
+    const newItem: WordItem = {
+      key: Date.now().toString(),
+      word: word,
+      translate: translate,
+      stress: stress,
+      property: property,
+      IPA: IPA,
+    };
+    setData([...dictionaryWords, newItem]);
+    setNewWord({
+      key: "",
+      word: "",
+      stress: "",
+      translate: "",
+      property: "",
+      IPA: "",
     });
   };
-  // Определение колонок с сортировкой и действиями
-  const columns: ColumnsType<any> = [
+
+  const columns: ColumnsType<WordItem> = [
     {
-      title: t("Dictionary.text5"),
+      title: "Слово",
       dataIndex: "word",
       key: "word",
-      sorter: (a: any, b: any) => a.word.localeCompare(b.word),
-      render: (text: any, record: any) =>
+      sorter: (a, b) => a.word!.localeCompare(b.word!),
+      render: (text, record) =>
         record.key === editingKey ? (
           <Input
             value={editWord}
@@ -86,26 +124,11 @@ export const Dictionary: React.FC = () => {
         ),
     },
     {
-      title: t("Dictionary.text6"),
+      title: "Перевод",
       dataIndex: "translate",
       key: "translate",
-      sorter: (a: any, b: any) => a.translate.localeCompare(b.translate),
-      render: (text: any, record: any) =>
-        record.key === editingKey ? (
-          <Input
-            value={editTranslation}
-            onChange={(e) => setEditTranslation(e.target.value)}
-          />
-        ) : (
-          text
-        ),
-    },
-     {
-      title:  t('total.createLanguage'),
-      dataIndex: "property",
-      key: "property",
-      sorter: (a: any, b: any) => a.translate.localeCompare(b.translate),
-      render: (text: any, record: any) =>
+      sorter: (a, b) => a.translate.localeCompare(b.translate),
+      render: (text, record) =>
         record.key === editingKey ? (
           <Input
             value={editTranslation}
@@ -116,19 +139,33 @@ export const Dictionary: React.FC = () => {
         ),
     },
     {
-      title: t("Dictionary.text7"),
+      title: "Свойства",
+      dataIndex: "property",
+      key: "property",
+    },
+    {
+      title: "IPA",
+      dataIndex: "IPA",
+      key: "IPA",
+    },
+    {
+      title: "Действия",
       key: "actions",
-      render: (_: any, record: any) =>
+      render: (_, record) =>
         record.key === editingKey ? (
           <Space>
-            <Button onClick={handleSave}>{t("Dictionary.text8")}</Button>
-            <Button onClick={handleCancel}>{t("Dictionary.text9")}</Button>
+            <Button type="primary" onClick={() => handleSave(record.key)}>
+              Сохранить
+            </Button>
+            <Button onClick={handleCancel}>Отмена</Button>
           </Space>
         ) : (
           <Space>
-            <Button onClick={() => onEdit(record)}>{t("Dictionary.text10")}</Button>
-            <Button danger onClick={() => onDelete(record.key)}>
-              {t("Dictionary.text11")}
+            <Button type="link" onClick={() => onEdit(record)}>
+              Редактировать
+            </Button>
+            <Button danger onClick={() => handleDeleteVocabular(record.key)}>
+              Удалить
             </Button>
           </Space>
         ),
@@ -137,9 +174,10 @@ export const Dictionary: React.FC = () => {
 
   useEffect(() => {
     try {
-      setDictionaryWords(store.currentFile.vocabular);
-    } catch (e) {}
+       setDictionaryWords(store.currentFile.vocabular);
+      } catch (e) {}
   }, [store.currentFile]);
+
   const CardLang = styled.div`
     background-color: ${({ theme }) => theme.colors.container};
     color: ${({ theme }) => theme.colors.font};
@@ -154,23 +192,42 @@ export const Dictionary: React.FC = () => {
   return (
     <GrammarContainer>
       <CardLang>
-        <Space style={{ marginBottom: 16 }}>
-          <Input
-            placeholder={t("Dictionary.text12")}
-            value={searchWord}
-            onChange={(e) => setSearchWord(e.target.value)}
-          />
-          <Input
-            placeholder={t("Dictionary.text13")}
-            value={searchTranslation}
-            onChange={(e) => setSearchTranslation(e.target.value)}
-          />
-        </Space>
         <Table
-          dataSource={filteredData}
+          dataSource={dictionaryWords}
           columns={columns}
           pagination={{ pageSize: 20 }}
         />
+
+        <Space>
+          <Input
+            placeholder="Слово"
+            value={word}
+            onChange={(e) => setword(e.target.value)}
+          />
+          <Input
+            placeholder="Перевод"
+            value={translate}
+            onChange={(e) => settranslate(e.target.value)}
+          />
+          <Input
+            placeholder="Ударение"
+            value={stress}
+            onChange={(e) => setstress(e.target.value)}
+          />
+          <Input
+            placeholder="Свойство"
+            value={property}
+            onChange={(e) => setproperty(e.target.value)}
+          />
+          <Input
+            placeholder="IPA"
+            value={IPA}
+            onChange={(e) => setIPA(e.target.value)}
+          />
+          <Button type="primary" onClick={ handleAddWord}>
+            Добавить слово
+          </Button>
+        </Space>
       </CardLang>
     </GrammarContainer>
   );
