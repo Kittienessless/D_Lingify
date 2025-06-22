@@ -1,0 +1,7 @@
+{ "Title" :"eeeeeeeee" ,
+  "Desc" : "eeee", "vocabular": [{"key": "1", "word": "", "translate": "", "stress" :"", "property" : "", "IPA" : ""}],
+  "rules" :  {"noun": [{"key": "1", "rule" : "rule 1"} ], "verb" : [{"key": "1","rule": "rule 1"}], "pronoun" : 
+      [{"key": "1","rule": "rule"}, {"key": "1","rule": "rule 1"}],  "adjective" : [{"key": "1","rule": "rule 1"}], "adverb" : 
+          [{"key": "1","rule": "rule"} ], "conjunction" : [{"key": "1", "rule": "rule 1"}],
+   "interjection" : [{"key": "1","rule": "rule 1"}],
+  },"articles" : [{"key": "1","rule": "rule 1"}],"nounGender" : [{"key": "1","rule": "rule 1"}],"DegreesofComparison"  : [{"key": "1","rule": "rule 1"}] }

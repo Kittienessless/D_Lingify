@@ -1,0 +1,96 @@
+{
+  "Title": "${Title}",
+  "Desc": "${Description}",
+  "vocabular": [
+    {
+      "key": "1",
+      "word": "",
+      "translate": "",
+      "stress": "",
+      "property": "",
+      "IPA": ""
+    }
+  ],
+  "rules": {
+    "noun": [
+      {
+        "key": "1",
+        "rule": "rule 1"
+      },
+      {
+        "key": "noun-1",
+        "rule": "ddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "key": "noun-2",
+        "rule": "fffffffffffff"
+      },
+      {
+        "key": "noun-3",
+        "rule": "vxcvxvsdvsvd"
+      },
+      {
+        "key": "noun-4",
+        "rule": "1"
+      }
+    ],
+    "verb": [
+      {
+        "key": "1",
+        "rule": "rule 1"
+      }
+    ],
+    "pronoun": [
+      {
+        "key": "1",
+        "rule": "rule"
+      },
+      {
+        "key": "1",
+        "rule": "rule 1"
+      }
+    ],
+    "adjective": [
+      {
+        "key": "1",
+        "rule": "rule 1"
+      }
+    ],
+    "adverb": [
+      {
+        "key": "1",
+        "rule": "rule"
+      }
+    ],
+    "conjunction": [
+      {
+        "key": "1",
+        "rule": "rule 1"
+      }
+    ],
+    "interjection": [
+      {
+        "key": "1",
+        "rule": "rule 1"
+      }
+    ]
+  },
+  "articles": [
+    {
+      "key": "1",
+      "rule": "rule 1"
+    }
+  ],
+  "nounGender": [
+    {
+      "key": "1",
+      "rule": ""
+    }
+  ],
+  "DegreesofComparison": [
+    {
+      "key": "1",
+      "rule": ""
+    }
+  ]
+}

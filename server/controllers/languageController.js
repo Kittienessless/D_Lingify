@@ -36,13 +36,86 @@ class languageController {
         LangPath: path,
       });
       console.log(result);
-      const data = `{ "Title" :${Title} ,
-  "Desc" : ${Description}, "vocabular": [{key: "1", "word": "", "translate": "", "stress" :"", "property" : "", "IPA" : ""}],
-  "rules" :  {"noun": [{key: "1", "rule" : "rule 1"} ], "verb" : [{key: "1","rule": "rule 1"}], "pronoun" : 
-      [{key: "1","rule": "rule"}, {key: "1","rule": "rule 1"}],  "adjective" : [{key: "1","rule": "rule 1"}], "adverb" : 
-          [{key: "1","rule": "rule"} ], "conjunction" : [{key: "1", "rule": "rule 1"}],
-   "interjection" : [{key: "1","rule": "rule 1"}],
-  },"articles" : [{key: "1","rule": "rule 1"}],"nounGender" : [{key: "1","rule": "rule 1"}],"DegreesofComparison"  : [{key: "1","rule": "rule 1"}] }`;
+      const data = JSON.stringify({
+  "Title": "${Title}",
+  "Desc": "${Description}",
+  "vocabular": [
+    {
+      "key": "1",
+      "word": "",
+      "translate": "",
+      "stress": "",
+      "property": "",
+      "IPA": ""
+    }
+  ],
+  "rules": {
+    "noun": [
+      {
+        "key": "1",
+        "rule": "rule 1"
+      }
+    ],
+    "verb": [
+      {
+        "key": "1",
+        "rule": "rule 1"
+      }
+    ],
+    "pronoun": [
+      {
+        "key": "1",
+        "rule": "rule"
+      },
+      {
+        "key": "1",
+        "rule": "rule 1"
+      }
+    ],
+    "adjective": [
+      {
+        "key": "1",
+        "rule": "rule 1"
+      }
+    ],
+    "adverb": [
+      {
+        "key": "1",
+        "rule": "rule"
+      }
+    ],
+    "conjunction": [
+      {
+        "key": "1",
+        "rule": "rule 1"
+      }
+    ],
+    "interjection": [
+      {
+        "key": "1",
+        "rule": "rule 1"
+      }
+    ]
+  },
+  "articles": [
+    {
+      "key": "1",
+      "rule": "rule 1"
+    }
+  ],
+  "nounGender": [
+    {
+      "key": "1",
+      "rule": "" // Можно добавить правило или оставить пустым
+    }
+  ],
+  "DegreesofComparison" : [
+    {
+      "key":"1",
+      "rule":""
+    }
+  ]
+});
       fs.writeFile(`${path}`, data, "utf8", function (err) {
         if (err) throw err;
         console.log("complete");
@@ -581,8 +654,7 @@ class languageController {
                 return res.status(500).json({ error: "Failed to write file" });
               }
               console.log("Файл успешно обновлен");
-              res.status(200).json({ message: "Rules saved successfully" });
-            }
+             }
           );
         }
       );
