@@ -19,5 +19,6 @@ router.post('/download', controller.downloadFile);
 router.post('/changeTitle/:id', controller.changeTitle);
 router.post('/changeDesc/:id', controller.changeDesc);
 router.post('/SaveAllChangesRules/:id', controller.SaveAllChangesRules);
+router.post('/SaveAllChangesVocabular/:id', controller.SaveAllChangesVocabular);
 
 module.exports = router

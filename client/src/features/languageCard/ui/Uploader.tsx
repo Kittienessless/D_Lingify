@@ -44,14 +44,18 @@ interface FileContent {
   rules?: RuleItem[];
   vocabulary?: VocabularyItem[];
 }
+
 interface ILP {
   id: string | undefined;
 }
+
 export const Uploader = ({ id }: ILP) => {
   const [fileContent, setFileContent] = useState<FileContent | null>(null);
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const { store } = useContext(UserContext);
+  const { t } = useTranslation();
+
   const beforeUpload = (file: File) => {
     const isAllowedFormat = [
       "text/plain",
@@ -62,7 +66,7 @@ export const Uploader = ({ id }: ILP) => {
     ].includes(file.type);
 
     if (!isAllowedFormat) {
-      message.error("You can only upload TXT, DOC, DOCX, or Excel files!");
+      message.error(t("uploader.uploadErrorFormat"));
       return false;
     }
 
@@ -88,9 +92,9 @@ export const Uploader = ({ id }: ILP) => {
       setFileContent(response.data.data);
       store.setCurrentFile(response.data);
 
-      message.success("File processed successfully!");
+      message.success(t("uploader.uploadSuccess"));
     } catch (error) {
-      message.error("Failed to process file");
+      message.error(t("uploader.uploadError"));
       console.error("Upload error:", error);
     } finally {
       setLoading(false);
@@ -101,22 +105,22 @@ export const Uploader = ({ id }: ILP) => {
     <>
       <div style={{ margin: "0 auto" }}>
         <div>
-          <Text>Supported file formats:</Text>
+          <Text>{t("uploader.supportedFormats")}</Text>
           <ul>
             <li>TXT, DOC, DOCX, Excel</li>
           </ul>
 
-          <Text>Content formats:</Text>
+          <Text>{t("uploader.contentFormats")}</Text>
           <Tabs defaultActiveKey="1">
-            <TabPane tab="Rules Format" key="1">
+            <TabPane tab={t("uploader.rulesFormat")} key="1">
               <ul>
-                <li>First line - title</li>
-                <li>Second line - description</li>
+                <li>{t("uploader.firstLineTitle")}</li>
+                <li>{t("uploader.secondLineDescription")}</li>
                 <li>
-                  Following lines - rules in format: "rule [separator] value"
+                  {t("uploader.rulesFormatDetails")}
                 </li>
               </ul>
-              <Text strong>Supported separators:</Text>
+              <Text strong>{t("uploader.supportedSeparators")}</Text>
               <div
                 style={{
                   display: "flex",
@@ -132,19 +136,11 @@ export const Uploader = ({ id }: ILP) => {
                 )}
               </div>
             </TabPane>
-            <TabPane tab="Vocabulary Format" key="2">
+            <TabPane tab={t("uploader.vocabularyFormat")} key="2">
               <ul>
-                <li>First line - title</li>
-                <li>Second line - description</li>
-                <li>Following lines - tab-separated values with 6 columns:</li>
-                <ol>
-                  <li>Key (unique identifier)</li>
-                  <li>Word (in target language)</li>
-                  <li>Translation</li>
-                  <li>Stress pattern</li>
-                  <li>IPA transcription</li>
-                  <li>Property (part of speech)</li>
-                </ol>
+                <li>{t("uploader.firstLineTitle")}</li>
+                <li>{t("uploader.secondLineDescription")}</li>
+                <li>{t("uploader.vocabularyFormatDetails")}</li>
               </ul>
             </TabPane>
           </Tabs>
@@ -162,7 +158,7 @@ export const Uploader = ({ id }: ILP) => {
               type="primary"
               style={{ marginBottom: "24px" }}
             >
-              Select File
+              {t("uploader.selectFile")}
             </Button>
           </Upload>
         </div>

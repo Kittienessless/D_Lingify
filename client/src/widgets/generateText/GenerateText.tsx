@@ -81,7 +81,7 @@ export const GenerateText = () => {
       <Button primary={true} onClick={OnGenerateHelper} disabled={isLoading}>
         {t("profile.Generate3")}
       </Button>
-      {isLoading && <Loader />} {/* Отображаем Loader, если идет загрузка */}
+      {isLoading && <Loader />} 
       <Space height="s" />
       <TextArea
         id={1}

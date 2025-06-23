@@ -157,7 +157,7 @@ export const RedactLanguage: React.FC = () => {
 
     {
       label: t("RedactLanguage.text2"),
-      children: <Dictionary />,
+      children: <Dictionary id={id} />,
       key: "2",
     },
     {

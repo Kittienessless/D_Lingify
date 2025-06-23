@@ -1,14 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Table, Button, Input, Space } from "antd";
 import styled from "styled-components";
-import Card from "antd/es/card/Card";
 import { borderRadius } from "shared/lib/borderRadius";
-import { Text } from "shared/ui/text";
 import { UserContext } from "app/providers";
 import { useTranslation } from "react-i18next";
 import languageService from "shared/api/language/languageService";
 import { useParams } from "react-router-dom";
-import { Loader } from "shared/ui/loaders"; // Импортируем Loader
 
 export interface VocabularyItem {
   key: string;
@@ -27,19 +24,6 @@ export interface Rules {
   adverb?: { rule: string }[];
   conjunction?: { rule: string }[];
   interjection?: { rule: string }[];
-}
-
-export interface AdditionalRules {
-  articles?: { rule: string }[];
-  nounGender?: { rule: string }[];
-  DegreesofComparison?: { rule: string }[];
-}
-
-export interface LanguageInterface {
-  Title: string;
-  Desc: string;
-  vocabular: VocabularyItem[];
-  rules: Rules & AdditionalRules; // объединение правил
 }
 
 const GrammarContainer = styled.div`
@@ -70,31 +54,20 @@ export const Grammar: React.FC = () => {
   const { store } = useContext(UserContext);
   const { id } = useParams();
   const { t } = useTranslation();
-  const [nounRules, setNounRules] = useState<any[]>([]);
-  const [verbRules, setVerbRules] = useState<any[]>([]);
-  const [pronounRules, setPronounRules] = useState<any[]>([]);
-  const [adjectiveRules, setAdjectiveRules] = useState<any[]>([]);
-  const [adverbRules, setAdverbRules] = useState<any[]>([]);
+  const [rules, setRules] = useState<Rules>({
+    noun: [],
+    verb: [],
+    pronoun: [],
+    adjective: [],
+    adverb: [],
+    conjunction: [],
+    interjection: [],
+  });
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
-  const [editValue, setEditValue] = useState("");
+  const [editValue, setEditValue] = useState<string>("");
   const [newRule, setNewRule] = useState<string>("");
   const [adding, setAdding] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false); // Состояние для отслеживания загрузки
-
-  useEffect(() => {
-    try {
-      setNounRules(store.currentFile.rules.noun);
-      setVerbRules(store.currentFile.rules.verb);
-      setPronounRules(store.currentFile.rules.pronoun);
-      setAdjectiveRules(store.currentFile.rules.adjective);
-      setAdverbRules(store.currentFile.rules.adverb);
-    } catch (e) {}
-  }, [store.currentFile]);
-
-  const handleEdit = (index: number) => {
-    setEditingIndex(index);
-    setEditValue(nounRules[index].rule);
-  };
+  const [currentType, setCurrentType] = useState<keyof Rules>("verb");
 
   const handleCancel = () => {
     setEditingIndex(null);
@@ -102,43 +75,57 @@ export const Grammar: React.FC = () => {
   };
 
   const handleSave = (index: number) => {
-    const updatedRules = [...nounRules];
-    updatedRules[index] = { ...updatedRules[index], rule: editValue };
-    setNounRules(updatedRules);
+    const updatedRules = [...(rules[currentType] || [])];
+    updatedRules[index] = { rule: editValue };
+    setRules({ ...rules, [currentType]: updatedRules });
     handleCancel();
   };
 
   const handleDeleteRule = (index: number) => {
-    const updatedRules = [...nounRules];
+    const updatedRules = [...(rules[currentType] || [])];
     updatedRules.splice(index, 1);
-    setNounRules(updatedRules);
+    setRules({ ...rules, [currentType]: updatedRules });
     if (index === editingIndex) {
       handleCancel();
     }
   };
 
+  const handleEdit = (index: number) => {
+    setEditingIndex(index);
+    setEditValue(rules[currentType]![index].rule!);
+  };
+
   const handleAddRule = () => {
     if (newRule.trim().length < 2) return;
     setAdding(true);
-    const newItem = {
-      key: `noun-${nounRules.length}`,
-      rule: newRule,
-    };
-    setNounRules([...nounRules, newItem]);
+    const newItem = { rule: newRule };
+    setRules({
+      ...rules,
+      [currentType]: [...(rules[currentType] || []), newItem],
+    });
     setNewRule("");
     setAdding(false);
   };
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    try {
+      setRules(store.currentFile.rules);
+    } catch (e) {}
+  }, [store.currentFile]);
+
   const handleSaveAllChanges_rules = async () => {
-    setIsLoading(true); // Устанавливаем состояние загрузки
+    setIsLoading(true);
     try {
       const rulesData = {
         rules: {
-          noun: nounRules,
-          verb: verbRules,
-          pronoun: pronounRules,
-          adjective: adjectiveRules,
-          adverb: adverbRules,
+          noun: rules.noun,
+          verb: rules.verb,
+          pronoun: rules.pronoun,
+          adjective: rules.adjective,
+          adverb: rules.adverb,
+          conjunction: rules.conjunction,
         },
       };
       const result = await languageService.SaveAllChangesRules(id!, rulesData);
@@ -146,176 +133,120 @@ export const Grammar: React.FC = () => {
     } catch (e) {
       console.error(e);
     } finally {
-      setIsLoading(false); // Сбрасываем состояние загрузки
+      setIsLoading(false);
     }
   };
 
+  const renderTable = (type: keyof Rules) => (
+    <Table
+      dataSource={rules[type]}
+      columns={[
+        {
+          title: t("rules.rule"),
+          dataIndex: "rule",
+          key: "rule",
+          render: (_text, record, index) =>
+            editingIndex === index ? (
+              <Input
+                value={editValue}
+                onChange={(e) => setEditValue(e.target.value)}
+              />
+            ) : (
+              record.rule
+            ),
+        },
+        {
+          title: t("rules.actions"),
+          key: "actions",
+          render: (_text, record, index) => {
+            if (editingIndex === index) {
+              return (
+                <>
+                  <Button
+                    type="link"
+                    onClick={() => handleSave(index)}
+                    style={{ marginRight: 8 }}
+                  >
+                    {t("rules.save")}
+                  </Button>
+                  <Button onClick={handleCancel}>{t("rules.cancel")}</Button>
+                </>
+              );
+            } else {
+              return (
+                <>
+                  <Button
+                    type="link"
+                    onClick={() => handleEdit(index)}
+                    style={{ marginRight: 8 }}
+                  >
+                    {t("rules.edit")}
+                  </Button>
+                  <Button danger onClick={() => handleDeleteRule(index)}>
+                    {t("rules.delete")}
+                  </Button>
+                </>
+              );
+            }
+          },
+        },
+      ]}
+      pagination={false}
+    />
+  );
+
   return (
-    <GrammarContainer>
-      <CardLang>
-        <Table
-          dataSource={nounRules}
-          columns={[
-            {
-              title: "Правило",
-              dataIndex: "rule",
-              key: "rule",
-              render: (_text, record, index) =>
-                editingIndex === index ? (
-                  <Input
-                    value={editValue}
-                    onChange={(e) => setEditValue(e.target.value)}
-                  />
-                ) : (
-                  record.rule
-                ),
-            },
-            {
-              title: "Действия",
-              key: "actions",
-              render: (_text, record, index) => {
-                if (editingIndex === index) {
-                  return (
-                    <>
-                      <Button
-                        type="link"
-                        onClick={() => handleSave(index)}
-                        style={{ marginRight: 8 }}
-                      >
-                        Save
-                      </Button>
-                      <Button onClick={handleCancel}>Cancel</Button>
-                    </>
-                  );
-                } else {
-                  return (
-                    <>
-                      <Button
-                        type="link"
-                        onClick={() => handleEdit(index)}
-                        style={{ marginRight: 8 }}
-                      >
-                        Edit
-                      </Button>
-                      <Button danger onClick={() => handleDeleteRule(index)}>
-                        Delete
-                      </Button>
-                    </>
-                  );
-                }
-              },
-            },
-          ]}
-          pagination={false}
-        />
+    <div>
+      <div>
+        <Button onClick={() => setCurrentType("noun")}>{t("rules.noun")}</Button>
+        <Button onClick={() => setCurrentType("verb")}>{t("rules.verb")}</Button>
+        <Button onClick={() => setCurrentType("pronoun")}>{t("rules.pronoun")}</Button>
+        <Button onClick={() => setCurrentType("adjective")}>{t("rules.adjective")}</Button>
+        <Button onClick={() => setCurrentType("adverb")}>{t("rules.adverb")}</Button>
+        <Button onClick={() => setCurrentType("conjunction")}>{t("rules.conjunction")}</Button>
+        <Button onClick={() => setCurrentType("interjection")}>{t("rules.interjection")}</Button>
+      </div>
 
-        <div
-          style={{
-            marginTop: 16,
-            display: "flex",
-            gap: "8px",
-            alignItems: "center",
-          }}
-        >
-          <Input
-            placeholder="Введите новое правило"
-            value={newRule}
-            onChange={(e) => setNewRule(e.target.value)}
-            minLength={2}
-            maxLength={100}
-          />
-          <Button type="primary" onClick={handleAddRule} disabled={adding}>
-            {adding ? "Загрузка..." : "Добавить"}
-          </Button>
-        </div>
-      </CardLang>
+      {renderTable(currentType)}
 
-      <CardLang>
-        <Table
-          dataSource={verbRules}
-          columns={[
-            {
-              title: "Правило",
-              dataIndex: "rule",
-              key: "rule",
-              render: (_text, record, index) =>
-                editingIndex === index ? (
-                  <Input
-                    value={editValue}
-                    onChange={(e) => setEditValue(e.target.value)}
-                  />
-                ) : (
-                  record.rule
-                ),
-            },
-            {
-              title: "Действия",
-              key: "actions",
-              render: (_text, record, index) => {
-                if (editingIndex === index) {
-                  return (
-                    <>
-                      <Button
-                        type="link"
-                        onClick={() => handleSave(index)}
-                        style={{ marginRight: 8 }}
-                      >
-                        Save
-                      </Button>
-                      <Button onClick={handleCancel}>Cancel</Button>
-                    </>
-                  );
-                } else {
-                  return (
-                    <>
-                      <Button
-                        type="link"
-                        onClick={() => handleEdit(index)}
-                        style={{ marginRight: 8 }}
-                      >
-                        Edit
-                      </Button>
-                      <Button danger onClick={() => handleDeleteRule(index)}>
-                        Delete
-                      </Button>
-                    </>
-                  );
-                }
-              },
-            },
-          ]}
-          pagination={false}
-        />
-
-        <div
-          style={{
-            marginTop: 16,
-            display: "flex",
-            gap: "8px",
-            alignItems: "center",
-          }}
-        >
-          <Input
-            placeholder="Введите новое правило"
-            value={newRule}
-            onChange={(e) => setNewRule(e.target.value)}
-            minLength={2}
-            maxLength={100}
-          />
-          <Button type="primary" onClick={handleAddRule} disabled={adding}>
-            {adding ? "Загрузка..." : "Добавить"}
-          </Button>
-        </div>
-      </CardLang>
-
-      <Button
-        type="primary"
-        onClick={handleSaveAllChanges_rules}
-        disabled={adding || isLoading} // Отключаем кнопку во время загрузки
+      <div
+        style={{
+          marginTop: 16,
+          display: "flex",
+          gap: "8px",
+          alignItems: "center",
+        }}
       >
-        {isLoading ? "Сохранение..." : "Сохранить все изменения"}
-      </Button>
-      {isLoading && <Loader />} {/* Отображаем Loader, если идет загрузка */}
-    </GrammarContainer>
+        <Input
+          placeholder={t("rules.enterNewRule")}
+          value={newRule}
+          onChange={(e) => setNewRule(e.target.value)}
+          minLength={2}
+          maxLength={100}
+        />
+        <Button type="primary" onClick={handleAddRule} disabled={adding}>
+          {adding ? t("rules.loading") : t("rules.addRule")}
+        </Button>
+      </div>
+      <div
+        style={{
+          marginTop: 16,
+          gap: "8px",
+          alignItems: "center",
+          position: "fixed",
+          bottom: "2em",
+          right: "2em",
+        }}
+      >
+        <Button
+          size="large"
+          type="primary"
+          onClick={handleSaveAllChanges_rules}
+          disabled={adding}
+        >
+          {adding ? t("rules.loading") : t("rules.saveChanges")}
+        </Button>
+      </div>
+    </div>
   );
 };

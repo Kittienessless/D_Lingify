@@ -7,9 +7,29 @@ import { LangResponse } from "shared/types/responseTypes";
 import { Option } from "../../../shared/types/Option.tsx";
 
 export default class languageService {
+  static async SaveAllChangesVocabular(
+    id: string,
+    arg0: any
+  ): Promise<AxiosResponse> {
+    return await $api.post(`${BASE_URL}/lang/SaveAllChangesVocabular/${id}`, {
+      arg0,
+    });
+  }
   static async SaveAllChangesRules(
     id: string,
-    arg0: { rules : {noun?: any; verb?: any; pronoun?: any; adjective?: any; adverb?: any }}
+    arg0: {
+      rules: {
+        noun?: any;
+        verb?: any;
+        pronoun?: any;
+        adjective?: any;
+        adverb?: any;
+        conjunction?: any;
+      };
+      DegreesofComparison?: any;
+      nounGender?: any;
+      articles?: any;
+    }
   ): Promise<AxiosResponse> {
     return await $api.post(`${BASE_URL}/lang/SaveAllChangesRules/${id}`, {
       arg0,

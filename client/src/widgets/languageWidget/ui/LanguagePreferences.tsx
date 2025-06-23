@@ -79,9 +79,7 @@ export const LanguagePreferences = ({ id }: ILP) => {
       console.log(e);
     }
   }
-  async function handleUploaderFile(key: string) {
-
-  }
+   
   async function OnDelete(key: string) {
     await languageService.delete(key);
   }
@@ -99,8 +97,7 @@ export const LanguagePreferences = ({ id }: ILP) => {
   function handleShowCards() {
     setIsOpen(!isOpen);
   }
-  const handleCancel = () => {};
-
+ 
   return (
     <div style={{ display: "flex" }}>
       <div>
@@ -269,7 +266,7 @@ export const LanguagePreferences = ({ id }: ILP) => {
             {t("LanguagePreferences.text5")}
           </Text>
           <IconButton
-            onClick={() => handleDownloadFile(store.currentLang!.id)}
+            onClick={() => handleDownloadFile(id!)}
             title={t("LanguagePreferences.text5")}
             icon={<DownloadIcon />}
           />
@@ -280,7 +277,7 @@ export const LanguagePreferences = ({ id }: ILP) => {
             {t("LanguagePreferences.text7")}
           </Text>
           <IconButton
-            onClick={() => OnDelete(store.currentLang!.id)}
+            onClick={() => OnDelete(id!)}
             title={t("LanguagePreferences.text7")}
             icon={<TrashBinIcon />}
           />

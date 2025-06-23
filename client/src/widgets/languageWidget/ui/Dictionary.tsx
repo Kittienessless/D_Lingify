@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
-
-import { Table, Button, Input, Space, Modal, Form } from "antd";
+import React, { useState, useEffect, useContext } from "react";
+import { Table, Button, Input, Space } from "antd";
 import styled from "styled-components";
 import { borderRadius } from "shared/lib/borderRadius";
 import { UserContext } from "app/providers";
 import { ColumnsType } from "antd/es/table";
 import { useTranslation } from "react-i18next";
-import { VocabularyItem } from "./Grammar";
+import languageService from "shared/api/language/languageService";
 
 type WordItem = {
   key: string;
@@ -17,44 +16,28 @@ type WordItem = {
   IPA?: string;
 };
 
-export const Dictionary: React.FC = () => {
+interface ILP {
+  id: string | undefined;
+}
+
+export const Dictionary = ({ id }: ILP) => {
   const { store } = useContext(UserContext);
   const { t } = useTranslation();
-  const [vocabular, setVocabular] = useState<WordItem[]>([]);
-  const [form] = Form.useForm();
-  const [dictionaryWords, setDictionaryWords] = useState<any[]>([]);
-
-  const [searchWord, setSearchWord] = useState("");
-  const [searchTranslation, setSearchTranslation] = useState("");
-
-  const [editIndex, setEditIndex] = useState<number | null>(null);
-  const [editWordData, setEditWordData] = useState<VocabularyItem | null>(null);
-
+  const [data, setData] = useState<WordItem[]>([]);
   const [editingKey, setEditingKey] = useState<string | null>(null);
   const [editWord, setEditWord] = useState("");
   const [editTranslation, setEditTranslation] = useState("");
-
-  const [data, setData] = useState<WordItem[]>([]);
-
-  const [word, setword] = useState<string>("");
-  const [translate, settranslate] = useState<string>("");
-  const [stress, setstress] = useState<string>("");
-  const [property, setproperty] = useState<string>("");
+  const [word, setWord] = useState<string>("");
+  const [translate, setTranslate] = useState<string>("");
+  const [stress, setStress] = useState<string>("");
+  const [property, setProperty] = useState<string>("");
   const [IPA, setIPA] = useState<string>("");
-
-  const [newWord, setNewWord] = useState<WordItem>({
-    key: "",
-    word: "",
-    stress: "",
-    translate: "",
-    property: "",
-    IPA: "",
-  });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // Обработчик начала редактирования
   const onEdit = (record: WordItem) => {
     setEditingKey(record.key);
-    setEditWord(record.word!);
+    setEditWord(record.word);
     setEditTranslation(record.translate);
   };
 
@@ -96,23 +79,20 @@ export const Dictionary: React.FC = () => {
       property: property,
       IPA: IPA,
     };
-    setData([...dictionaryWords, newItem]);
-    setNewWord({
-      key: "",
-      word: "",
-      stress: "",
-      translate: "",
-      property: "",
-      IPA: "",
-    });
+    setData((prev) => [...prev, newItem]);
+    setWord("");
+    setTranslate("");
+    setStress("");
+    setProperty("");
+    setIPA("");
   };
 
   const columns: ColumnsType<WordItem> = [
     {
-      title: "Слово",
+      title: t("dictionary.word"),
       dataIndex: "word",
       key: "word",
-      sorter: (a, b) => a.word!.localeCompare(b.word!),
+      sorter: (a, b) => a.word.localeCompare(b.word),
       render: (text, record) =>
         record.key === editingKey ? (
           <Input
@@ -124,7 +104,7 @@ export const Dictionary: React.FC = () => {
         ),
     },
     {
-      title: "Перевод",
+      title: t("dictionary.translate"),
       dataIndex: "translate",
       key: "translate",
       sorter: (a, b) => a.translate.localeCompare(b.translate),
@@ -139,33 +119,33 @@ export const Dictionary: React.FC = () => {
         ),
     },
     {
-      title: "Свойства",
+      title: t("dictionary.property"),
       dataIndex: "property",
       key: "property",
     },
     {
-      title: "IPA",
+      title: t("dictionary.IPA"),
       dataIndex: "IPA",
       key: "IPA",
     },
     {
-      title: "Действия",
+      title: t("dictionary.actions"),
       key: "actions",
       render: (_, record) =>
         record.key === editingKey ? (
           <Space>
             <Button type="primary" onClick={() => handleSave(record.key)}>
-              Сохранить
+              {t("dictionary.save")}
             </Button>
-            <Button onClick={handleCancel}>Отмена</Button>
+            <Button onClick={handleCancel}>{t("dictionary.cancel")}</Button>
           </Space>
         ) : (
           <Space>
             <Button type="link" onClick={() => onEdit(record)}>
-              Редактировать
+              {t("dictionary.edit")}
             </Button>
             <Button danger onClick={() => handleDeleteVocabular(record.key)}>
-              Удалить
+              {t("dictionary.delete")}
             </Button>
           </Space>
         ),
@@ -173,9 +153,9 @@ export const Dictionary: React.FC = () => {
   ];
 
   useEffect(() => {
-    try {
-       setDictionaryWords(store.currentFile.vocabular);
-      } catch (e) {}
+    if (store.currentFile && store.currentFile.vocabular) {
+      setData(store.currentFile.vocabular);
+    }
   }, [store.currentFile]);
 
   const CardLang = styled.div`
@@ -185,50 +165,83 @@ export const Dictionary: React.FC = () => {
     margin: 1em;
     ${borderRadius.m};
   `;
+
   const GrammarContainer = styled.div`
     background-color: ${({ theme }) => theme.colors.bg};
     padding-left: 1em;
   `;
+
+  const handleSaveAllChangesVocabular = async () => {
+    setIsLoading(true);
+    try {
+      const result = await languageService.SaveAllChangesVocabular(id!, data);
+      console.log(result);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <GrammarContainer>
       <CardLang>
         <Table
-          dataSource={dictionaryWords}
+          dataSource={data}
           columns={columns}
           pagination={{ pageSize: 20 }}
         />
 
         <Space>
           <Input
-            placeholder="Слово"
+            placeholder={t("dictionary.word")}
             value={word}
-            onChange={(e) => setword(e.target.value)}
+            onChange={(e) => setWord(e.target.value)}
           />
           <Input
-            placeholder="Перевод"
+            placeholder={t("dictionary.translate")}
             value={translate}
-            onChange={(e) => settranslate(e.target.value)}
+            onChange={(e) => setTranslate(e.target.value)}
           />
           <Input
-            placeholder="Ударение"
+            placeholder={t("dictionary.stress")}
             value={stress}
-            onChange={(e) => setstress(e.target.value)}
+            onChange={(e) => setStress(e.target.value)}
           />
           <Input
-            placeholder="Свойство"
+            placeholder={t("dictionary.property")}
             value={property}
-            onChange={(e) => setproperty(e.target.value)}
+            onChange={(e) => setProperty(e.target.value)}
           />
           <Input
-            placeholder="IPA"
+            placeholder={t("dictionary.IPA")}
             value={IPA}
             onChange={(e) => setIPA(e.target.value)}
           />
-          <Button type="primary" onClick={ handleAddWord}>
-            Добавить слово
+          <Button type="primary" onClick={handleAddWord}>
+            {t("dictionary.addWord")}
           </Button>
         </Space>
       </CardLang>
+      <div
+        style={{
+          marginTop: 16,
+          gap: "8px",
+          alignItems: "center",
+          position: "fixed",
+          bottom: "2em",
+          right: "2em",
+        }}
+      >
+        <Button
+          size="large"
+          type="primary"
+          onClick={handleSaveAllChangesVocabular}
+          loading={isLoading}
+        >
+          {isLoading ? t("dictionary.loading") : t("dictionary.saveAllChanges")}
+        </Button>
+      </div>
     </GrammarContainer>
   );
 };

@@ -93,9 +93,12 @@ const Confirmation = () => {
               justifyContent: "center",
             }}
           >
-            <Button style={{ width: "fit-content" }} onClick={createLanguage}>
-              {t("confirmation.createLanguageButton")}
-            </Button>
+            {" "}
+            {!success && (
+              <Button style={{ width: "fit-content" }} onClick={createLanguage}>
+                {t("confirmation.createLanguageButton")}
+              </Button>
+            )}
           </div>
           {success && (
             <>

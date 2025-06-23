@@ -13,7 +13,7 @@ const LangsOptions = require("../dbo/langsOption.js");
 const path = require("path");
 const mammoth = require("mammoth");
 const xlsx = require("xlsx");
-   const dirtyJson = require('dirty-json');
+const dirtyJson = require("dirty-json");
 
 class languageController {
   async createLanguage(req, res) {
@@ -475,10 +475,11 @@ class languageController {
       const isFind = tokenService.findToken(token);
       if (!isFind) return res.json("unauthorized").status(401);
       const { id } = req.body;
-      const langData = await languageService.getCurrentLang(id);
-
+      const lang = await getDb().models.Language.findOne({
+        where: { id: id },
+      });
       fs.readFile(
-        langData.lang.LangPath,
+        lang.LangPath,
         { encoding: "utf-8" },
         function (err, data) {
           if (!err) {
@@ -879,21 +880,117 @@ class languageController {
 
         try {
           const repairedJson = dirtyJson.parse(data);
-            
-          const obj = JSON.parse(repairedJson);
 
-          fileObject = obj; // Парсинг JSON
+          //  const obj = JSON.parse(repairedJson);
+
+          fileObject = repairedJson; // Парсинг JSON
         } catch (err) {
           console.error("Ошибка парсинга JSON:", err);
           return res.status(500).json({ error: "Failed to parse JSON" });
         }
         // Проверка структуры объекта
         if (!fileObject.rules) {
-          fileObject.rules = {}; // Создаем объект rules, если его нет
+          fileObject.rules = {};
+          if (!fileObject.rules.conjunction) {
+            fileObject.rules.conjunction = {};
+          }
+          if (!fileObject.rules.noun) {
+            fileObject.rules.noun = {};
+          }
+          if (!fileObject.rules.verb) {
+            fileObject.rules.verb = {};
+          }
+          if (!fileObject.rules.pronoun) {
+            fileObject.rules.pronoun = {};
+          }
+          if (!fileObject.rules.adjective) {
+            fileObject.rules.adjective = {};
+          }
+          if (!fileObject.rules.adverb) {
+            fileObject.rules.adverb = {};
+          }
+          if (!fileObject.rules.articles) {
+            fileObject.articles = [];
+          }
+          if (!fileObject.rules.nounGender) {
+            fileObject.nounGender = [];
+          }
+          if (!fileObject.rules.DegreesofComparison) {
+            fileObject.DegreesofComparison = [];
+          }
         }
+
         if (arg0.rules && arg0.rules.noun) {
           fileObject.rules.noun = arg0.rules.noun;
+          fileObject.rules.verb = arg0.rules.verb;
+          fileObject.rules.pronoun = arg0.rules.pronoun;
+          fileObject.rules.adjective = arg0.rules.adjective;
+          fileObject.rules.adverb = arg0.rules.adverb;
+          fileObject.rules.conjunction = arg0.rules.conjunction;
+          fileObject.articles = arg0.articles;
+          fileObject.nounGender = arg0.nounGender;
+          fileObject.DegreesofComparison = arg0.DegreesofComparison;
         }
+
+        await fs.promises.writeFile(
+          langData.lang.LangPath,
+          JSON.stringify(fileObject, null, 2),
+          "utf8"
+        );
+        console.log("Файл успешно обновлен");
+        res.json(fileObject); // Отправляем обновленный объект
+      } catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Failed to read or write file" });
+      }
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ message: "gel all langs title error" });
+    }
+  }
+
+  async SaveAllChangesVocabular(req, res) {
+    try {
+      const token = req.cookies["token"];
+      const id = req.params.id;
+      const { arg0 } = req.body;
+      console.log(arg0);
+      const isFind = await tokenService.findToken(token);
+      if (!isFind) return res.status(401).json("unauthorized");
+
+      const langData = await languageService.getCurrentLang(id);
+      try {
+        const data = await fs.promises.readFile(langData.lang.LangPath, {
+          encoding: "utf-8",
+        });
+
+        // Проверка, что данные являются строкой
+        if (typeof data !== "string") {
+          return res
+            .status(500)
+            .json({ error: "File content is not a string" });
+        }
+        let fileObject;
+
+        try {
+          const repairedJson = dirtyJson.parse(data);
+
+          //  const obj = JSON.parse(repairedJson);
+
+          fileObject = repairedJson;
+        } catch (err) {
+          console.error("Ошибка парсинга JSON:", err);
+          return res.status(500).json({ error: "Failed to parse JSON" });
+        }
+        // Проверка структуры объекта
+        if (!fileObject.vocabular) {
+          fileObject.vocabular = [];
+        }
+
+        if (arg0) {
+          fileObject.vocabular = arg0;
+        }
+
         await fs.promises.writeFile(
           langData.lang.LangPath,
           JSON.stringify(fileObject, null, 2),
