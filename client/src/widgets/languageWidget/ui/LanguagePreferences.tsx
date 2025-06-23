@@ -27,10 +27,11 @@ const PrefLang = styled.div`
   color: ${({ theme }) => theme.colors.font};
   min-width: 20em;
   max-width: fit-content;
-  height: 3em;
+  height: fit-content;
   padding: 0.6em;
   margin: 0.8em;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   ${borderRadius.m};
 `;
@@ -273,16 +274,7 @@ export const LanguagePreferences = ({ id }: ILP) => {
             icon={<DownloadIcon />}
           />
         </PrefLang>
-      {/*   <PrefLang>
-          <Text height="s" size={"12pt"}>
-            {t("LanguagePreferences.text6")}
-          </Text>
-          <IconButton
-            onClick={() => handleUploaderFile(store.currentLang!.id)}
-            title={t("LanguagePreferences.text6")}
-            icon={<UploadIcon />}
-          />
-        </PrefLang> */}
+     
         <PrefLang>
           <Text height="s" size={"12pt"}>
             {t("LanguagePreferences.text7")}
@@ -292,6 +284,9 @@ export const LanguagePreferences = ({ id }: ILP) => {
             title={t("LanguagePreferences.text7")}
             icon={<TrashBinIcon />}
           />
+        </PrefLang>
+        <PrefLang>
+          <Uploader id={id}></Uploader>
         </PrefLang>
       </div>
       {/*    {isOpen && <LangCards></LangCards>} */}

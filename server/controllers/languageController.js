@@ -1,24 +1,19 @@
 const { getDb } = require("../db/db.js");
 require("dotenv").config();
-const { checkAuth } = require("../modules/user.js");
 const uuid = require("uuid");
 const axios = require("axios");
 const qs = require("qs");
 const { where, json } = require("sequelize");
 const filesService = require("../services/filesService.js");
-const JsonTemplate = require("../helpers/JsonTemplate.js");
 const languageService = require("../services/languageService.js");
-const userService = require("../services/userService.js");
 const tokenService = require("../services/tokenService.js");
 const PATH = `D:/Diploma/server/userStorage/`;
-const multer = require("multer");
-const { Op } = require("@sequelize/core");
 const fs = require("fs");
 const LangsOptions = require("../dbo/langsOption.js");
-const crypto = require("crypto");
-const GigaChat = require("gigachat");
-const chatModule = require("./chatModule.js");
-const LangDto = require("../dbo/lang-dto.js");
+const path = require("path");
+const mammoth = require("mammoth");
+const xlsx = require("xlsx");
+   const dirtyJson = require('dirty-json');
 
 class languageController {
   async createLanguage(req, res) {
@@ -37,85 +32,85 @@ class languageController {
       });
       console.log(result);
       const data = JSON.stringify({
-  "Title": "${Title}",
-  "Desc": "${Description}",
-  "vocabular": [
-    {
-      "key": "1",
-      "word": "",
-      "translate": "",
-      "stress": "",
-      "property": "",
-      "IPA": ""
-    }
-  ],
-  "rules": {
-    "noun": [
-      {
-        "key": "1",
-        "rule": "rule 1"
-      }
-    ],
-    "verb": [
-      {
-        "key": "1",
-        "rule": "rule 1"
-      }
-    ],
-    "pronoun": [
-      {
-        "key": "1",
-        "rule": "rule"
-      },
-      {
-        "key": "1",
-        "rule": "rule 1"
-      }
-    ],
-    "adjective": [
-      {
-        "key": "1",
-        "rule": "rule 1"
-      }
-    ],
-    "adverb": [
-      {
-        "key": "1",
-        "rule": "rule"
-      }
-    ],
-    "conjunction": [
-      {
-        "key": "1",
-        "rule": "rule 1"
-      }
-    ],
-    "interjection": [
-      {
-        "key": "1",
-        "rule": "rule 1"
-      }
-    ]
-  },
-  "articles": [
-    {
-      "key": "1",
-      "rule": "rule 1"
-    }
-  ],
-  "nounGender": [
-    {
-      "key": "1",
-      "rule": "" // Можно добавить правило или оставить пустым
-    }
-  ],
-  "DegreesofComparison" : [
-    {
-      "key":"1",
-      "rule":""
-    }
-  ]
-});
+        Title: "${Title}",
+        Desc: "${Description}",
+        vocabular: [
+          {
+            key: "1",
+            word: "",
+            translate: "",
+            stress: "",
+            property: "",
+            IPA: "",
+          },
+        ],
+        rules: {
+          noun: [
+            {
+              key: "1",
+              rule: "rule 1",
+            },
+          ],
+          verb: [
+            {
+              key: "1",
+              rule: "rule 1",
+            },
+          ],
+          pronoun: [
+            {
+              key: "1",
+              rule: "rule",
+            },
+            {
+              key: "1",
+              rule: "rule 1",
+            },
+          ],
+          adjective: [
+            {
+              key: "1",
+              rule: "rule 1",
+            },
+          ],
+          adverb: [
+            {
+              key: "1",
+              rule: "rule",
+            },
+          ],
+          conjunction: [
+            {
+              key: "1",
+              rule: "rule 1",
+            },
+          ],
+          interjection: [
+            {
+              key: "1",
+              rule: "rule 1",
+            },
+          ],
+        },
+        articles: [
+          {
+            key: "1",
+            rule: "rule 1",
+          },
+        ],
+        nounGender: [
+          {
+            key: "1",
+            rule: "", // Можно добавить правило или оставить пустым
+          },
+        ],
+        DegreesofComparison: [
+          {
+            key: "1",
+            rule: "",
+          },
+        ],
+      });
       fs.writeFile(`${path}`, data, "utf8", function (err) {
         if (err) throw err;
         console.log("complete");
@@ -503,23 +498,275 @@ class languageController {
 
   async upload(req, res) {
     const token = req.cookies["token"];
-    const { id, data } = req.body;
+    const id = req.params.id;
 
     const isFind = await tokenService.findToken(token);
-    if (!isFind) return res.json("unauthorized").status(401);
 
-    const updateLangInfo = await getDb().models.Language.findOne({
-      where: id,
-    });
+    console.log("go to parser");
 
-    // const newData = await JsonTemplate.CreateFileByTemplate(data);
+    const detectContentType = (lines) => {
+      // Проверяем первую строку с правилами
+      if (lines.length > 2) {
+        const firstRuleLine = lines[2];
+        const ruleSeparators = ["\t", ",", ":", "-", ";", "|"];
 
-    /*  fs.appendFile(`${updateLangInfo.LangPath}`, JSON.stringify(data), "utf8", function (err) {
-      if (err) throw err;
-      console.log("complete");
-    }); */
+        // Если в строке ровно 2 части (rule и value) - это rules
+        for (const sep of ruleSeparators) {
+          const parts = firstRuleLine.split(sep);
+          if (parts.length === 2) {
+            return "rules";
+          }
+        }
+      }
 
-    return res.status(200).json({ message: "success added to storage" });
+      // Проверяем возможный формат vocabulary (минимум 5 колонок)
+      if (lines.length > 1) {
+        const vocabLine = lines[1];
+        const parts = vocabLine.split("\t");
+        if (parts.length >= 5) {
+          return "vocabulary";
+        }
+      }
+
+      return "rules"; // По умолчанию
+    };
+
+    // Парсер для rules (как в предыдущей версии)
+    const parseRulesContent = (lines) => {
+      const title = lines[0]?.trim() || "";
+      const description = lines[1]?.trim() || "";
+
+      const delimiters = ["\t", ",", ":", "-", ";", "|"];
+
+      const rules = lines
+        .slice(2)
+        .map((line) => {
+          let separator = "";
+          for (const delim of delimiters) {
+            if (line.includes(delim)) {
+              separator = delim;
+              break;
+            }
+          }
+
+          if (separator) {
+            const [rule, ...valueParts] = line.split(separator);
+            const value = valueParts.join(separator).trim();
+            return { rule: rule?.trim(), value: value?.trim() };
+          }
+
+          return { rule: line.trim(), value: "" };
+        })
+        .filter((rule) => rule.rule && rule.rule !== "");
+
+      return { type: "rules", title, description, rules };
+    };
+
+    // Парсер для vocabulary
+    const parseVocabularyContent = (lines) => {
+      const title = lines[0]?.trim() || "";
+      const description = lines[1]?.trim() || "";
+
+      const vocabulary = lines
+        .slice(2)
+        .map((line) => {
+          const parts = line.split("\t");
+          return {
+            key: parts[0]?.trim() || "",
+            word: parts[1]?.trim() || "",
+            translate: parts[2]?.trim() || "",
+            stress: parts[3]?.trim() || "",
+            IPA: parts[4]?.trim() || "",
+            property: parts[5]?.trim() || "",
+          };
+        })
+        .filter((item) => item.word && item.word !== "");
+
+      return { type: "vocabulary", title, description, vocabulary };
+    };
+
+    // Общий парсер контента
+    const parseContent = (content) => {
+      const lines = content.split("\n").filter((line) => line.trim() !== "");
+      if (lines.length === 0) return { error: "Empty file" };
+
+      const contentType = detectContentType(lines);
+
+      if (contentType === "vocabulary") {
+        return parseVocabularyContent(lines);
+      } else {
+        return parseRulesContent(lines);
+      }
+    };
+
+    // Обработка текстовых файлов
+    const parseTextFile = async (filePath) => {
+      const content = fs.readFileSync(filePath, "utf-8");
+      return parseContent(content);
+    };
+
+    // Обработка Word документов
+    const parseWordFile = async (filePath) => {
+      const result = await mammoth.extractRawText({ path: filePath });
+      return parseContent(result.value);
+    };
+
+    // Обработка Excel файлов
+    const parseExcelFile = async (filePath, contentType) => {
+      const workbook = xlsx.readFile(filePath);
+      const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+
+      if (contentType === "vocabulary") {
+        // Парсинг как vocabulary
+        const jsonData = xlsx.utils.sheet_to_json(firstSheet, {
+          header: 1,
+          defval: "",
+        });
+
+        const title = jsonData[0]?.[0]?.toString().trim() || "";
+        const description = jsonData[1]?.[0]?.toString().trim() || "";
+
+        const vocabulary = jsonData
+          .slice(2)
+          .map((row) => {
+            const parts = Array.isArray(row) ? row : Object.values(row);
+            return {
+              key: parts[0]?.toString().trim() || "",
+              word: parts[1]?.toString().trim() || "",
+              translate: parts[2]?.toString().trim() || "",
+              stress: parts[3]?.toString().trim() || "",
+              IPA: parts[4]?.toString().trim() || "",
+              property: parts[5]?.toString().trim() || "",
+            };
+          })
+          .filter((item) => item.word);
+
+        return { type: "vocabulary", title, description, vocabulary };
+      } else {
+        // Парсинг как rules
+        const jsonData = xlsx.utils.sheet_to_json(firstSheet, {
+          header: 1,
+          defval: "",
+        });
+
+        const title = jsonData[0]?.[0]?.toString().trim() || "";
+        const description = jsonData[1]?.[0]?.toString().trim() || "";
+
+        const rules = jsonData
+          .slice(2)
+          .map((row) => {
+            const parts = Array.isArray(row) ? row : Object.values(row);
+            const line = parts.join("\t");
+            const { rule, value } = parseRuleLine(line);
+            return { rule, value };
+          })
+          .filter((rule) => rule.rule);
+
+        return { type: "rules", title, description, rules };
+      }
+    };
+
+    // Функция для парсинга строки с правилом
+    const parseRuleLine = (line) => {
+      line = line.trim().replace(/^["']|["']$/g, "");
+      const separatorRegex = /[\t,:;\-|]\s*/;
+      const match = line.match(separatorRegex);
+
+      if (match) {
+        const separator = match[0];
+        const separatorIndex = match.index;
+        const rule = line.substring(0, separatorIndex).trim();
+        const value = line.substring(separatorIndex + separator.length).trim();
+        return { rule, value };
+      }
+
+      return { rule: line.trim(), value: "" };
+    };
+
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+      }
+
+      const filePath = req.file.path;
+      const extname = path.extname(req.file.originalname).toLowerCase();
+
+      let result;
+      console.log(result);
+      // Определяем тип содержимого по первым строкам файла
+      let contentType = "rules";
+      if (extname === ".txt") {
+        const content = fs.readFileSync(filePath, "utf-8");
+        const lines = content.split("\n").filter((line) => line.trim() !== "");
+        contentType = detectContentType(lines);
+      }
+
+      // Парсим файл в зависимости от расширения
+      if (extname === ".txt") {
+        result = await parseTextFile(filePath);
+      } else if (extname === ".doc" || extname === ".docx") {
+        result = await parseWordFile(filePath);
+      } else if (extname === ".xls" || extname === ".xlsx") {
+        result = await parseExcelFile(filePath, contentType);
+      } else {
+        throw new Error("Unsupported file format");
+      }
+
+      // Удаляем временный файл
+      fs.unlinkSync(filePath);
+
+      const newFilePath = PATH + uuid.v4() + ".json";
+
+      const language = await getDb()
+        .models.Language.findOne({
+          where: { id: id },
+        })
+        .then((lang) => {
+          lang.LangPath = newFilePath;
+          lang.save();
+          console.log("saved");
+        });
+
+      fs.writeFile(
+        `${newFilePath}`,
+        JSON.stringify(result),
+        "utf8",
+        function (err) {
+          if (err) throw err;
+          console.log("complete");
+        }
+      );
+      const langData = await languageService.getCurrentLang(id);
+
+      fs.readFile(
+        langData.lang.LangPath,
+        { encoding: "utf-8" },
+        function (err, data) {
+          if (!err) {
+            res.json(JSON.parse(data));
+          } else {
+            console.log(err);
+          }
+        }
+      );
+    } catch (error) {
+      console.error("Error processing file:", error);
+
+      // Удаляем временный файл в случае ошибки
+      if (req.file?.path) {
+        try {
+          fs.unlinkSync(req.file.path);
+        } catch (e) {}
+      }
+
+      res
+        .status(500)
+        .json({ error: "Error processing file", details: error.message });
+    }
+  }
+  catch(e) {
+    console.log(e);
+    res.status(400).json({ message: "upload error" });
   }
 
   async changeTitle(req, res) {
@@ -615,61 +862,49 @@ class languageController {
       const id = req.params.id;
       const { arg0 } = req.body;
       const isFind = await tokenService.findToken(token);
-      if (!isFind) return res.json("unauthorized").status(401);
-
+      if (!isFind) return res.status(401).json("unauthorized");
       const langData = await languageService.getCurrentLang(id);
-      fs.readFile(
-        langData.lang.LangPath,
-        { encoding: "utf-8" },
-        (err, data) => {
-          if (err) {
-            console.error(err);
-            return res.status(500).json({ error: "Failed to read file" });
-          }
-          // Проверяем и парсим, если нужно
-          let fileObject = {};
-          if (typeof data === "string") {
-            try {
-              fileObject = JSON.parse(data);
-            } catch (err) {
-              console.error("Ошибка парсинга JSON:", err);
-              // Обработка ошибки
-            }
-          } else {
-            fileObject = data; // если уже объект
-          }
+      try {
+        const data = await fs.promises.readFile(langData.lang.LangPath, {
+          encoding: "utf-8",
+        });
 
-          Object.keys(arg0).forEach((key) => {
-            if (typeof arg0[key] !== "undefined") {
-              fileObject.rules.noun = arg0.rules.noun;
-            }
-          });
-          fs.writeFile(
-            langData.lang.LangPath,
-            JSON.stringify(fileObject, null, 2), // красиво форматируем для удобства
-            "utf8",
-            (writeErr) => {
-              if (writeErr) {
-                console.error("Ошибка записи файла:", writeErr);
-                return res.status(500).json({ error: "Failed to write file" });
-              }
-              console.log("Файл успешно обновлен");
-             }
-          );
+        // Проверка, что данные являются строкой
+        if (typeof data !== "string") {
+          return res
+            .status(500)
+            .json({ error: "File content is not a string" });
         }
-      );
+        let fileObject;
 
-      fs.readFile(
-        langData.lang.LangPath,
-        { encoding: "utf-8" },
-        function (err, data) {
-          if (!err) {
-            res.json(JSON.parse(data));
-          } else {
-            console.log(err);
-          }
+        try {
+          const repairedJson = dirtyJson.parse(data);
+            
+          const obj = JSON.parse(repairedJson);
+
+          fileObject = obj; // Парсинг JSON
+        } catch (err) {
+          console.error("Ошибка парсинга JSON:", err);
+          return res.status(500).json({ error: "Failed to parse JSON" });
         }
-      );
+        // Проверка структуры объекта
+        if (!fileObject.rules) {
+          fileObject.rules = {}; // Создаем объект rules, если его нет
+        }
+        if (arg0.rules && arg0.rules.noun) {
+          fileObject.rules.noun = arg0.rules.noun;
+        }
+        await fs.promises.writeFile(
+          langData.lang.LangPath,
+          JSON.stringify(fileObject, null, 2),
+          "utf8"
+        );
+        console.log("Файл успешно обновлен");
+        res.json(fileObject); // Отправляем обновленный объект
+      } catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Failed to read or write file" });
+      }
     } catch (e) {
       console.log(e);
       res.status(400).json({ message: "gel all langs title error" });

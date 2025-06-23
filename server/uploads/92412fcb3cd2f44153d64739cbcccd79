@@ -1,0 +1,89 @@
+
+        Title: " dfgdfgd ",
+        Desc: "dddddddddddddddddddddddd",
+        vocabular: [
+          {
+            key: "1",
+            word: ffff,
+            translate: ffffffffff,
+            stress: fffffffffff,
+            property: d,
+            IPA: f,
+          },
+ {
+            key: "1",
+            word: aaaaaa,
+            translate: aaaaaa,
+            stress: aaaaaa,
+            property: aaaaaa,
+            IPA: aaaaaa,
+          },
+
+        ],
+        rules: {
+          noun: [
+            {
+              key: "1",
+              rule: "rule 1",
+            },
+          ],
+          verb: [
+            {
+              key: "1",
+              rule: "rule 1",
+            },
+          ],
+          pronoun: [
+            {
+              key: "1",
+              rule: "rule",
+            },
+            {
+              key: "1",
+              rule: "rule 1",
+            },
+          ],
+          adjective: [
+            {
+              key: "1",
+              rule: "rule 1",
+            },
+          ],
+          adverb: [
+            {
+              key: "1",
+              rule: "rule",
+            },
+          ],
+          conjunction: [
+            {
+              key: "1",
+              rule: "rule 1",
+            },
+          ],
+          interjection: [
+            {
+              key: "1",
+              rule: "rule 1",
+            },
+          ],
+        },
+        articles: [
+          {
+            key: "1",
+            rule: "rule 1",
+          },
+        ],
+        nounGender: [
+          {
+            key: "1",
+            rule: "", // Можно добавить правило или оставить пустым
+          },
+        ],
+        DegreesofComparison: [
+          {
+            key: "1",
+            rule: "",
+          },
+        ],
+      });

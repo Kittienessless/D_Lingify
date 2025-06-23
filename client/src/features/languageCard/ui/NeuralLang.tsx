@@ -95,6 +95,8 @@ const NeuralLang = () => {
   const { store } = useContext(UserContext);
   const [form] = Form.useForm();
   const { t } = useTranslation();
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [isDescriptionValid, setIsDescriptionValid] = useState(false);
 
   const [rules, setRules] = useState<any | null>(null);
 
@@ -139,7 +141,20 @@ const NeuralLang = () => {
   };
 
   const width = getWidth();
-
+  
+  const onValuesChange = async () => {
+  try {
+    await form.validateFields();
+    setIsFormValid(true);
+  } catch (error) {
+    setIsFormValid(false);
+  }
+};
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setPrompt(value);
+    setIsDescriptionValid(value.trim() !== ""); // Проверка на заполненность
+  };
   return (
     <Wrapper>
       <Space height="m"></Space>
@@ -150,6 +165,7 @@ const NeuralLang = () => {
       <Divider></Divider>
       <Form
         form={form}
+        onValuesChange={onValuesChange}
         layout="vertical"
         onFinish={onFinish}
         initialValues={{
@@ -421,7 +437,9 @@ const NeuralLang = () => {
         </Form.Item>
 
         <Form.Item>
-          <AntdButon htmlType="submit">{t("NeuralLang.title44")}</AntdButon>
+          <AntdButon disabled={!isFormValid} htmlType="submit">
+            {t("NeuralLang.title44")}
+          </AntdButon>
         </Form.Item>
       </Form>
       <Space height="s"></Space>
@@ -435,35 +453,38 @@ const NeuralLang = () => {
           style={{ width: width, maxWidth: "100%", height: "auto" }}
           type="text"
           className="desc"
-          onChange={(e) => setPrompt(e.target.value)}
+          onChange={handleDescriptionChange}
           required={true}
           placeholder={t("NeuralLang.title46")}
         />
       </InputContainer>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Button onClick={handleUseAI}>{t("NeuralLang.button3")}</Button>
-      </div>
 
       <Space height="m"></Space>
       <Divider></Divider>
-
       <div
         style={{
           display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "space-between",
+          marginTop: 24,
+          gap: 8,
+          width: "100%",
         }}
       >
-        <Button onClick={() => navigateTo("LangInfo")}>
+        <Button onClick={() => navigateTo("LangInfo")} style={{ flex: 1 }}>
           {t("NeuralLang.button1")}
         </Button>
-        <Button onClick={handleNext}>{t("NeuralLang.button2")}</Button>
+
+        <Button
+          onClick={handleUseAI}
+          disabled={!isDescriptionValid}
+          style={{ flex: 1 }}
+        >
+          {t("NeuralLang.button3")}
+        </Button>
+
+        <Button onClick={() => navigateTo("Confirmation")} style={{ flex: 1 }}>
+          Создать вручную
+        </Button>
       </div>
     </Wrapper>
   );

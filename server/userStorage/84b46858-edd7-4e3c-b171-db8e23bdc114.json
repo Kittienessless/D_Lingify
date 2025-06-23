@@ -1,0 +1,882 @@
+{
+  "Title": "Эльфийское наречие падших",
+  "Desc": "Язык бывших высокомерных эльфийских правителей, который постепенно деградировал вместе со своим народом.",
+  "vocabular": [
+    {
+      "key": "ja",
+      "word": "Já",
+      "translate": "я",
+      "stress": "já",
+      "property": "личное местоимение",
+      "IPA": "/dʒa/"
+    },
+    {
+      "key": "ty",
+      "word": "Ty",
+      "translate": "ты",
+      "stress": "tý",
+      "property": "личное местоимение",
+      "IPA": "/tiː/"
+    },
+    {
+      "key": "on",
+      "word": "On",
+      "translate": "он",
+      "stress": "ón",
+      "property": "личное местоимение",
+      "IPA": "/ɔn/"
+    },
+    {
+      "key": "ona",
+      "word": "Ona",
+      "translate": "она",
+      "stress": "óna",
+      "property": "личное местоимение",
+      "IPA": "/ˈɔ.na/"
+    },
+    {
+      "key": "ono",
+      "word": "Ono",
+      "translate": "оно",
+      "stress": "ón̩o",
+      "property": "личное местоимение",
+      "IPA": "/ˈɔ.no/"
+    },
+    {
+      "key": "my",
+      "word": "My",
+      "translate": "мы",
+      "stress": "mý",
+      "property": "личное местоимение",
+      "IPA": "/miː/"
+    },
+    {
+      "key": "vy",
+      "word": "Vy",
+      "translate": "вы",
+      "stress": "vý",
+      "property": "личное местоимение",
+      "IPA": "/viː/"
+    },
+    {
+      "key": "oni",
+      "word": "Oni",
+      "translate": "они",
+      "stress": "ónɪ",
+      "property": "личное местоимение",
+      "IPA": "/ˈɔ.ni/"
+    },
+    {
+      "key": "etot",
+      "word": "Etót",
+      "translate": "этот",
+      "stress": "étót",
+      "property": "указательное местоимение",
+      "IPA": "/e.tɔt/"
+    },
+    {
+      "key": "tot",
+      "word": "Tót",
+      "translate": "тот",
+      "stress": "tót",
+      "property": "указательное местоимение",
+      "IPA": "/toːt/"
+    },
+    {
+      "key": "cto",
+      "word": "Ctó",
+      "translate": "что",
+      "stress": "čtó",
+      "property": "вопросительно-относительное местоимение",
+      "IPA": "/ts.toː/"
+    },
+    {
+      "key": "kto",
+      "word": "Któ",
+      "translate": "кто",
+      "stress": "któ",
+      "property": "вопросительно-относительное местоимение",
+      "IPA": "/ktuː/"
+    },
+    {
+      "key": "gde",
+      "word": "Gdé",
+      "translate": "где",
+      "stress": "gdé",
+      "property": "вопросительное наречие места",
+      "IPA": "/ɡ.dʲe/"
+    },
+    {
+      "key": "kogda",
+      "word": "Kógda",
+      "translate": "когда",
+      "stress": "kóg.da",
+      "property": "вопросительное наречие времени",
+      "IPA": "/ko.g.da/"
+    },
+    {
+      "key": "kak",
+      "word": "Kák",
+      "translate": "как",
+      "stress": "kák",
+      "property": "вопросительное наречие образа действия",
+      "IPA": "/kaːk/"
+    },
+    {
+      "key": "pochemu",
+      "word": "Póčemu",
+      "translate": "почему",
+      "stress": "pó.t͡sə.mu",
+      "property": "вопросительное наречие причины",
+      "IPA": "/po.t͡sə.mu/"
+    },
+    {
+      "key": "potomu_cto",
+      "word": "Potómu cto",
+      "translate": "потому что",
+      "stress": "pɔ.'tu.mu tso",
+      "property": "союз причинности",
+      "IPA": "/pɔ.tumu ts.o/"
+    },
+    {
+      "key": "i",
+      "word": "I",
+      "translate": "и",
+      "stress": "í",
+      "property": "сочинительный союз",
+      "IPA": "/iː/"
+    },
+    {
+      "key": "a",
+      "word": "Á",
+      "translate": "а",
+      "stress": "á",
+      "property": "противительный союз",
+      "IPA": "/aː/"
+    },
+    {
+      "key": "no",
+      "word": "Nó",
+      "translate": "но",
+      "stress": "nó",
+      "property": "противительный союз",
+      "IPA": "/noː/"
+    },
+    {
+      "key": "ili",
+      "word": "Ilí",
+      "translate": "или",
+      "stress": "ilí",
+      "property": "разделительный союз",
+      "IPA": "/i.liː/"
+    },
+    {
+      "key": "yesli",
+      "word": "Yésli",
+      "translate": "если",
+      "stress": "yés.lɪ",
+      "property": "условный союз",
+      "IPA": "/je.sli/"
+    },
+    {
+      "key": "chtoby",
+      "word": "Chtóby",
+      "translate": "чтобы",
+      "stress": "çtó.bɨ",
+      "property": "целевой союз",
+      "IPA": "/çto.bi/"
+    },
+    {
+      "key": "byl_byla_bilo",
+      "word": "Búl/Búla/Búlo",
+      "translate": "был/была/было",
+      "stress": "búl/bú.la/bú.lo",
+      "property": "форма прошедшего времени глагола 'быть'",
+      "IPA": "/bul/, /bu.la/, /bu.lo/"
+    },
+    {
+      "key": "est",
+      "word": "Ést",
+      "translate": "есть",
+      "stress": "é.st",
+      "property": "форма настоящего времени глагола 'быть'",
+      "IPA": "/es.t/"
+    },
+    {
+      "key": "ne_net",
+      "word": "Ne/Nétt",
+      "translate": "не/нет",
+      "stress": "né/nét",
+      "property": "отрицательная частица",
+      "IPA": "/ne/, /net/"
+    },
+    {
+      "key": "da",
+      "word": "Dá",
+      "translate": "да",
+      "stress": "dá",
+      "property": "утвердительная частица",
+      "IPA": "/daː/"
+    },
+    {
+      "key": "moj_moya_moe",
+      "word": "Moj/Móya/Móye",
+      "translate": "мой/моя/мое",
+      "stress": "mó.j/mó.ya/mó.je",
+      "property": "притяжательные местоимения",
+      "IPA": "/mɔj/, /mɔ.ja/, /mɔ.je/"
+    },
+    {
+      "key": "tvoj_tvoya_tvoje",
+      "word": "Tvój/Tvóya/Tvóje",
+      "translate": "твой/твоя/tвоё",
+      "stress": "tvó.j/tvó.ja/tvó.je",
+      "property": "притяжательные местоимения",
+      "IPA": "/tvɔj/, /tvɔ.ja/, /tvɔ.je/"
+    },
+    {
+      "key": "ego",
+      "word": "Egó",
+      "translate": "его",
+      "stress": "ég.o",
+      "property": "притяжательное местоимение",
+      "IPA": "/e.go/"
+    },
+    {
+      "key": "ee",
+      "word": "Èe",
+      "translate": "её",
+      "stress": "è.e",
+      "property": "притяжательное местоимение",
+      "IPA": "/jeː/"
+    },
+    {
+      "key": "nash_nasha_nashe",
+      "word": "Naš/Naša/Naše",
+      "translate": "наш/наша/наше",
+      "stress": "nà.ʃ/nà.ʃa/nà.ʃe",
+      "property": "притяжательные местоимения",
+      "IPA": "/nas/, /na.sa/, /na.se/"
+    },
+    {
+      "key": "vas_vasha_vashe",
+      "word": "Vás/Vásha/Váshe",
+      "translate": "ваш/ваша/ваше",
+      "stress": "vás/vá.ʃa/vá.ʃe",
+      "property": "притяжательные местоимения",
+      "IPA": "/vas/, /va.ʃa/, /va.ʃe/"
+    },
+    {
+      "key": "kto-to",
+      "word": "K-tó",
+      "translate": "кто-то",
+      "stress": "k-tó",
+      "property": "неопределённое местоимение",
+      "IPA": "/ktuː/"
+    },
+    {
+      "key": "cto-to",
+      "word": "C-tó",
+      "translate": "что-то",
+      "stress": "č-tó",
+      "property": "неопределённое местоимение",
+      "IPA": "/ts.toː/"
+    },
+    {
+      "key": "vsyo",
+      "word": "Vsýo",
+      "translate": "всё",
+      "stress": "vsý.o",
+      "property": "местоименное прилагательное",
+      "IPA": "/fsjo/"
+    },
+    {
+      "key": "nichego",
+      "word": "Ničégo",
+      "translate": "ничего",
+      "stress": "ni.t͡ʃ'é.go",
+      "property": "отрицательное местоимение",
+      "IPA": "/nit͡ʃe.go/"
+    },
+    {
+      "key": "tam",
+      "word": "Tám",
+      "translate": "там",
+      "stress": "tám",
+      "property": "указательное наречие места",
+      "IPA": "/tam/"
+    },
+    {
+      "key": "zdes",
+      "word": "Zdès",
+      "translate": "здесь",
+      "stress": "zdès",
+      "property": "указательное наречие места",
+      "IPA": "/zdjes/"
+    },
+    {
+      "key": "odin_odna_odno",
+      "word": "Ódin/Ódna/Ódno",
+      "translate": "один/одна/одно",
+      "stress": "ód.in/ód.na/ód.no",
+      "property": "числительное",
+      "IPA": "/odin/, /odna/, /odon/"
+    },
+    {
+      "key": "dva_dve",
+      "word": "Dvá/Dvé",
+      "translate": "два/две",
+      "stress": "dvá/dvé",
+      "property": "числительное",
+      "IPA": "/dva/, /dve/"
+    },
+    {
+      "key": "tri",
+      "word": "Trí",
+      "translate": "три",
+      "stress": "trí",
+      "property": "числительное",
+      "IPA": "/triː/"
+    },
+    {
+      "key": "chetyre",
+      "word": "Četyrẹ",
+      "translate": "четыре",
+      "stress": "t͡ʃe.ty.rẹ",
+      "property": "числительное",
+      "IPA": "/t͡ʃetirɛ/"
+    },
+    {
+      "key": "pyat",
+      "word": "Pyát",
+      "translate": "пять",
+      "stress": "pʲät",
+      "property": "числительное",
+      "IPA": "/pjæt/"
+    },
+    {
+      "key": "shest",
+      "word": "Šěst",
+      "translate": "шесть",
+      "stress": "ʃɛst",
+      "property": "числительное",
+      "IPA": "/ʃɛst/"
+    },
+    {
+      "key": "sem",
+      "word": "Sém",
+      "translate": "семь",
+      "stress": "sém",
+      "property": "числительное",
+      "IPA": "/se:m/"
+    },
+    {
+      "key": "voshem",
+      "word": "Vošem",
+      "translate": "восемь",
+      "stress": "vɔ.ʃɛm",
+      "property": "числительное",
+      "IPA": "/vɔ.ʃɛm/"
+    },
+    {
+      "key": "devjat",
+      "word": "Devját",
+      "translate": "девять",
+      "stress": "dʲev.ˈjat",
+      "property": "числительное",
+      "IPA": "/djef.jat/"
+    },
+    {
+      "key": "desjat",
+      "word": "Desját",
+      "translate": "десять",
+      "stress": "dʲes.ˈjat",
+      "property": "числительное",
+      "IPA": "/djes.jat/"
+    },
+    {
+      "key": "chelovek",
+      "word": "Čelovék",
+      "translate": "человек",
+      "stress": "t͡ʃe.lɔ.vek",
+      "property": "существительное",
+      "IPA": "/t͡ʃelo.vek/"
+    },
+    {
+      "key": "den",
+      "word": "Den",
+      "translate": "день",
+      "stress": "dén",
+      "property": "существительное",
+      "IPA": "/den/"
+    },
+    {
+      "key": "vremja",
+      "word": "Vréme",
+      "translate": "время",
+      "stress": "vré.me",
+      "property": "существительное",
+      "IPA": "/vre.me/"
+    },
+    {
+      "key": "god",
+      "word": "God",
+      "translate": "год",
+      "stress": "gód",
+      "property": "существительное",
+      "IPA": "/gɔd/"
+    },
+    {
+      "key": "ruka",
+      "word": "Ruká",
+      "translate": "рука",
+      "stress": "ruká",
+      "property": "существительное",
+      "IPA": "/ru.kɔ/"
+    },
+    {
+      "key": "glaz",
+      "word": "Gláz",
+      "translate": "глаз",
+      "stress": "gláz",
+      "property": "существительное",
+      "IPA": "/ɡlas/"
+    },
+    {
+      "key": "dom",
+      "word": "Dom",
+      "translate": "дом",
+      "stress": "dòm",
+      "property": "существительное",
+      "IPA": "/dɔm/"
+    },
+    {
+      "key": "gorod",
+      "word": "Gród",
+      "translate": "город",
+      "stress": "gród",
+      "property": "существительное",
+      "IPA": "/ɡroːt/"
+    },
+    {
+      "key": "rabota",
+      "word": "Rabótá",
+      "translate": "работа",
+      "stress": "ra.bót.a",
+      "property": "существительное",
+      "IPA": "/ra.bo.ta/"
+    },
+    {
+      "key": "zhizn",
+      "word": "Žízn",
+      "translate": "жизнь",
+      "stress": "ží.zn",
+      "property": "существительное",
+      "IPA": "/ʒisn/"
+    },
+    {
+      "key": "mesto",
+      "word": "Mésto",
+      "translate": "место",
+      "stress": "mé.sto",
+      "property": "существительное",
+      "IPA": "/mes.to/"
+    },
+    {
+      "key": "slovo",
+      "word": "Slóvo",
+      "translate": "слово",
+      "stress": "sló.vo",
+      "property": "существительное",
+      "IPA": "/slo.vo/"
+    },
+    {
+      "key": "delo",
+      "word": "Dló",
+      "translate": "дело",
+      "stress": "dló",
+      "property": "существительное",
+      "IPA": "/dlo/"
+    },
+    {
+      "key": "vopros",
+      "word": "Vpřós",
+      "translate": "вопрос",
+      "stress": "vp.rós",
+      "property": "существительное",
+      "IPA": "/vpros/"
+    },
+    {
+      "key": "otvet",
+      "word": "Otṷet",
+      "translate": "ответ",
+      "stress": "ot.wet",
+      "property": "существительное",
+      "IPA": "/otwet/"
+    },
+    {
+      "key": "drug",
+      "word": "Drůg",
+      "translate": "друг",
+      "stress": "drùg",
+      "property": "существительное",
+      "IPA": "/druːɡ/"
+    },
+    {
+      "key": "semia",
+      "word": "Semía",
+      "translate": "семья",
+      "stress": "se.mí.a",
+      "property": "существительное",
+      "IPA": "/se.mi.a/"
+    },
+    {
+      "key": "mama",
+      "word": "Mamá",
+      "translate": "мама",
+      "stress": "ma.ma",
+      "property": "существительное",
+      "IPA": "/mama/"
+    },
+    {
+      "key": "papa",
+      "word": "Papá",
+      "translate": "папа",
+      "stress": "pa.pa",
+      "property": "существительное",
+      "IPA": "/papa/"
+    },
+    {
+      "key": "rebenok",
+      "word": "Reběnok",
+      "translate": "ребёнок",
+      "stress": "rebę.nok",
+      "property": "существительное",
+      "IPA": "/re.bɛ.nok/"
+    },
+    {
+      "key": "malchik",
+      "word": "Malćík",
+      "translate": "мальчик",
+      "stress": "mal.t͡ʃik",
+      "property": "существительное",
+      "IPA": "/mal.t͡ʃik/"
+    },
+    {
+      "key": "devochka",
+      "word": "Devočká",
+      "translate": "девочка",
+      "stress": "de.vo.t͡ʃ.ká",
+      "property": "существительное",
+      "IPA": "/de.vot͡ʃ.ka/"
+    },
+    {
+      "key": "mujchina",
+      "word": "Mužčíná",
+      "translate": "мужчина",
+      "stress": "muʒ.t͡ʃi.na",
+      "property": "существительное",
+      "IPA": "/muʒ.t͡ʃina/"
+    },
+    {
+      "key": "zenshina",
+      "word": "Ženšíná",
+      "translate": "женщина",
+      "stress": "ʒen.ʃi.na",
+      "property": "существительное",
+      "IPA": "/ʒen.ʃina/"
+    },
+    {
+      "key": "denji",
+      "word": "Déñji",
+      "translate": "деньги",
+      "stress": "dé.nji",
+      "property": "существительное",
+      "IPA": "/denʒi/"
+    },
+    {
+      "key": "voda",
+      "word": "Vóda",
+      "translate": "вода",
+      "stress": "vó.da",
+      "property": "существительное",
+      "IPA": "/vɔ.da/"
+    },
+    {
+      "key": "eda",
+      "word": "Edá",
+      "translate": "еда",
+      "stress": "edá",
+      "property": "существительное",
+      "IPA": "/e.da/"
+    },
+    {
+      "key": "mashyna",
+      "word": "Mašýna",
+      "translate": "машина",
+      "stress": "ma.ʃý.na",
+      "property": "существительное",
+      "IPA": "/ma.ʃi.na/"
+    },
+    {
+      "key": "strana",
+      "word": "Stráná",
+      "translate": "страна",
+      "stress": "stra.ná",
+      "property": "существительное",
+      "IPA": "/stra.na/"
+    },
+    {
+      "key": "mir",
+      "word": "Mìr",
+      "translate": "мир",
+      "stress": "mìr",
+      "property": "существительное",
+      "IPA": "/mir/"
+    },
+    {
+      "key": "solnce",
+      "word": "Solńce",
+      "translate": "солнце",
+      "stress": "sol.ntsʲe",
+      "property": "существительное",
+      "IPA": "/son.t͡sɛ/"
+    },
+    {
+      "key": "nebo",
+      "word": "Nebó",
+      "translate": "небо",
+      "stress": "ne.bó",
+      "property": "существительное",
+      "IPA": "/ne.bo/"
+    },
+    {
+      "key": "zemlia",
+      "word": "Zemlíá",
+      "translate": "земля",
+      "stress": "zem.lí.a",
+      "property": "существительное",
+      "IPA": "/zem.li.a/"
+    },
+    {
+      "key": "more",
+      "word": "Moré",
+      "translate": "море",
+      "stress": "moré",
+      "property": "существительное",
+      "IPA": "/mo.re/"
+    },
+    {
+      "key": "les",
+      "word": "Lés",
+      "translate": "лес",
+      "stress": "lés",
+      "property": "существительное",
+      "IPA": "/les/"
+    },
+    {
+      "key": "gora",
+      "word": "Górá",
+      "translate": "гора",
+      "stress": "gór.a",
+      "property": "существительное",
+      "IPA": "/go.ra/"
+    },
+    {
+      "key": "reka",
+      "word": "Réká",
+      "translate": "река",
+      "stress": "rék.a",
+      "property": "существительное",
+      "IPA": "/rek.a/"
+    },
+    {
+      "key": "cvetok",
+      "word": "Cvétók",
+      "translate": "цветок",
+      "stress": "cvé.tok",
+      "property": "существительное",
+      "IPA": "/t͡svetok/"
+    },
+    {
+      "key": "derevo",
+      "word": "Derévo",
+      "translate": "дерево",
+      "stress": "deré.vo",
+      "property": "существительное",
+      "IPA": "/de.re.vo/"
+    },
+    {
+      "key": "ptica",
+      "word": "Ptícá",
+      "translate": "птица",
+      "stress": "ptí.ca",
+      "property": "существительное",
+      "IPA": "/ptit͡sa/"
+    },
+    {
+      "key": "sobaka",
+      "word": "Sobáká",
+      "translate": "собака",
+      "stress": "so.ba.ká",
+      "property": "существительное",
+      "IPA": "/so.ba.ka/"
+    },
+    {
+      "key": "kot",
+      "word": "Kót",
+      "translate": "кот",
+      "stress": "kót",
+      "property": "существительное",
+      "IPA": "/kot/"
+    },
+    {
+      "key": "horosho",
+      "word": "Horóšo",
+      "translate": "хорошо",
+      "stress": "ho.ro.ʃo",
+      "property": "наречие качества",
+      "IPA": "/xo.ro.ʃo/"
+    },
+    {
+      "key": "plocho",
+      "word": "Plócho",
+      "translate": "плохо",
+      "stress": "pló.χo",
+      "property": "наречие качества",
+      "IPA": "/plo.xo/"
+    },
+    {
+      "key": "bolshoy",
+      "word": "Bołšój",
+      "translate": "большой",
+      "stress": "bo.lʂój",
+      "property": "прилагательное",
+      "IPA": "/bolʂoj/"
+    },
+    {
+      "key": "malenkiy",
+      "word": "Malénkij",
+      "translate": "маленький",
+      "stress": "ma.lén.kij",
+      "property": "прилагательное",
+      "IPA": "/ma.len.kij/"
+    },
+    {
+      "key": "novyy",
+      "word": "Novýj",
+      "translate": "новый",
+      "stress": "no.výj",
+      "property": "прилагательное",
+      "IPA": "/no.vij/"
+    },
+    {
+      "key": "stariy",
+      "word": "Stárîj",
+      "translate": "старый",
+      "stress": "stár.i.j",
+      "property": "прилагательное",
+      "IPA": "/sta.rij/"
+    },
+    {
+      "key": "krupnyj",
+      "word": "Krúpnîj",
+      "translate": "красивый",
+      "stress": "krúp.nij",
+      "property": "прилагательное",
+      "IPA": "/kru.pnij/"
+    },
+    {
+      "key": "grustniy",
+      "word": "Grústnij",
+      "translate": "грустный",
+      "stress": "grús.tnij",
+      "property": "прилагательное",
+      "IPA": "/grus.tnij/"
+    },
+    {
+      "key": "radostniy",
+      "word": "Radóstnij",
+      "translate": "радостный",
+      "stress": "ra.dóst.nij",
+      "property": "прилагательное",
+      "IPA": "/ra.dost.nij/"
+    },
+    {
+      "key": "interesniy",
+      "word": "Intérësnîj",
+      "translate": "интересный",
+      "stress": "in.tér.es.nij",
+      "property": "прилагательное",
+      "IPA": "/in.te.res.nij/"
+    },
+    {
+      "key": "skuchniy",
+      "word": "Skúčnij",
+      "translate": "скучный",
+      "stress": "skú.t͡ʃ.nij",
+      "property": "прилагательное",
+      "IPA": "/sku.t͡ʃ.nij/"
+    },
+    {
+      "key": "xoroše",
+      "word": "Xoróše",
+      "translate": "хорошее",
+      "stress": "xoró.ʃe",
+      "property": "средний род прилагательного хоро́ший",
+      "IPA": "/xoroshe/"
+    }
+  ],
+  "rules": {
+    "noun": [
+      {
+        "key": "case",
+        "rule": "Существительные имеют два числа: единственное и множественное. Множественное образуется добавлением окончания '-er' к основе."
+      },
+      {
+        "key": "gender",
+        "rule": "В языке нет категории рода у существительных."
+      },
+      {
+        "key": "declension",
+        "rule": "Падежей нет, функции падежа выражаются предлогами."
+      },
+      {
+        "key": "noun-3",
+        "rule": "2123erf"
+      },
+      {
+        "key": "noun-4",
+        "rule": "ff"
+      }
+    ],
+    "verb": [
+      {
+        "key": "tense",
+        "rule": "Глаголы имеют две формы времен: настоящее ('-st') и прошедшее ('-ul')."
+      },
+      {
+        "key": "person",
+        "rule": "Личные окончания отсутствуют, субъект выражается личными местоимениями."
+      }
+    ],
+    "pronoun": [
+      {
+        "key": "personal",
+        "rule": "Местоимения согласуются с числом подлежащего, без категорий рода."
+      },
+      {
+        "key": "possessive",
+        "rule": "Прилагательные притяжательные склоняются согласно правилам прилагательных."
+      }
+    ],
+    "adjective": [
+      {
+        "key": "comparison",
+        "rule": "Степени сравнения образуются приставками 'bol-' (более) и 'men-' (менее). Сравнительная степень обозначается префиксом 'bol-', превосходная — повторением основы."
+      }
+    ]
+  },
+  "articles": [],
+  "nounGender": []
+}

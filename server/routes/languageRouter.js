@@ -2,6 +2,9 @@
 const Router = require('express');
 const router = new Router();
 const controller = require ('../controllers/languageController.js');
+const multer = require("multer");
+
+const upload = multer({ dest: '../files/uploads/' });
 
 router.post('/createLang', controller.createLanguage); 
 router.post('/createLangNeural', controller.createLanguageNeural);
@@ -9,7 +12,7 @@ router.get('/getAllLangs', controller.getAllLangs);
 router.get('/lang/:id', controller.getCurrentLang); 
 router.put('/updateLangInfo', controller.updateLangInfo);
 router.post('/deleteLang', controller.deleteLang);
-router.post('/upload', controller.upload);
+router.post('/upload/:id', upload.single('file'), controller.upload);
 router.post('/getFile', controller.getFile);
 router.get('/getAllLangsTitle', controller.getAllLangsTitle);
 router.post('/download', controller.downloadFile);

@@ -1,5 +1,4 @@
 import { UserContext } from "app/providers";
-import { ILanguage } from "entities/language";
 import { observer } from "mobx-react-lite";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +9,6 @@ import styled from "styled-components";
 import { Space } from "shared/ui/space/Space.tsx";
 import { borderRadius } from "shared/lib/borderRadius";
 import { Divider } from "shared/ui/divider";
-import { LangAPI } from "shared/api";
 import { useTranslation } from "react-i18next";
 import { Loader } from "shared/ui/loaders";
 
@@ -20,113 +18,99 @@ const Wrapper = styled.div`
   text-align: center;
 `;
 
-const InputContainer = styled.div`
-  display: block;
-  width: 100%;
-  background: ${({ theme }) => theme.colors.menu};
-  font-weight: 600;
-  margin: 15px;
-  ${borderRadius.m};
-  border: 1px solid ${({ theme }) => theme.colors.menu};
-  padding: 10px;
-`;
-const StyledInput = styled.input`
-  background: ${({ theme }) => theme.colors.menu};
-  height: auto;
-
-  padding: 15px;
-  min-width: 40%;
-  border-color: transparent;
-  color: ${({ theme }) => theme.colors.font};
-
-  &:focus {
-    outline: none;
-    border: 1px solid rgb(197, 197, 197);
-    border-radius: 12px;
-  }
-  &.desc {
-    width: 100%;
-    height: auto;
-    padding: 15px;
-    resize: vertical !important;
-  }
-`;
-
 const Confirmation = () => {
   const { store } = useContext(UserContext);
   const { t } = useTranslation();
-  let resultNeural;
-  let result;
-
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<boolean>(false);
+  const [result, setResult] = useState<any>();
   const createLanguage = async () => {
-    store.setLoading(true);
+    setLoading(true);
+    setError(null);
+    setSuccess(false);
 
     try {
+      let result;
+
       if (store.isNeural) {
-        resultNeural = await languageService.createNeural(
+        result = await languageService.createNeural(
           store.promptNeuralCreation,
           store.language.Title,
           store.language.Description,
           store.rules
         );
-      }
-
-      if (!store.isNeural) {
+        setResult(result);
+      } else {
         result = await languageService.create(
           store.language!.Title,
           store.language!.Description
         );
+        setResult(result);
       }
-      store.setLoading(false);
+
+      setSuccess(true);
     } catch (e) {
-      console.log(e);
+      setError(t("error.creationFailed")); // Замените на ваш текст ошибки
+      console.error(e);
+    } finally {
+      setLoading(false);
     }
   };
 
-  function handleNext() {
-    navigate(
-      `/redactLanguage/${result!.data.id ? result!.data.id : resultNeural!.data.id}`
-    );
-  }
+  const redactLanguage = () => {
+    navigate(`/redactLanguage/${result.data.id}`);
+  };
 
-  if (store.isLoading) {
-    return <Loader></Loader>;
-  }
   return (
     <Wrapper>
-      <Space height="m"></Space>
-      <Text size={"16px"} height="s">
-        {t("confirmation.header1")}
-      </Text>
-      <Text size={"16px"} height="s">
-        {store.language!.Title}
-      </Text>
-      <Text size={"16px"} height="s">
-        {store.language!.Description}
-      </Text>
-      <Divider></Divider>
-      <Space height="s"></Space>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Button style={{ width: "fit-content" }} onClick={createLanguage}>
-          Создать язык
-        </Button>
-        {!store.isLoading ? (
-          <Loader />
-        ) : (
-          <Button style={{ width: "fit-content" }} onClick={handleNext}>
-            {t("total.editButton")}
-          </Button>
-        )}
-      </div>
+      {loading && <Loader />}
+      {!loading && (
+        <>
+          <Space height="m" />
+          <Text size={"16pt"} height="s">
+            {t("Создать язык: ")}
+          </Text>
+          <Text size={"16px"} height="s">
+            {store.language!.Title}
+          </Text>
+          <Text size={"16px"} height="s">
+            {store.language!.Description}
+          </Text>
+          <Divider />
+          <Space height="s" />
+          {error && (
+            <Text size={"16px"} height="s" style={{ color: "red" }}>
+              {error}
+            </Text>
+          )}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Button style={{ width: "fit-content" }} onClick={createLanguage}>
+              {t("confirmation.createLanguageButton")}
+            </Button>
+          </div>
+          {success && (
+            <>
+              <Text size={"16px"} height="s" style={{ color: "green" }}>
+                {" "}
+              </Text>
+              <Button style={{ width: "fit-content" }} onClick={redactLanguage}>
+                Редактировать язык
+              </Button>{" "}
+            </>
+          )}{" "}
+        </>
+      )}
     </Wrapper>
   );
 };
+
 export default observer(Confirmation);

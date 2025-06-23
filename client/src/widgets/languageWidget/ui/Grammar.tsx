@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Table, Button, Input, Space, Modal } from "antd";
+import { Table, Button, Input, Space } from "antd";
 import styled from "styled-components";
 import Card from "antd/es/card/Card";
 import { borderRadius } from "shared/lib/borderRadius";
@@ -8,6 +8,7 @@ import { UserContext } from "app/providers";
 import { useTranslation } from "react-i18next";
 import languageService from "shared/api/language/languageService";
 import { useParams } from "react-router-dom";
+import { Loader } from "shared/ui/loaders"; // Импортируем Loader
 
 export interface VocabularyItem {
   key: string;
@@ -53,6 +54,7 @@ const GrammarContainer = styled.div`
     margin: 0 auto;
   }
 `;
+
 const CardLang = styled.div`
   background-color: ${({ theme }) => theme.colors.container};
   color: ${({ theme }) => theme.colors.font};
@@ -61,23 +63,23 @@ const CardLang = styled.div`
   @media (width <= 1750px) {
     width: 80%;
   }
-
   ${borderRadius.m};
 `;
 
 export const Grammar: React.FC = () => {
   const { store } = useContext(UserContext);
   const { id } = useParams();
-
   const { t } = useTranslation();
   const [nounRules, setNounRules] = useState<any[]>([]);
   const [verbRules, setVerbRules] = useState<any[]>([]);
   const [pronounRules, setPronounRules] = useState<any[]>([]);
   const [adjectiveRules, setAdjectiveRules] = useState<any[]>([]);
   const [adverbRules, setAdverbRules] = useState<any[]>([]);
-  // редактируемая строка
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [editValue, setEditValue] = useState("");
+  const [newRule, setNewRule] = useState<string>("");
+  const [adding, setAdding] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false); // Состояние для отслеживания загрузки
 
   useEffect(() => {
     try {
@@ -89,27 +91,23 @@ export const Grammar: React.FC = () => {
     } catch (e) {}
   }, [store.currentFile]);
 
-  // Обработчик для начала редактирования
   const handleEdit = (index: number) => {
     setEditingIndex(index);
     setEditValue(nounRules[index].rule);
   };
 
-  // Обработчик отмены редактирования
   const handleCancel = () => {
     setEditingIndex(null);
     setEditValue("");
   };
 
-  // Обработчик сохранения изменений
   const handleSave = (index: number) => {
     const updatedRules = [...nounRules];
     updatedRules[index] = { ...updatedRules[index], rule: editValue };
     setNounRules(updatedRules);
-    handleCancel(); // сброс режима редактирования
+    handleCancel();
   };
 
-  // Обработчик удаления правила
   const handleDeleteRule = (index: number) => {
     const updatedRules = [...nounRules];
     updatedRules.splice(index, 1);
@@ -118,10 +116,6 @@ export const Grammar: React.FC = () => {
       handleCancel();
     }
   };
-
-  // Для добавления новых правил
-  const [newRule, setNewRule] = useState<string>("");
-  const [adding, setAdding] = useState<boolean>(false);
 
   const handleAddRule = () => {
     if (newRule.trim().length < 2) return;
@@ -136,6 +130,7 @@ export const Grammar: React.FC = () => {
   };
 
   const handleSaveAllChanges_rules = async () => {
+    setIsLoading(true); // Устанавливаем состояние загрузки
     try {
       const rulesData = {
         rules: {
@@ -146,180 +141,181 @@ export const Grammar: React.FC = () => {
           adverb: adverbRules,
         },
       };
-    const result =  await languageService.SaveAllChangesRules(id!, rulesData);
-      console.log(result)
+      const result = await languageService.SaveAllChangesRules(id!, rulesData);
+      console.log(result);
     } catch (e) {
       console.error(e);
+    } finally {
+      setIsLoading(false); // Сбрасываем состояние загрузки
     }
   };
 
   return (
     <GrammarContainer>
-      <CardLang> 
-         <Table
-        dataSource={nounRules}
-        columns={[
-          {
-            title: "Правило",
-            dataIndex: "rule",
-            key: "rule",
-            render: (_text, record, index) =>
-              editingIndex === index ? (
-                <Input
-                  value={editValue}
-                  onChange={(e) => setEditValue(e.target.value)}
-                />
-              ) : (
-                record.rule
-              ),
-          },
-          {
-            title: "Действия",
-            key: "actions",
-            render: (_text, record, index) => {
-              if (editingIndex === index) {
-                return (
-                  <>
-                    <Button
-                      type="link"
-                      onClick={() => handleSave(index)}
-                      style={{ marginRight: 8 }}
-                    >
-                      Save
-                    </Button>
-                    <Button onClick={handleCancel}>Cancel</Button>
-                  </>
-                );
-              } else {
-                return (
-                  <>
-                    <Button
-                      type="link"
-                      onClick={() => handleEdit(index)}
-                      style={{ marginRight: 8 }}
-                    >
-                      Edit
-                    </Button>
-                    <Button danger onClick={() => handleDeleteRule(index)}>
-                      Delete
-                    </Button>
-                  </>
-                );
-              }
+      <CardLang>
+        <Table
+          dataSource={nounRules}
+          columns={[
+            {
+              title: "Правило",
+              dataIndex: "rule",
+              key: "rule",
+              render: (_text, record, index) =>
+                editingIndex === index ? (
+                  <Input
+                    value={editValue}
+                    onChange={(e) => setEditValue(e.target.value)}
+                  />
+                ) : (
+                  record.rule
+                ),
             },
-          },
-        ]}
-        pagination={false}
-      />
-
-      {/* Форма добавления */}
-      <div
-        style={{
-          marginTop: 16,
-          display: "flex",
-          gap: "8px",
-          alignItems: "center",
-        }}
-      >
-        <Input
-          placeholder="Введите новое правило"
-          value={newRule}
-          onChange={(e) => setNewRule(e.target.value)}
-          minLength={2}
-          maxLength={100}
-        />
-        <Button type="primary" onClick={handleAddRule} disabled={adding}>
-          {adding ? "Загрузка..." : "Добавить"}
-        </Button>
-      </div>
-      </CardLang>
-       <CardLang> 
-         <Table
-        dataSource={verbRules}
-        columns={[
-          {
-            title: "Правило",
-            dataIndex: "rule",
-            key: "rule",
-            render: (_text, record, index) =>
-              editingIndex === index ? (
-                <Input
-                  value={editValue}
-                  onChange={(e) => setEditValue(e.target.value)}
-                />
-              ) : (
-                record.rule
-              ),
-          },
-          {
-            title: "Действия",
-            key: "actions",
-            render: (_text, record, index) => {
-              if (editingIndex === index) {
-                return (
-                  <>
-                    <Button
-                      type="link"
-                      onClick={() => handleSave(index)}
-                      style={{ marginRight: 8 }}
-                    >
-                      Save
-                    </Button>
-                    <Button onClick={handleCancel}>Cancel</Button>
-                  </>
-                );
-              } else {
-                return (
-                  <>
-                    <Button
-                      type="link"
-                      onClick={() => handleEdit(index)}
-                      style={{ marginRight: 8 }}
-                    >
-                      Edit
-                    </Button>
-                    <Button danger onClick={() => handleDeleteRule(index)}>
-                      Delete
-                    </Button>
-                  </>
-                );
-              }
+            {
+              title: "Действия",
+              key: "actions",
+              render: (_text, record, index) => {
+                if (editingIndex === index) {
+                  return (
+                    <>
+                      <Button
+                        type="link"
+                        onClick={() => handleSave(index)}
+                        style={{ marginRight: 8 }}
+                      >
+                        Save
+                      </Button>
+                      <Button onClick={handleCancel}>Cancel</Button>
+                    </>
+                  );
+                } else {
+                  return (
+                    <>
+                      <Button
+                        type="link"
+                        onClick={() => handleEdit(index)}
+                        style={{ marginRight: 8 }}
+                      >
+                        Edit
+                      </Button>
+                      <Button danger onClick={() => handleDeleteRule(index)}>
+                        Delete
+                      </Button>
+                    </>
+                  );
+                }
+              },
             },
-          },
-        ]}
-        pagination={false}
-      />
-
-      {/* Форма добавления */}
-      <div
-        style={{
-          marginTop: 16,
-          display: "flex",
-          gap: "8px",
-          alignItems: "center",
-        }}
-      >
-        <Input
-          placeholder="Введите новое правило"
-          value={newRule}
-          onChange={(e) => setNewRule(e.target.value)}
-          minLength={2}
-          maxLength={100}
+          ]}
+          pagination={false}
         />
-        <Button type="primary" onClick={handleAddRule} disabled={adding}>
-          {adding ? "Загрузка..." : "Добавить"}
-        </Button>
-      </div>
+
+        <div
+          style={{
+            marginTop: 16,
+            display: "flex",
+            gap: "8px",
+            alignItems: "center",
+          }}
+        >
+          <Input
+            placeholder="Введите новое правило"
+            value={newRule}
+            onChange={(e) => setNewRule(e.target.value)}
+            minLength={2}
+            maxLength={100}
+          />
+          <Button type="primary" onClick={handleAddRule} disabled={adding}>
+            {adding ? "Загрузка..." : "Добавить"}
+          </Button>
+        </div>
       </CardLang>
+
+      <CardLang>
+        <Table
+          dataSource={verbRules}
+          columns={[
+            {
+              title: "Правило",
+              dataIndex: "rule",
+              key: "rule",
+              render: (_text, record, index) =>
+                editingIndex === index ? (
+                  <Input
+                    value={editValue}
+                    onChange={(e) => setEditValue(e.target.value)}
+                  />
+                ) : (
+                  record.rule
+                ),
+            },
+            {
+              title: "Действия",
+              key: "actions",
+              render: (_text, record, index) => {
+                if (editingIndex === index) {
+                  return (
+                    <>
+                      <Button
+                        type="link"
+                        onClick={() => handleSave(index)}
+                        style={{ marginRight: 8 }}
+                      >
+                        Save
+                      </Button>
+                      <Button onClick={handleCancel}>Cancel</Button>
+                    </>
+                  );
+                } else {
+                  return (
+                    <>
+                      <Button
+                        type="link"
+                        onClick={() => handleEdit(index)}
+                        style={{ marginRight: 8 }}
+                      >
+                        Edit
+                      </Button>
+                      <Button danger onClick={() => handleDeleteRule(index)}>
+                        Delete
+                      </Button>
+                    </>
+                  );
+                }
+              },
+            },
+          ]}
+          pagination={false}
+        />
+
+        <div
+          style={{
+            marginTop: 16,
+            display: "flex",
+            gap: "8px",
+            alignItems: "center",
+          }}
+        >
+          <Input
+            placeholder="Введите новое правило"
+            value={newRule}
+            onChange={(e) => setNewRule(e.target.value)}
+            minLength={2}
+            maxLength={100}
+          />
+          <Button type="primary" onClick={handleAddRule} disabled={adding}>
+            {adding ? "Загрузка..." : "Добавить"}
+          </Button>
+        </div>
+      </CardLang>
+
       <Button
         type="primary"
         onClick={handleSaveAllChanges_rules}
-        disabled={adding}
+        disabled={adding || isLoading} // Отключаем кнопку во время загрузки
       >
-        {adding ? "Добавление..." : "Добавить"}
-      </Button> 
-
-
+        {isLoading ? "Сохранение..." : "Сохранить все изменения"}
+      </Button>
+      {isLoading && <Loader />} {/* Отображаем Loader, если идет загрузка */}
     </GrammarContainer>
   );
 };

@@ -338,6 +338,6 @@ export const RedactLanguage: React.FC = () => {
       <LangTabs>
         <Tabs tabPosition={tabPosition} items={items} />
       </LangTabs>
-    </LanguageContainer>
+     </LanguageContainer>
   );
 };

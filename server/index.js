@@ -17,7 +17,8 @@ const PORT = process.env.PORT;
 const rateLimit = require("express-rate-limit");
 const slowDown = require("express-slow-down");
 const { google } = require("googleapis");
- 
+ const morgan = require('morgan');
+const rfs = require('rotating-file-stream'); 
 const fs = require("fs");
 const path = require("path");
 const { exec } = require("child_process");
@@ -122,7 +123,19 @@ const auth = new google.auth.GoogleAuth({
   scopes: ["https://www.googleapis.com/auth/drive"],
 });
 
+// Ротация логов (новый файл каждый день)
+const logDirectory = path.join(__dirname, 'log');
+fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
+const accessLogStream = rfs.createStream('access.log', {
+  interval: '1d', // rotate daily
+  path: logDirectory
+});
 
+// Логирование в файл и консоль (только для ошибок)
+server.use(morgan('combined', { stream: accessLogStream }));
+server.use(morgan('dev', {
+  skip: (req, res) => res.statusCode < 400 // только ошибки в консоль
+}));
 async function dailyBackupStorage() {
   try {
     backupLocalStorage()
