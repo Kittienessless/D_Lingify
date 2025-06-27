@@ -171,10 +171,10 @@ class languageController {
             Создать новый язык по заданным параметрам, каждое слово должно иметь свой перевод, ударение и должно соответствовать общей модели языка. 
             Инструкции: 1. Внимательно прочитай оригинальное сообщение. В сообщении в виде сроки содержится описание языка и возможный контекст. Далее - параметры создания в виде объекта,
              учитывай все заданные параметры. если допустим есть данные о количестве слов- создавай столько сколько нужно. 
-            2. Определите контекст, заданные параметры для языка. 
+            2. Определите контекст, заданные параметры для языка. ты должен учитывать на каком языке был прислан запрос. возвращай ответ перевода слов на тот же язык. к примеру, если запро был на русском, возвращай перевод слов на русский. 
             3. Создай вокабулярий с переводом на русский и правила для языка, включая правила грамматики и синтаксиса по заданным параметрам. 
             Количество слов так же по заданным параметрам. если контекст позволяет, ты должен создать как минимумм 50 слов, 
-            это должны быть самые используемые слова в русском языке
+            это должны быть самые используемые слова в русском языке, 
             ( напрмер, я
               ты
               он
@@ -290,7 +290,7 @@ class languageController {
       [{key: "","rule": "rule rule"}, {key: "","rule": "rule 1"}],  "adjective" : [{key: "","rule": "rule 1"}, {key: "","rule": "rule 1"}], "adverb" : 
           [{key: "","rule": "rule rule"} ], "conjunction" : [{key: "", "rule": "rule 1"}],
    "interjection" : [{key: "","rule": "rule 1"}],
-  },"articles" : [{key: "","rule": "rule 1"}],"nounGender" : [{key: "","rule": "rule 1"}],"DegreesofComparison"  : [{key: "","rule": "rule 1"}] }
+  },"articles" : [{key: "","rule": "rule 1"}],"nounGender" : [{key: "","rule": "rule 1"}],"DegreesofComparison"  : [{key: "","rule": "rule 1"}] }.  ТЫ ДОЛЖЕН СОЗДАТЬ ПРАВИЛЬНЫЙ JSON ФАЙЛ СЛЕДИ ЗА ЗАПЯТЫМИ И ТАБУЛЯЦИЯМИ. ПОТОМ ЭТОТ ОТВЕТ ОТПРАВИТСЯ НА ПРАСИНГ, ТАМ НУЖНА ЧЕТКАЯ СТРУКТУРА. ДАЖЕ ЕСЛИ ТЫ НЕ ЗАПОЛНЯЕШЬ НЕКОТОРЫЕ ПОЛЯ, СТРУКТУРА ДОЛЖНА ОСТАВАТЬСЯ ОДНОЙ И ТОЙ ЖЕ. 
     Пример: Слово на выдуманном языке: Naranha . Перевод: Зарево. Свойства: существительное, ударение на вторую гласную, 
     h произносится с придыханием, либо никак не произносится. мн. число - Naranhener (зарева), падежи как в русском языке, 
     Naranha, naranher, naranhane, naranheter, naransetor, en a naranhester.  Примечание: Если будут сложности с созданием слов, 
@@ -321,6 +321,7 @@ class languageController {
 
       const answerContent = chatResult.data.choices[0].message.content;
 
+      const jsonData = dirtyJson.parse(answerContent)
       const path = PATH + uuid.v4() + ".json";
 
       const result = await getDb().models.Language.create({
@@ -332,7 +333,7 @@ class languageController {
 
       fs.writeFile(
         `${path}`,
-        JSON.stringify(answerContent),
+        JSON.stringify(jsonData),
         "utf8",
         function (err) {
           if (err) throw err;
@@ -478,19 +479,15 @@ class languageController {
       const lang = await getDb().models.Language.findOne({
         where: { id: id },
       });
-      fs.readFile(
-        lang.LangPath,
-        { encoding: "utf-8" },
-        function (err, data) {
-          if (!err) {
-            console.log("received data: " + data);
-            res.send(data);
-            res.end();
-          } else {
-            console.log(err);
-          }
+      fs.readFile(lang.LangPath, { encoding: "utf-8" }, function (err, data) {
+        if (!err) {
+          console.log("received data: " + data);
+          res.send(data);
+          res.end();
+        } else {
+          console.log(err);
         }
-      );
+      });
     } catch (e) {
       console.log(e);
       res.status(400).json({ message: "getFile error" });
@@ -879,11 +876,10 @@ class languageController {
         let fileObject;
 
         try {
-          const repairedJson = dirtyJson.parse(data);
+ 
+        //  const obj = JSON.parse(repairedJson);
 
-          //  const obj = JSON.parse(repairedJson);
-
-          fileObject = repairedJson; // Парсинг JSON
+          fileObject = dirtyJson.parse(data); // Парсинг JSON
         } catch (err) {
           console.error("Ошибка парсинга JSON:", err);
           return res.status(500).json({ error: "Failed to parse JSON" });
@@ -891,36 +887,35 @@ class languageController {
         // Проверка структуры объекта
         if (!fileObject.rules) {
           fileObject.rules = {};
-          if (!fileObject.rules.conjunction) {
-            fileObject.rules.conjunction = {};
-          }
-          if (!fileObject.rules.noun) {
-            fileObject.rules.noun = {};
-          }
-          if (!fileObject.rules.verb) {
-            fileObject.rules.verb = {};
-          }
-          if (!fileObject.rules.pronoun) {
-            fileObject.rules.pronoun = {};
-          }
-          if (!fileObject.rules.adjective) {
-            fileObject.rules.adjective = {};
-          }
-          if (!fileObject.rules.adverb) {
-            fileObject.rules.adverb = {};
-          }
-          if (!fileObject.rules.articles) {
-            fileObject.articles = [];
-          }
-          if (!fileObject.rules.nounGender) {
-            fileObject.nounGender = [];
-          }
-          if (!fileObject.rules.DegreesofComparison) {
-            fileObject.DegreesofComparison = [];
-          }
         }
-
-        if (arg0.rules && arg0.rules.noun) {
+        if (!fileObject.rules.conjunction) {
+          fileObject.rules.conjunction = {};
+        }
+        if (!fileObject.rules.noun) {
+          fileObject.rules.noun = {};
+        }
+        if (!fileObject.rules.verb) {
+          fileObject.rules.verb = {};
+        }
+        if (!fileObject.rules.pronoun) {
+          fileObject.rules.pronoun = {};
+        }
+        if (!fileObject.rules.adjective) {
+          fileObject.rules.adjective = {};
+        }
+        if (!fileObject.rules.adverb) {
+          fileObject.rules.adverb = {};
+        }
+        if (!fileObject.rules.articles) {
+          fileObject.articles = [];
+        }
+        if (!fileObject.rules.nounGender) {
+          fileObject.nounGender = [];
+        }
+        if (!fileObject.rules.DegreesofComparison) {
+          fileObject.DegreesofComparison = [];
+        }
+        if (arg0.rules) {
           fileObject.rules.noun = arg0.rules.noun;
           fileObject.rules.verb = arg0.rules.verb;
           fileObject.rules.pronoun = arg0.rules.pronoun;
@@ -975,9 +970,9 @@ class languageController {
         try {
           const repairedJson = dirtyJson.parse(data);
 
-          //  const obj = JSON.parse(repairedJson);
+    //  const obj = JSON.parse(repairedJson);
 
-          fileObject = repairedJson;
+          fileObject = dirtyJson.parse(repairedJson);
         } catch (err) {
           console.error("Ошибка парсинга JSON:", err);
           return res.status(500).json({ error: "Failed to parse JSON" });

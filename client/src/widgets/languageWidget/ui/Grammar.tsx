@@ -91,8 +91,11 @@ export const Grammar: React.FC = () => {
   };
 
   const handleEdit = (index: number) => {
-    setEditingIndex(index);
-    setEditValue(rules[currentType]![index].rule!);
+    const currentRules = rules[currentType];
+    if (currentRules && currentRules[index]) {
+      setEditingIndex(index);
+      setEditValue(currentRules[index].rule);
+    }
   };
 
   const handleAddRule = () => {
@@ -110,9 +113,9 @@ export const Grammar: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    try {
+    if (store.currentFile && store.currentFile.rules) {
       setRules(store.currentFile.rules);
-    } catch (e) {}
+    }
   }, [store.currentFile]);
 
   const handleSaveAllChanges_rules = async () => {
@@ -139,7 +142,7 @@ export const Grammar: React.FC = () => {
 
   const renderTable = (type: keyof Rules) => (
     <Table
-      dataSource={rules[type]}
+      dataSource={rules[type] || []} // Проверка на undefined
       columns={[
         {
           title: t("rules.rule"),

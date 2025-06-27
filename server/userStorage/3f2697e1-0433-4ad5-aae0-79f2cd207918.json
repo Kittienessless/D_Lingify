@@ -1,0 +1,90 @@
+{
+  "Title": "${Title}",
+  "Desc": "${Description}",
+  "vocabular": [
+    {
+      "key": "1",
+      "word": "dfbdfb",
+      "translate": "dfbdfb",
+      "stress": "",
+      "property": "",
+      "IPA": ""
+    },
+    {
+      "key": "1750702058961",
+      "word": "dfbdfb",
+      "translate": "dfbdfb",
+      "stress": "dfbdfb",
+      "property": "dfbdfb",
+      "IPA": "dfbdfb"
+    },
+    {
+      "key": "1750702068960",
+      "word": "dfbdfb",
+      "translate": "dfbdfb",
+      "stress": "dfbdfb",
+      "property": "dfbdfbdfbdfb",
+      "IPA": "dfbdfbdfbdfb"
+    }
+  ],
+  "rules": {
+    "noun": [
+      {
+        "key": "1",
+        "rule": "rule 1"
+      },
+      {
+        "rule": "dfbdfbdfbdfbdfbdfbdfbdfbdfbdfb"
+      },
+      {
+        "rule": "dfbdfbdfbdfbdfbdfbdfbdfb"
+      }
+    ],
+    "verb": [
+      {
+        "key": "1",
+        "rule": "rule 1"
+      },
+      {
+        "rule": "dfbdfbdfbdfbdfbdfb"
+      }
+    ],
+    "pronoun": [
+      {
+        "key": "1",
+        "rule": "rule"
+      },
+      {
+        "key": "1",
+        "rule": "rule 1"
+      },
+      {
+        "rule": "dfbdfbdfbdfb"
+      }
+    ],
+    "adjective": [
+      {
+        "key": "1",
+        "rule": "rule 1"
+      }
+    ],
+    "adverb": [
+      {
+        "key": "1",
+        "rule": "rule"
+      }
+    ],
+    "conjunction": [
+      {
+        "key": "1",
+        "rule": "rule 1"
+      }
+    ],
+    "interjection": [
+      {
+        "key": "1",
+        "rule": "rule 1"
+      }
+    ]
+  }
+}

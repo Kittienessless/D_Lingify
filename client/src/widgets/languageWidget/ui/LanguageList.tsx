@@ -32,6 +32,7 @@ import { TrashBinIcon } from "shared/assets/TrashBinIcon";
 import { DownloadIcon } from "shared/assets/DownloadIcon";
 import { MenuOption, MenuOptionProps } from "shared/ui/menu/MenuOption.tsx";
 import { borderRadius } from "shared/lib/borderRadius.tsx";
+
 const ContainerList = styled.div`
   margin: 10px;
   padding: 5px;
@@ -107,6 +108,7 @@ const LanguageList: React.FC = () => {
     overflow: hidden;
     word-break: break-word;
   `;
+
   const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -122,11 +124,12 @@ const LanguageList: React.FC = () => {
   const navigate = useNavigate();
   const { store } = useContext(UserContext);
 
-  const [langInfo, setlangInfo] = useState<ILanguage[]>([]);
+  const [langInfo, setlangInfo] = useState<ILanguage[] | null>(null);
 
-  const totalPages = Math.ceil(langInfo.length / ITEMS_PER_PAGE);
+  const totalPages = langInfo ? Math.ceil(langInfo.length / ITEMS_PER_PAGE) : 0;
 
   const paginatedItems = useMemo(() => {
+    if (!langInfo) return [];
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     return langInfo.slice(startIndex, startIndex + ITEMS_PER_PAGE);
   }, [langInfo, currentPage]);
@@ -135,14 +138,22 @@ const LanguageList: React.FC = () => {
     const fetchData = async () => {
       try {
         await store.getAllLangs();
-        setlangInfo(store.languageArray);
-      } catch (e) {}
+        // Фильтруем null значения и преобразуем в ILanguage[]
+        const filteredLanguageArray = store.languageArray?.filter(
+          Boolean
+        ) as ILanguage[];
+        setlangInfo(filteredLanguageArray || null); // Хорошая практика - не использовать пустой массив, а null
+      } catch (e) {
+        setlangInfo(null);
+      }
     };
+
+    setlangInfo(null); // Установим начальное значение как null перед загрузкой
     fetchData();
-  }, []);
+  }, [store]); // Добавим store в зависимости
 
   if (store.isLoading) {
-    return <Loader></Loader>;
+    return <Loader />;
   }
   if (!store.isAuth) {
     return <LoginWidget />;
@@ -156,57 +167,46 @@ const LanguageList: React.FC = () => {
     },
     { id: "2", label: t("LanguageList.text2"), value: "Date" },
   ];
+
   const searchHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
     setSearchContentData(e.currentTarget.value);
   };
 
-  function onSortHelper(this: any, selectedItem: Option) {
+  function onSortHelper(selectedItem: Option) {
     setSelectedItem(selectedItem);
     setCurrentPage(1); // Сброс на первую страницу при изменении сортировки
 
+    if (!langInfo) return;
+
     switch (selectedItem.value) {
       case "Title":
-        return setlangInfo(
-          langInfo.sort(function (a, b) {
-            if (a.Title > b.Title) {
-              return 1;
-            }
-            if (a.Title < b.Title) {
-              return -1;
-            }
-            return 0;
-          })
+        setlangInfo(
+          [...langInfo].sort((a, b) => a.Title.localeCompare(b.Title))
         );
+        break;
       case "Date":
-        return setlangInfo(
-          langInfo.sort(function (a, b) {
-            if (a.createdAt > b.createdAt) {
-              return 1;
-            }
-            if (a.createdAt < b.createdAt) {
-              return -1;
-            }
-            // a должно быть равным b
-            return 0;
-          })
+        setlangInfo(
+          [...langInfo].sort(
+            (a, b) =>
+              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+          )
         );
+        break;
     }
   }
+
   function OnEdit(key: string) {
     navigate(`/redactLanguage/${key}`);
   }
 
   async function handleDownloadFile(key: string, title: string) {
     try {
-      const formData = new FormData();
       const response = await languageService.download(key);
       const a = document.createElement("a");
-
       a.style.display = "none";
       document.body.appendChild(a);
 
-      formData.append("file", JSON.stringify(response.data));
       const blobFile = new Blob([JSON.stringify(response.data)], {
         type: "text/plain",
       });
@@ -227,14 +227,16 @@ const LanguageList: React.FC = () => {
   const handleDeleteItem = async (id: string) => {
     try {
       await languageService.delete(id);
-    } catch (e) {}
-    const updatedItems = langInfo.filter((item) => item.id !== id);
-    setlangInfo(updatedItems);
+      if (langInfo) {
+        const updatedItems = langInfo.filter((item) => item.id !== id);
+        setlangInfo(updatedItems);
 
-    // Корректировка текущей страницы при удалении элементов
-    if (paginatedItems.length === 1 && currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+        // Корректировка текущей страницы при удалении элементов
+        if (paginatedItems.length === 1 && currentPage > 1) {
+          setCurrentPage(currentPage - 1);
+        }
+      }
+    } catch (e) {}
   };
 
   const handlePageChange = (page: number) => {
@@ -244,15 +246,13 @@ const LanguageList: React.FC = () => {
   return (
     <ContainerList>
       <FeaturedContainer>
-        <Search searchHandler={searchHandler}></Search>
-
+        <Search searchHandler={searchHandler} />
         <Select
           placeholder={t("profile.LangList")}
           selected={selectedItem}
           options={options}
           onChange={(selectedItem: Option) => onSortHelper(selectedItem)}
         />
-
         <AddLanguage />
       </FeaturedContainer>
       {paginatedItems.length > 0 ? (
@@ -264,16 +264,11 @@ const LanguageList: React.FC = () => {
               ) ||
               lang.Description.toLowerCase().startsWith(
                 searchContentData.toLowerCase()
-              ) ||
-              `${lang.Title} `
-                .toLowerCase()
-                .startsWith(searchContentData.toLowerCase())
+              )
           )
-
           .map((lang, index) => (
             <div key={index}>
               <Container>
-                {lang.id}
                 <HeaderContainer>
                   <Menu
                     title={t("LanguageCart.text1")}
@@ -289,7 +284,6 @@ const LanguageList: React.FC = () => {
                           },
                           icon: <EditIcon />,
                         },
-
                         {
                           text: t("LanguageCart.text3"),
                           onSelect: () => {
@@ -315,7 +309,7 @@ const LanguageList: React.FC = () => {
                 <Text weight={400} centerVertically height="l">
                   {lang.Title}
                 </Text>
-                <Divider></Divider>
+                <Divider />
                 <Text weight={400} centerVertically height="s">
                   {lang.Description}
                 </Text>
@@ -323,10 +317,11 @@ const LanguageList: React.FC = () => {
             </div>
           ))
       ) : (
-        <li>{t("total.noItemsFound")}</li>
+        <li>
+          <Empty />
+        </li>
       )}
 
-      {selectedItem && <div></div>}
       {totalPages > 1 && (
         <div>
           <PaginatonButton
@@ -368,10 +363,13 @@ const LanguageList: React.FC = () => {
       )}
 
       <Total>
-        {t("total.totalElements")}: {langInfo.length} | {t("total.displayed")}:{" "}
-        {langInfo.length} | {t("total.pageInfo")} {currentPage} {t("total.pageInfoFrom")} {totalPages}
+        {t("total.totalElements")}: {langInfo ? langInfo.length : 0} |{" "}
+        {t("total.displayed")}: {langInfo ? langInfo.length : 0} |{" "}
+        {t("total.pageInfo")} {currentPage} {t("total.pageInfoFrom")}{" "}
+        {totalPages}
       </Total>
     </ContainerList>
   );
 };
+
 export default observer(LanguageList);

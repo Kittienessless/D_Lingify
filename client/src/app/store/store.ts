@@ -19,7 +19,7 @@ export default class Store {
   isAdmin = false;
 
   language = {} as ILanguage;
-  languageArray = Array<ILanguage>();
+  languageArray = Array<ILanguage>() || null;
   languageTextArray: Option[] = [];
   file = {} as Blob | FormData | File;
 
@@ -27,13 +27,15 @@ export default class Store {
   isNeural = false;
   promptNeuralCreation = {} as string;
 
-  currentLang = {} as ILanguage | null
+  currentLang = {} as ILanguage | null;
   currentFile = {} as any;
 
   constructor() {
     makeAutoObservable(this);
   }
-
+  setLanguageArray(Array: any) {
+    this.languageArray = Array;
+  }
   setAuth(bool: boolean) {
     this.isAuth = bool;
   }
@@ -229,10 +231,10 @@ export default class Store {
     }
   }
   async getAllLangs() {
+    this.setLanguageArray(null);
     try {
       const response = await languageService.getAllLanguages();
-      console.log(response);
-      this.languageArray = response.data;
+      this.setLanguageArray(response.data);
     } catch (e) {
       console.log(e);
     }
@@ -274,7 +276,7 @@ export default class Store {
       console.log(e);
     }
   }
-  async changeGivenName(given_name : string) {
+  async changeGivenName(given_name: string) {
     try {
       const response = await UserService.changeGivenName(given_name);
       this.setUser(response.data);

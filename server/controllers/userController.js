@@ -99,12 +99,16 @@ class userController {
     try {
       const token = req.cookies["token"];
 
-      const user = await tokenService.findToken(token);
-      if (!user) return res.json("unauthorized").status(401);
+      const userID = await getDb().models.Token.findOne({
+        where: { refreshToken: token },
+      });
+      if (!userID) return res.status(401).json("unauthorized");
 
       const allLangs = await getDb().models.Language.findAll({
-        where: { userID: user.userID },
+        where: { userID: userID.userID },
       });
+      console.log(allLangs);
+
       return res.status(200).json(allLangs);
     } catch (e) {
       console.log(e);

@@ -73,6 +73,7 @@ class authController {
         });
         return res.json(userData);
       }
+      const bearer  = uuid.v4();
 
       const newUser = await getDb().models.User.create({
         email: payload.email,
@@ -83,6 +84,7 @@ class authController {
         given_name: payload?.given_name,
         familyName: payload?.family_name,
         resetLink: "",
+        bearer: bearer
       });
 
       const userData = await userService.registerByGoogle(newUser);

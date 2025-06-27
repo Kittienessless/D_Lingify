@@ -96,7 +96,7 @@ const Confirmation = () => {
             {" "}
             {!success && (
               <Button style={{ width: "fit-content" }} onClick={createLanguage}>
-                {t("confirmation.createLanguageButton")}
+                {t("confirmation1.createLanguageButton")}
               </Button>
             )}
           </div>
@@ -106,8 +106,8 @@ const Confirmation = () => {
                 {" "}
               </Text>
               <Button style={{ width: "fit-content" }} onClick={redactLanguage}>
-                Редактировать язык
-              </Button>{" "}
+                {t("confirmation1.redact")}
+               </Button>{" "}
             </>
           )}{" "}
         </>

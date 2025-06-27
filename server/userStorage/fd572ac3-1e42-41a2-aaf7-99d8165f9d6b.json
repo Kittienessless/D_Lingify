@@ -1,0 +1,469 @@
+{
+  "Title": "Tálínien",
+  "Desc": "Язык высших эльфов, живших в волшебной стране, славившихся своей мудростью и красотой до тех пор, пока злоупотребление алкоголем не привело их к гибели.",
+  "vocabular": [
+    {
+      "key": "1",
+      "word": "lóhára",
+      "translate": "эльф",
+      "stress": "ló-há-ra",
+      "property": "существительное",
+      "IPA": "/lo'haːrɒ/"
+    },
+    {
+      "key": "2",
+      "word": "sílenya",
+      "translate": "высокий",
+      "stress": "sí-le-nya",
+      "property": "прилагательное",
+      "IPA": "/si'lɛnja/"
+    },
+    {
+      "key": "3",
+      "word": "ména",
+      "translate": "пить",
+      "stress": "mé-na",
+      "property": "глагол",
+      "IPA": "/me'nɑ/"
+    },
+    {
+      "key": "4",
+      "word": "víne",
+      "translate": "виноград",
+      "stress": "ví-ne",
+      "property": "существительное",
+      "IPA": "/vi'nɛ/"
+    },
+    {
+      "key": "5",
+      "word": "níle",
+      "translate": "звезда",
+      "stress": "ní-le",
+      "property": "существительное",
+      "IPA": "/ni'lɛ/"
+    },
+    {
+      "key": "6",
+      "word": "tálín",
+      "translate": "мудрость",
+      "stress": "tá-lín",
+      "property": "существительное",
+      "IPA": "/ta'liːn/"
+    },
+    {
+      "key": "7",
+      "word": "élindë",
+      "translate": "светлый",
+      "stress": "é-lin-dë",
+      "property": "прилагательное",
+      "IPA": "/e'linde/"
+    },
+    {
+      "key": "8",
+      "word": "úmenya",
+      "translate": "упасть",
+      "stress": "ú-me-nya",
+      "property": "глагол",
+      "IPA": "/u'mɛnja/"
+    },
+    {
+      "key": "9",
+      "word": "arán",
+      "translate": "король",
+      "stress": "a-rán",
+      "property": "существительное",
+      "IPA": "/a'raːn/"
+    },
+    {
+      "key": "10",
+      "word": "árima",
+      "translate": "красивый",
+      "stress": "á-ri-ma",
+      "property": "прилагательное",
+      "IPA": "/a'riːma/"
+    },
+    {
+      "key": "11",
+      "word": "erón",
+      "translate": "герой",
+      "stress": "e-rón",
+      "property": "существительное",
+      "IPA": "/e'rɔːn/"
+    },
+    {
+      "key": "12",
+      "word": "silóre",
+      "translate": "сияние",
+      "stress": "si-ló-re",
+      "property": "существительное",
+      "IPA": "/si'lore/"
+    },
+    {
+      "key": "13",
+      "word": "nórë",
+      "translate": "страна",
+      "stress": "nór-e",
+      "property": "существительное",
+      "IPA": "/no're/"
+    },
+    {
+      "key": "14",
+      "word": "lalantë",
+      "translate": "песня",
+      "stress": "la-lan-të",
+      "property": "существительное",
+      "IPA": "/la'lante/"
+    },
+    {
+      "key": "15",
+      "word": "elendil",
+      "translate": "любящий звезды",
+      "stress": "e-len-dil",
+      "property": "прилагательное",
+      "IPA": "/e'lendiːl/"
+    },
+    {
+      "key": "16",
+      "word": "vilyalóte",
+      "translate": "ветер",
+      "stress": "vi-lya-ló-te",
+      "property": "существительное",
+      "IPA": "/viljalo'te/"
+    },
+    {
+      "key": "17",
+      "word": "melinya",
+      "translate": "любовь",
+      "stress": "me-li-nya",
+      "property": "существительное",
+      "IPA": "/me'liŋja/"
+    },
+    {
+      "key": "18",
+      "word": "andúnë",
+      "translate": "закат",
+      "stress": "an-dún-e",
+      "property": "существительное",
+      "IPA": "/an'dune/"
+    },
+    {
+      "key": "19",
+      "word": "tyelle",
+      "translate": "ступень",
+      "stress": "tyél-le",
+      "property": "существительное",
+      "IPA": "/tje'lle/"
+    },
+    {
+      "key": "20",
+      "word": "yén",
+      "translate": "год",
+      "stress": "yén",
+      "property": "существительное",
+      "IPA": "/jen/"
+    },
+    {
+      "key": "21",
+      "word": "ner",
+      "translate": "мужчина",
+      "stress": "né-r",
+      "property": "существительное",
+      "IPA": "/ne:r/"
+    },
+    {
+      "key": "22",
+      "word": "neldë",
+      "translate": "три",
+      "stress": "néld-e",
+      "property": "числительное",
+      "IPA": "/neldɛ/"
+    },
+    {
+      "key": "23",
+      "word": "quetta",
+      "translate": "слово",
+      "stress": "qué-ta",
+      "property": "существительное",
+      "IPA": "/kʷet:a/"
+    },
+    {
+      "key": "24",
+      "word": "morna",
+      "translate": "темный",
+      "stress": "mor-na",
+      "property": "прилагательное",
+      "IPA": "/mor.na/"
+    },
+    {
+      "key": "25",
+      "word": "lassë",
+      "translate": "лист",
+      "stress": "las-së",
+      "property": "существительное",
+      "IPA": "/lasse/"
+    },
+    {
+      "key": "26",
+      "word": "fea",
+      "translate": "душа",
+      "stress": "fé-a",
+      "property": "существительное",
+      "IPA": "/fe.a/"
+    },
+    {
+      "key": "27",
+      "word": "ondolinta",
+      "translate": "каменщик",
+      "stress": "ón-do-lin-ta",
+      "property": "существительное",
+      "IPA": "/on.doli.nta/"
+    },
+    {
+      "key": "28",
+      "word": "ciryamo",
+      "translate": "моряк",
+      "stress": "ci-rya-mo",
+      "property": "существительное",
+      "IPA": "/kir.jamo/"
+    },
+    {
+      "key": "29",
+      "word": "tercelinya",
+      "translate": "вернуться",
+      "stress": "tér-ce-lin-ya",
+      "property": "глагол",
+      "IPA": "/ter.ce.li.nja/"
+    },
+    {
+      "key": "30",
+      "word": "tulka",
+      "translate": "приходить",
+      "stress": "túl-ka",
+      "property": "глагол",
+      "IPA": "/tu.lka/"
+    },
+    {
+      "key": "31",
+      "word": "ala",
+      "translate": "но",
+      "stress": "á-la",
+      "property": "союз",
+      "IPA": "/a.la/"
+    },
+    {
+      "key": "32",
+      "word": "ilya",
+      "translate": "каждый",
+      "stress": "íl-ya",
+      "property": "местоимение",
+      "IPA": "/i.lya/"
+    },
+    {
+      "key": "33",
+      "word": "esse",
+      "translate": "имя",
+      "stress": "és-se",
+      "property": "существительное",
+      "IPA": "/es.se/"
+    },
+    {
+      "key": "34",
+      "word": "tolkien",
+      "translate": "сказитель",
+      "stress": "to-l-kie-n",
+      "property": "существительное",
+      "IPA": "/tol.kien/"
+    },
+    {
+      "key": "35",
+      "word": "ennyn",
+      "translate": "дверь",
+      "stress": "én-nyn",
+      "property": "существительное",
+      "IPA": "/en.nyn/"
+    },
+    {
+      "key": "36",
+      "word": "naina",
+      "translate": "плакать",
+      "stress": "ná-i-na",
+      "property": "глагол",
+      "IPA": "/na.i.na/"
+    },
+    {
+      "key": "37",
+      "word": "calma",
+      "translate": "лампа",
+      "stress": "cál-ma",
+      "property": "существительное",
+      "IPA": "/kal.ma/"
+    },
+    {
+      "key": "38",
+      "word": "coa",
+      "translate": "дом",
+      "stress": "có-a",
+      "property": "существительное",
+      "IPA": "/ko.a/"
+    },
+    {
+      "key": "39",
+      "word": "macil",
+      "translate": "меч",
+      "stress": "má-cil",
+      "property": "существительное",
+      "IPA": "/mak.il/"
+    },
+    {
+      "key": "40",
+      "word": "parma",
+      "translate": "книга",
+      "stress": "pár-ma",
+      "property": "существительное",
+      "IPA": "/parm.a/"
+    },
+    {
+      "key": "41",
+      "word": "miruvóre",
+      "translate": "нектар",
+      "stress": "mi-rú-vó-re",
+      "property": "существительное",
+      "IPA": "/mi.ru.vore/"
+    },
+    {
+      "key": "42",
+      "word": "hyarmen",
+      "translate": "юг",
+      "stress": "hý-ar-men",
+      "property": "существительное",
+      "IPA": "/hi.ar.men/"
+    },
+    {
+      "key": "43",
+      "word": "quenta",
+      "translate": "история",
+      "stress": "quénta",
+      "property": "существительное",
+      "IPA": "/kenta/"
+    },
+    {
+      "key": "44",
+      "word": "cerca",
+      "translate": "корабль",
+      "stress": "cér-ca",
+      "property": "существительное",
+      "IPA": "/ser.ca/"
+    },
+    {
+      "key": "45",
+      "word": "tárion",
+      "translate": "царство",
+      "stress": "tá-ri-on",
+      "property": "существительное",
+      "IPA": "/tarion/"
+    },
+    {
+      "key": "46",
+      "word": "alda",
+      "translate": "дерево",
+      "stress": "ál-da",
+      "property": "существительное",
+      "IPA": "/ald.a/"
+    },
+    {
+      "key": "47",
+      "word": "lasselen",
+      "translate": "лиственный",
+      "stress": "lás-se-len",
+      "property": "прилагательное",
+      "IPA": "/lasse.len/"
+    },
+    {
+      "key": "48",
+      "word": "alqualonde",
+      "translate": "лебединая гавань",
+      "stress": "ál-qua-lo-ndê",
+      "property": "существительное",
+      "IPA": "/alkwalo.ndɛ/"
+    },
+    {
+      "key": "49",
+      "word": "Eärendil",
+      "translate": "Мореплаватель",
+      "stress": "É-a-re-ndil",
+      "property": "существительное",
+      "IPA": "/ear.en.dil/"
+    },
+    {
+      "key": "50",
+      "word": "Elentári",
+      "translate": "Королева звезд",
+      "stress": "É-len-tâ-ri",
+      "property": "существительное",
+      "IPA": "/elen.ta.ri/"
+    }
+  ],
+  "rules": {
+    "noun": [
+      {
+        "key": "1",
+        "rule": "Все существительные склоняются по родам и числам."
+      },
+      {
+        "key": "2",
+        "rule": "Падежные окончания могут добавляться непосредственно к основе существительного."
+      },
+      {
+        "rule": "кккккккккккккккккккккккккккк"
+      }
+    ],
+    "verb": [
+      {
+        "key": "1",
+        "rule": "Глаголы спрягаются по лицам и временам."
+      },
+      {
+        "key": "2",
+        "rule": "В прошедшем времени добавляется суффикс «-nt»."
+      },
+      {
+        "rule": "кккккккккккккккккккккккккккк"
+      },
+      {
+        "rule": "кккккккккккккккккккккккккккк"
+      }
+    ],
+    "pronoun": [
+      {
+        "key": "1",
+        "rule": "Местоимения имеют формы единственного и множественного числа."
+      },
+      {
+        "key": "2",
+        "rule": "Форма местоимения зависит от рода подлежащего."
+      }
+    ],
+    "adjective": [
+      {
+        "key": "1",
+        "rule": "Прилагательные согласуются с определяемым существительным в роде и числе."
+      },
+      {
+        "key": "2",
+        "rule": "Степени сравнения образуются добавлением префиксов 'en-' и 'nelya'."
+      }
+    ],
+    "adverb": [
+      {
+        "key": "1",
+        "rule": "Наречия обычно следуют за прилагательными и образуют степени сравнения аналогично прилагательным."
+      }
+    ],
+    "conjunction": [
+      {
+        "key": "1",
+        "rule": "Союз 'ala' используется для выражения противопоставления."
+      }
+    ]
+  }
+}

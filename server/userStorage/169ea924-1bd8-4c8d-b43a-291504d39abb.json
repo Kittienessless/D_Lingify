@@ -1,0 +1,864 @@
+{
+  "Title": "Язык Харун",
+  "Desc": "Искусственный язык народности полуросликов, проживающих глубоко под землёй.",
+  "vocabular": [
+    {
+      "key": "haran",
+      "word": "Haran",
+      "translate": "я",
+      "stress": "haˈran",
+      "property": "личн местоимение ед ч",
+      "IPA": "/haˈran/"
+    },
+    {
+      "key": "hara",
+      "word": "Hara",
+      "translate": "ты",
+      "stress": "haˈra",
+      "property": "личн местоимение ед ч",
+      "IPA": "/haˈra/"
+    },
+    {
+      "key": "harun",
+      "word": "Harun",
+      "translate": "он",
+      "stress": "haˈrun",
+      "property": "личн местоимение ед ч",
+      "IPA": "/haˈrun/"
+    },
+    {
+      "key": "hare",
+      "word": "Hare",
+      "translate": "она",
+      "stress": "haˈre",
+      "property": "личн местоимение ед ч",
+      "IPA": "/haˈre/"
+    },
+    {
+      "key": "hart",
+      "word": "Hart",
+      "translate": "оно",
+      "stress": "haˈrt",
+      "property": "личн местоимение ед ч",
+      "IPA": "/haˈrt/"
+    },
+    {
+      "key": "hardar",
+      "word": "Hardar",
+      "translate": "мы",
+      "stress": "haˈrɖaɾ",
+      "property": "личн местоимение мн ч",
+      "IPA": "/haˈrɖaɾ/"
+    },
+    {
+      "key": "hargal",
+      "word": "Hargal",
+      "translate": "вы",
+      "stress": "haˈrgaɭ",
+      "property": "личн местоимение мн ч",
+      "IPA": "/haˈrgaɭ/"
+    },
+    {
+      "key": "harum",
+      "word": "Harum",
+      "translate": "они",
+      "stress": "haˈrum",
+      "property": "личн местоимение мн ч",
+      "IPA": "/haˈrum/"
+    },
+    {
+      "key": "haten",
+      "word": "Hatên",
+      "translate": "этот",
+      "stress": "haˈtẽn",
+      "property": "указательное местоимение",
+      "IPA": "/haˈtẽn/"
+    },
+    {
+      "key": "hanon",
+      "word": "Hanôn",
+      "translate": "тот",
+      "stress": "haˈnõ",
+      "property": "указательное местоимение",
+      "IPA": "/haˈnõ/"
+    },
+    {
+      "key": "hasar",
+      "word": "Hasâr",
+      "translate": "что",
+      "stress": "haˈsãːr",
+      "property": "вопросительное местоимение",
+      "IPA": "/haˈsãːr/"
+    },
+    {
+      "key": "hamas",
+      "word": "Hamâs",
+      "translate": "кто",
+      "stress": "haˈmãs",
+      "property": "вопросительное местоимение",
+      "IPA": "/haˈmãs/"
+    },
+    {
+      "key": "habur",
+      "word": "Habûr",
+      "translate": "где",
+      "stress": "haˈbu̯r",
+      "property": "вопросительное местоимение",
+      "IPA": "/haˈbu̯r/"
+    },
+    {
+      "key": "halir",
+      "word": "Halîr",
+      "translate": "когда",
+      "stress": "haˈli̯r",
+      "property": "вопросительное местоимение",
+      "IPA": "/haˈli̯r/"
+    },
+    {
+      "key": "hadak",
+      "word": "Hadâk",
+      "translate": "как",
+      "stress": "haˈdãːk",
+      "property": "вопросительное местоимение",
+      "IPA": "/haˈdãːk/"
+    },
+    {
+      "key": "hapo",
+      "word": "Hapô",
+      "translate": "почему",
+      "stress": "haˈpô",
+      "property": "вопросительное местоимение",
+      "IPA": "/haˈpô/"
+    },
+    {
+      "key": "hashil",
+      "word": "Hashîl",
+      "translate": "потому что",
+      "stress": "haˈʃi̯l",
+      "property": "союз",
+      "IPA": "/haˈʃi̯l/"
+    },
+    {
+      "key": "henon",
+      "word": "Henôn",
+      "translate": "и",
+      "stress": "heˈnõ",
+      "property": "союз",
+      "IPA": "/heˈnõ/"
+    },
+    {
+      "key": "horin",
+      "word": "Horîn",
+      "translate": "а",
+      "stress": "hoˈri̯n",
+      "property": "союз",
+      "IPA": "/hoˈri̯n/"
+    },
+    {
+      "key": "hulat",
+      "word": "Hulât",
+      "translate": "но",
+      "stress": "huˈlãːt",
+      "property": "союз",
+      "IPA": "/huˈlãːt/"
+    },
+    {
+      "key": "huran",
+      "word": "Huran",
+      "translate": "или",
+      "stress": "huˈran",
+      "property": "союз",
+      "IPA": "/huˈran/"
+    },
+    {
+      "key": "hemel",
+      "word": "Hemêl",
+      "translate": "если",
+      "stress": "heˈme̞l",
+      "property": "союз",
+      "IPA": "/heˈme̞l/"
+    },
+    {
+      "key": "hamet",
+      "word": "Hamêt",
+      "translate": "чтобы",
+      "stress": "haˈmet",
+      "property": "союз",
+      "IPA": "/haˈmet/"
+    },
+    {
+      "key": "han",
+      "word": "Han",
+      "translate": "был/была/было (быть)",
+      "stress": "han",
+      "property": "глагол прош времени",
+      "IPA": "/han/"
+    },
+    {
+      "key": "hes",
+      "word": "Hes",
+      "translate": "есть (есть)",
+      "stress": "hes",
+      "property": "глагол наст времени",
+      "IPA": "/hes/"
+    },
+    {
+      "key": "hnah",
+      "word": "Hnâh",
+      "translate": "не (нет)",
+      "stress": "hnaˈah",
+      "property": "частица отрицания",
+      "IPA": "/hnaˈah/"
+    },
+    {
+      "key": "haye",
+      "word": "Hayê",
+      "translate": "да",
+      "stress": "haˈje̞",
+      "property": "утвердительная частица",
+      "IPA": "/haˈje̞/"
+    },
+    {
+      "key": "hmie",
+      "word": "Hmiê",
+      "translate": "нет",
+      "stress": "hmiˈe̞",
+      "property": "отрицательная частица",
+      "IPA": "/hmiˈe̞/"
+    },
+    {
+      "key": "hasin",
+      "word": "Hasîn",
+      "translate": "мой/моя/мое (мой)",
+      "stress": "haˈsi̯n",
+      "property": "притяжательное местоимение",
+      "IPA": "/haˈsi̯n/"
+    },
+    {
+      "key": "haltu",
+      "word": "Haltû",
+      "translate": "твой/твоя/твоё (твой)",
+      "stress": "haˈltu̯",
+      "property": "притяжательное местоимение",
+      "IPA": "/haˈltu̯/"
+    },
+    {
+      "key": "helom",
+      "word": "Helôm",
+      "translate": "его (его)",
+      "stress": "heˈlõ",
+      "property": "притяжательное местоимение",
+      "IPA": "/heˈlõ/"
+    },
+    {
+      "key": "hedar",
+      "word": "Hedâr",
+      "translate": "её (её)",
+      "stress": "heˈdãːr",
+      "property": "притяжательное местоимение",
+      "IPA": "/heˈdãːr/"
+    },
+    {
+      "key": "handar",
+      "word": "Handâr",
+      "translate": "наш/наша/наше (наш)",
+      "stress": "hanˈdãːr",
+      "property": "притяжательное местоимение",
+      "IPA": "/hanˈdãːr/"
+    },
+    {
+      "key": "hamor",
+      "word": "Hamôr",
+      "translate": "ваш/ваша/ваше (ваш)",
+      "stress": "haˈmôr",
+      "property": "притяжательное местоимение",
+      "IPA": "/haˈmôr/"
+    },
+    {
+      "key": "himot",
+      "word": "Himôt",
+      "translate": "кто-то (кто-то)",
+      "stress": "hiˈmôt",
+      "property": "неопределённое местоимение",
+      "IPA": "/hiˈmôt/"
+    },
+    {
+      "key": "hador",
+      "word": "Hador",
+      "translate": "что-то (что-то)",
+      "stress": "haˈdor",
+      "property": "неопределённое местоимение",
+      "IPA": "/haˈdor/"
+    },
+    {
+      "key": "harab",
+      "word": "Harâb",
+      "translate": "всё (все, всё)",
+      "stress": "haˈrãːb",
+      "property": "местоименное прилагательное",
+      "IPA": "/haˈrãːb/"
+    },
+    {
+      "key": "hartam",
+      "word": "Hartâm",
+      "translate": "ничего (ничего)",
+      "stress": "haˈrtãːm",
+      "property": "местоименное прилагательное",
+      "IPA": "/haˈrtãːm/"
+    },
+    {
+      "key": "hasol",
+      "word": "Hasôl",
+      "translate": "там (там)",
+      "stress": "haˈsôl",
+      "property": "указательное наречие места",
+      "IPA": "/haˈsôl/"
+    },
+    {
+      "key": "halbai",
+      "word": "Halfâi",
+      "translate": "здесь (здесь)",
+      "stress": "halˈfaɪ̯",
+      "property": "указательное наречие места",
+      "IPA": "/halˈfaɪ̯/"
+    },
+    {
+      "key": "hanon",
+      "word": "Hanôn",
+      "translate": "один/одна/одно (один)",
+      "stress": "haˈnõ",
+      "property": "числительное количественное",
+      "IPA": "/haˈnõ/"
+    },
+    {
+      "key": "hotan",
+      "word": "Hotân",
+      "translate": "два (два)",
+      "stress": "hoˈtãːn",
+      "property": "числительное количественное",
+      "IPA": "/hoˈtãːn/"
+    },
+    {
+      "key": "holtan",
+      "word": "Hol-tân",
+      "translate": "три (три)",
+      "stress": "holˈtãːn",
+      "property": "числительное количественное",
+      "IPA": "/holˈtãːn/"
+    },
+    {
+      "key": "hortan",
+      "word": "Hortân",
+      "translate": "четыре (четыре)",
+      "stress": "horˈtãːn",
+      "property": "числительное количественное",
+      "IPA": "/horˈtãːn/"
+    },
+    {
+      "key": "houlan",
+      "word": "Hou-lân",
+      "translate": "пять (пять)",
+      "stress": "houˈlãːn",
+      "property": "числительное количественное",
+      "IPA": "/houˈlãːn/"
+    },
+    {
+      "key": "hisalan",
+      "word": "His-alân",
+      "translate": "шесть (шесть)",
+      "stress": "hiˈsãːlan",
+      "property": "числительное количественное",
+      "IPA": "/hiˈsãːlan/"
+    },
+    {
+      "key": "hilatan",
+      "word": "Hi-la-tân",
+      "translate": "семь (семь)",
+      "stress": "hiˈlaˈtãːn",
+      "property": "числительное количественное",
+      "IPA": "/hiˈlaˈtãːn/"
+    },
+    {
+      "key": "hirsan",
+      "word": "Hi-r-sân",
+      "translate": "восемь (восемь)",
+      "stress": "hiˈrsãːn",
+      "property": "числительное количественное",
+      "IPA": "/hiˈrsãːn/"
+    },
+    {
+      "key": "honjan",
+      "word": "Hon-jân",
+      "translate": "девять (девять)",
+      "stress": "hoˈjãːn",
+      "property": "числительное количественное",
+      "IPA": "/hoˈjãːn/"
+    },
+    {
+      "key": "haten",
+      "word": "Ha-tên",
+      "translate": "десять (десять)",
+      "stress": "haˈtẽn",
+      "property": "числительное количественное",
+      "IPA": "/haˈtẽn/"
+    },
+    {
+      "key": "haruman",
+      "word": "Harûman",
+      "translate": "человек (человек)",
+      "stress": "haˈru̯man",
+      "property": "существительное одушедленное муж род",
+      "IPA": "/haˈru̯man/"
+    },
+    {
+      "key": "haden",
+      "word": "Haden",
+      "translate": "день (день)",
+      "stress": "haˈden",
+      "property": "существительное неодушевлённое",
+      "IPA": "/haˈden/"
+    },
+    {
+      "key": "havent",
+      "word": "Havent",
+      "translate": "время (время)",
+      "stress": "haˈvẽnt",
+      "property": "существительное неодушевлённое",
+      "IPA": "/haˈvẽnt/"
+    },
+    {
+      "key": "halar",
+      "word": "Halar",
+      "translate": "год (год)",
+      "stress": "haˈlar",
+      "property": "существительное неодушевлённое",
+      "IPA": "/haˈlar/"
+    },
+    {
+      "key": "halad",
+      "word": "Halad",
+      "translate": "рука (рука)",
+      "stress": "haˈlad",
+      "property": "существительное неодушевлённое",
+      "IPA": "/haˈlad/"
+    },
+    {
+      "key": "hanar",
+      "word": "Hanar",
+      "translate": "глаз (глаз)",
+      "stress": "haˈnar",
+      "property": "существительное неодушевлённое",
+      "IPA": "/haˈnar/"
+    },
+    {
+      "key": "hadar",
+      "word": "Hadar",
+      "translate": "дом (дом)",
+      "stress": "haˈdar",
+      "property": "существительное неодушевлённое",
+      "IPA": "/haˈdar/"
+    },
+    {
+      "key": "hatar",
+      "word": "Hatar",
+      "translate": "город (город)",
+      "stress": "haˈtar",
+      "property": "существительное неодушевлённое",
+      "IPA": "/haˈtar/"
+    },
+    {
+      "key": "hamont",
+      "word": "Hamont",
+      "translate": "работа (работа)",
+      "stress": "haˈmont",
+      "property": "существительное неодушевлённое",
+      "IPA": "/haˈmont/"
+    },
+    {
+      "key": "harvel",
+      "word": "Harvel",
+      "translate": "жизнь (жизнь)",
+      "stress": "haˈrvɛl",
+      "property": "существительное неодушевлённое",
+      "IPA": "/haˈrvɛl/"
+    },
+    {
+      "key": "halfar",
+      "word": "Halfar",
+      "translate": "место (место)",
+      "stress": "halˈfar",
+      "property": "существительное неодушевлённое",
+      "IPA": "/halˈfar/"
+    },
+    {
+      "key": "haram",
+      "word": "Haram",
+      "translate": "слово (слово)",
+      "stress": "haˈram",
+      "property": "существительное неодушевлённое",
+      "IPA": "/haˈram/"
+    },
+    {
+      "key": "hangal",
+      "word": "Hangal",
+      "translate": "дело (дело)",
+      "stress": "haˈŋaɭ",
+      "property": "существительное неодушевлённое",
+      "IPA": "/haˈŋaɭ/"
+    },
+    {
+      "key": "hanot",
+      "word": "Hanot",
+      "translate": "вопрос (вопрос)",
+      "stress": "haˈnot",
+      "property": "существительное неодушевлённое",
+      "IPA": "/haˈnot/"
+    },
+    {
+      "key": "harus",
+      "word": "Harus",
+      "translate": "ответ (ответ)",
+      "stress": "haˈrus",
+      "property": "существительное неодушевлённое",
+      "IPA": "/haˈrus/"
+    },
+    {
+      "key": "hardt",
+      "word": "Hardt",
+      "translate": "друг (друг)",
+      "stress": "haˈrdt",
+      "property": "существительное одушевлённое муж род",
+      "IPA": "/haˈrdt/"
+    },
+    {
+      "key": "hamant",
+      "word": "Hamant",
+      "translate": "семья (семья)",
+      "stress": "haˈmant",
+      "property": "существительное неодушевлённое",
+      "IPA": "/haˈmant/"
+    },
+    {
+      "key": "harisa",
+      "word": "Harisa",
+      "translate": "ребёнок (ребенок)",
+      "stress": "haˈrisa",
+      "property": "существительное одушевлённое жен род",
+      "IPA": "/haˈrisa/"
+    },
+    {
+      "key": "hbaran",
+      "word": "Hbaran",
+      "translate": "мальчик (мальчик)",
+      "stress": "hbaˈran",
+      "property": "существительное одушевлённое муж род",
+      "IPA": "/hbaˈran/"
+    },
+    {
+      "key": "hsana",
+      "word": "Hsana",
+      "translate": "девочка (девочка)",
+      "stress": "hsaˈna",
+      "property": "существительное одушевлённое жен род",
+      "IPA": "/hsaˈna/"
+    },
+    {
+      "key": "homen",
+      "word": "Homen",
+      "translate": "мужчина (мужчина)",
+      "stress": "hoˈmen",
+      "property": "существительное одушевлённое муж род",
+      "IPA": "/hoˈmen/"
+    },
+    {
+      "key": "hfira",
+      "word": "Hfira",
+      "translate": "женщина (женщина)",
+      "stress": "hfiˈra",
+      "property": "существительное одушевлённое жен род",
+      "IPA": "/hfiˈra/"
+    },
+    {
+      "key": "hatron",
+      "word": "Hatron",
+      "translate": "деньги (деньгии)",
+      "stress": "haˈtron",
+      "property": "существительное неодушевлённое",
+      "IPA": "/haˈtron/"
+    },
+    {
+      "key": "hwara",
+      "word": "Hwara",
+      "translate": "вода (вода)",
+      "stress": "hwaˈra",
+      "property": "существительное неодушевлённое",
+      "IPA": "/hwaˈra/"
+    },
+    {
+      "key": "hana",
+      "word": "Hana",
+      "translate": "еда (еда)",
+      "stress": "haˈna",
+      "property": "существительное неодушевлённое",
+      "IPA": "/haˈna/"
+    },
+    {
+      "key": "harmot",
+      "word": "Harmot",
+      "translate": "машина (машина)",
+      "stress": "haˈrmot",
+      "property": "существительное неодушевлённое",
+      "IPA": "/haˈrmot/"
+    },
+    {
+      "key": "hafos",
+      "word": "Hafos",
+      "translate": "лес (лес)",
+      "stress": "haˈfos",
+      "property": "существительное неодушевлённое",
+      "IPA": "/haˈfos/"
+    },
+    {
+      "key": "harvar",
+      "word": "Harvar",
+      "translate": "гора (гора)",
+      "stress": "haˈrvaɾ",
+      "property": "существительное неодушевлённое",
+      "IPA": "/haˈrvaɾ/"
+    },
+    {
+      "key": "hyaran",
+      "word": "Hyaran",
+      "translate": "река (река)",
+      "stress": "hyaˈran",
+      "property": "существительное неодушевлённое",
+      "IPA": "/hyaˈran/"
+    },
+    {
+      "key": "halten",
+      "word": "Halten",
+      "translate": "цветок (цветок)",
+      "stress": "halˈten",
+      "property": "существительное неодушевлённое",
+      "IPA": "/halˈten/"
+    },
+    {
+      "key": "hartel",
+      "word": "Hartel",
+      "translate": "дерево (дерево)",
+      "stress": "haˈrtɛl",
+      "property": "существительное неодушевлённое",
+      "IPA": "/haˈrtɛl/"
+    },
+    {
+      "key": "hanita",
+      "word": "Hanita",
+      "translate": "птица (птица)",
+      "stress": "haˈniɾa",
+      "property": "существительное одушевлённое жен род",
+      "IPA": "/haˈniɾa/"
+    },
+    {
+      "key": "hriga",
+      "word": "Hriga",
+      "translate": "собака (собака)",
+      "stress": "hriˈga",
+      "property": "существительное одушевлённое жен род",
+      "IPA": "/hriˈga/"
+    },
+    {
+      "key": "htala",
+      "word": "Htala",
+      "translate": "кот (кот)",
+      "stress": "htaˈla",
+      "property": "существительное одушевлённое муж род",
+      "IPA": "/htaˈla/"
+    },
+    {
+      "key": "hmayen",
+      "word": "Hmayen",
+      "translate": "хорошо (хорошо)",
+      "stress": "hˈmajen",
+      "property": "прилагательное полож степень",
+      "IPA": "/hˈmajen/"
+    },
+    {
+      "key": "hzamen",
+      "word": "Hzamen",
+      "translate": "плохо (плохо)",
+      "stress": "hzaˈmen",
+      "property": "прилагательное полож степень",
+      "IPA": "/hzaˈmen/"
+    },
+    {
+      "key": "hbada",
+      "word": "Hbada",
+      "translate": "большой (большой)",
+      "stress": "hbaˈda",
+      "property": "прилагательное полож степень",
+      "IPA": "/hbaˈda/"
+    },
+    {
+      "key": "hkemi",
+      "word": "Hkemi",
+      "translate": "маленький (маленький)",
+      "stress": "hkeˈmi",
+      "property": "прилагательное полож степень",
+      "IPA": "/hkeˈmi/"
+    },
+    {
+      "key": "haluma",
+      "word": "Haluma",
+      "translate": "новый (новый)",
+      "stress": "haˈlu̯ma",
+      "property": "прилагательное полож степень",
+      "IPA": "/haˈlu̯ma/"
+    },
+    {
+      "key": "hofin",
+      "word": "Hofin",
+      "translate": "старый (старый)",
+      "stress": "hoˈfin",
+      "property": "прилагательное полож степень",
+      "IPA": "/hoˈfin/"
+    },
+    {
+      "key": "hambari",
+      "word": "Hambari",
+      "translate": "красивый (красивый)",
+      "stress": "hamˈbari",
+      "property": "прилагательное полож степень",
+      "IPA": "/hamˈbari/"
+    },
+    {
+      "key": "hbaler",
+      "word": "Hbaler",
+      "translate": "грустный (грустный)",
+      "stress": "hbaˈler",
+      "property": "прилагательное полож степень",
+      "IPA": "/hbaˈler/"
+    },
+    {
+      "key": "hallua",
+      "word": "Hallua",
+      "translate": "радостный (радостный)",
+      "stress": "halˈlua",
+      "property": "прилагательное полож степень",
+      "IPA": "/halˈlua/"
+    },
+    {
+      "key": "harzen",
+      "word": "Harzen",
+      "translate": "интересный (интересный)",
+      "stress": "haˈrze̞n",
+      "property": "прилагательное полож степень",
+      "IPA": "/haˈrze̞n/"
+    },
+    {
+      "key": "hdolan",
+      "word": "Hdolan",
+      "translate": "скучный (скучный)",
+      "stress": "hdoˈlan",
+      "property": "прилагательное полож степень",
+      "IPA": "/hdoˈlan/"
+    },
+    {
+      "key": "hara",
+      "word": "Hara",
+      "translate": "хорошее (хорошее)",
+      "stress": "haˈra",
+      "property": "субстантивированное прилагательное",
+      "IPA": "/haˈra/"
+    },
+    {
+      "key": "1750695604988",
+      "word": "obj",
+      "translate": "obj",
+      "stress": "obj",
+      "property": "obj",
+      "IPA": "obj"
+    }
+  ],
+  "rules": {
+    "noun": [
+      {
+        "key": "general_rule_nouns",
+        "rule": "Все существительные начинаются с приставки 'har-', указывающей на предмет или явление."
+      },
+      {
+        "key": "gender_rule",
+        "rule": "Существительные делятся на два рода: мужской и женский. Мужской род обозначается окончанием '-t', женский - '-a'."
+      },
+      {
+        "key": "plural_form",
+        "rule": "Множественная форма образуется добавлением суффикса '-ner'."
+      },
+      {
+        "rule": "objobjobj"
+      }
+    ],
+    "verb": [
+      {
+        "key": "present_tense",
+        "rule": "Настоящее время образуется без изменения основы глагола."
+      },
+      {
+        "key": "past_tense",
+        "rule": "Прошедшее время формируется путём добавления окончания '-an' к основе глагола."
+      },
+      {
+        "key": "future_tense",
+        "rule": "Будущее время создаётся через добавление суффикса '-nen' после основы глагола."
+      },
+      {
+        "rule": "objobjobj"
+      },
+      {
+        "rule": "obj"
+      }
+    ],
+    "pronoun": [
+      {
+        "key": "personal_pronouns",
+        "rule": "Личные местоимения различаются по лицам и числам: первое лицо ('haran'), второе лицо ('hara') и третье лицо ('harun')."
+      },
+      {
+        "key": "possessive_pronouns",
+        "rule": "Притяжательные местоимения образуются добавлением соответствующего суффикса к слову 'har': мой('hasin'), твой('haltu'), его('helom')."
+      },
+      {
+        "rule": "obj"
+      }
+    ],
+    "adjective": [
+      {
+        "key": "positive_degree",
+        "rule": "Прилагательные имеют положительную степень сравнения, которая является базовой формой."
+      },
+      {
+        "key": "comparative_degree",
+        "rule": "Сравнительная степень образовывается прибавлением суффикса '-mel' к основной форме прилагательного."
+      },
+      {
+        "key": "superlative_degree",
+        "rule": "Превосходная степень получается посредством добавления суффикса '-kel' к основному прилагательному."
+      }
+    ],
+    "adverb": [
+      {
+        "key": "formation_of_adverbs",
+        "rule": "Наречия обычно формируются путём присоединения суффикса '-ben' к соответствующей основе прилагательного."
+      }
+    ],
+    "conjunction": [
+      {
+        "key": "coordinating_conjunctions",
+        "rule": "Координационные союзы соединяют равноправные предложения или члены предложений."
+      },
+      {
+        "key": "subordinating_conjunctions",
+        "rule": "Подчинённые союзы вводят придаточные предложения, зависимые от главного."
+      }
+    ]
+  }
+}

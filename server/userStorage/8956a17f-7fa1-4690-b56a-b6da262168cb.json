@@ -1,0 +1,933 @@
+{
+  "Title": "Lunari",
+  "Desc": "Созданный язык Lunari принадлежит народу мудрых монахов, обитающих высоко в горах. Они известны своей способностью «парить» на мечах и уникальной связью с природой и животными. Лунари богат глубокими философскими понятиями, отражает духовность и связь с окружающим миром.",
+  "vocabular": [
+    {
+      "key": "ana",
+      "word": "Anara",
+      "translate": "я",
+      "stress": "ána",
+      "property": "личн. местоимение",
+      "IPA": "/ˈa.na/"
+    },
+    {
+      "key": "vye",
+      "word": "Vyera",
+      "translate": "ты",
+      "stress": "vyéra",
+      "property": "личн. местоимение",
+      "IPA": "/vi.ˈe.ra/"
+    },
+    {
+      "key": "tora",
+      "word": "Tora",
+      "translate": "он",
+      "stress": "tóra",
+      "property": "личн. местоимение",
+      "IPA": "/ˈto.ra/"
+    },
+    {
+      "key": "sera",
+      "word": "Sèra",
+      "translate": "она",
+      "stress": "séra",
+      "property": "личн. местоимение",
+      "IPA": "/ˈse.ra/"
+    },
+    {
+      "key": "itara",
+      "word": "Itàra",
+      "translate": "оно",
+      "stress": "ítara",
+      "property": "личн. местоимение",
+      "IPA": "/i.ˈta.ra/"
+    },
+    {
+      "key": "mina",
+      "word": "Minara",
+      "translate": "мы",
+      "stress": "mína",
+      "property": "личн. местоимение",
+      "IPA": "/mi.ˈna.ra/"
+    },
+    {
+      "key": "yona",
+      "word": "Yòna",
+      "translate": "вы",
+      "stress": "ýona",
+      "property": "личн. местоимение",
+      "IPA": "/jo.ˈna/"
+    },
+    {
+      "key": "lara",
+      "word": "Larara",
+      "translate": "они",
+      "stress": "lárara",
+      "property": "личн. местоимение",
+      "IPA": "/la.ˈra.ra/"
+    },
+    {
+      "key": "eta",
+      "word": "Eta",
+      "translate": "этот",
+      "stress": "étá",
+      "property": "указательное местоимение",
+      "IPA": "/ˈe.ta/"
+    },
+    {
+      "key": "ota",
+      "word": "Ota",
+      "translate": "тот",
+      "stress": "ótá",
+      "property": "указательное местоимение",
+      "IPA": "/o.ˈta/"
+    },
+    {
+      "key": "kala",
+      "word": "Kala",
+      "translate": "что",
+      "stress": "kálá",
+      "property": "вопросительное местоимение",
+      "IPA": "/ka.ˈla/"
+    },
+    {
+      "key": "kara",
+      "word": "Kara",
+      "translate": "кто",
+      "stress": "kára",
+      "property": "вопросительное местоимение",
+      "IPA": "/ˈka.ra/"
+    },
+    {
+      "key": "dare",
+      "word": "Dare",
+      "translate": "где",
+      "stress": "dáre",
+      "property": "вопросительное местоимение",
+      "IPA": "/da.re/"
+    },
+    {
+      "key": "ware",
+      "word": "Ware",
+      "translate": "когда",
+      "stress": "wáre",
+      "property": "вопросительное местоимение",
+      "IPA": "/wa.re/"
+    },
+    {
+      "key": "vare",
+      "word": "Vare",
+      "translate": "как",
+      "stress": "váre",
+      "property": "вопросительное местоимение",
+      "IPA": "/va.re/"
+    },
+    {
+      "key": "nare",
+      "word": "Nare",
+      "translate": "почему",
+      "stress": "náre",
+      "property": "вопросительное местоимение",
+      "IPA": "/na.re/"
+    },
+    {
+      "key": "pura",
+      "word": "Pura",
+      "translate": "потому что",
+      "stress": "púra",
+      "property": "союз",
+      "IPA": "/pu.ra/"
+    },
+    {
+      "key": "ja",
+      "word": "Ja",
+      "translate": "и",
+      "stress": "já",
+      "property": "союз",
+      "IPA": "/ja/"
+    },
+    {
+      "key": "za",
+      "word": "Za",
+      "translate": "а",
+      "stress": "zá",
+      "property": "союз",
+      "IPA": "/za/"
+    },
+    {
+      "key": "no",
+      "word": "No",
+      "translate": "но",
+      "stress": "nó",
+      "property": "союз",
+      "IPA": "/no/"
+    },
+    {
+      "key": "ili",
+      "word": "Ili",
+      "translate": "или",
+      "stress": "íli",
+      "property": "союз",
+      "IPA": "/i.li/"
+    },
+    {
+      "key": "esi",
+      "word": "Esi",
+      "translate": "если",
+      "stress": "ési",
+      "property": "союз",
+      "IPA": "/e.si/"
+    },
+    {
+      "key": "asi",
+      "word": "Asi",
+      "translate": "чтобы",
+      "stress": "ásí",
+      "property": "союз",
+      "IPA": "/a.si/"
+    },
+    {
+      "key": "esa",
+      "word": "Esa",
+      "translate": "был/была/было (быть)",
+      "stress": "ésá",
+      "property": "глагол",
+      "IPA": "/e.sa/"
+    },
+    {
+      "key": "isa",
+      "word": "Isa",
+      "translate": "есть (есть)",
+      "stress": "ísá",
+      "property": "глагол",
+      "IPA": "/i.sa/"
+    },
+    {
+      "key": "ne",
+      "word": "Ne",
+      "translate": "не (нет)",
+      "stress": "né",
+      "property": "частица отрицания",
+      "IPA": "/ne/"
+    },
+    {
+      "key": "da",
+      "word": "Da",
+      "translate": "да",
+      "stress": "dá",
+      "property": "утвердительная частица",
+      "IPA": "/da/"
+    },
+    {
+      "key": "nyet",
+      "word": "Nyet",
+      "translate": "нет",
+      "stress": "níet",
+      "property": "отрицательная частица",
+      "IPA": "/ni.et/"
+    },
+    {
+      "key": "mana",
+      "word": "Mana",
+      "translate": "мой/моя/мое (мой)",
+      "stress": "máná",
+      "property": "притяжательное местоимение",
+      "IPA": "/ma.na/"
+    },
+    {
+      "key": "tyena",
+      "word": "Tyena",
+      "translate": "твой/твоя/твоё (твой)",
+      "stress": "téna",
+      "property": "притяжательное местоимение",
+      "IPA": "/te.na/"
+    },
+    {
+      "key": "eya",
+      "word": "Eyaya",
+      "translate": "его (его)",
+      "stress": "eyáya",
+      "property": "притяжательное местоимение",
+      "IPA": "/ej.a.ja/"
+    },
+    {
+      "key": "seyay",
+      "word": "Seveya",
+      "translate": "её (её)",
+      "stress": "sevéya",
+      "property": "притяжательное местоимение",
+      "IPA": "/se.vje.ja/"
+    },
+    {
+      "key": "nasha",
+      "word": "Nasha",
+      "translate": "наш/наша/наше (наш)",
+      "stress": "násha",
+      "property": "притяжательное местоимение",
+      "IPA": "/na.ʃa/"
+    },
+    {
+      "key": "vasya",
+      "word": "Vasya",
+      "translate": "ваш/ваша/ваше (ваш)",
+      "stress": "vásja",
+      "property": "притяжательное местоимение",
+      "IPA": "/va.sja/"
+    },
+    {
+      "key": "ketu",
+      "word": "Ketu",
+      "translate": "кто-то (кто-то)",
+      "stress": "kétú",
+      "property": "неопределённое местоимение",
+      "IPA": "/ke.tu/"
+    },
+    {
+      "key": "kena",
+      "word": "Kenata",
+      "translate": "что-то (что-то)",
+      "stress": "kénáta",
+      "property": "неопределённое местоимение",
+      "IPA": "/ke.na.ta/"
+    },
+    {
+      "key": "talen",
+      "word": "Talentar",
+      "translate": "всё (все, всё)",
+      "stress": "tálen.tar",
+      "property": "универсальное местоимение",
+      "IPA": "/ta.len.tar/"
+    },
+    {
+      "key": "nen",
+      "word": "Nenen",
+      "translate": "ничего (ничего)",
+      "stress": "nénen",
+      "property": "отрицательное местоимение",
+      "IPA": "/ne.nen/"
+    },
+    {
+      "key": "tarin",
+      "word": "Tarina",
+      "translate": "там (там)",
+      "stress": "tári.na",
+      "property": "наречие места",
+      "IPA": "/ta.ri.na/"
+    },
+    {
+      "key": "yarin",
+      "word": "Yarin",
+      "translate": "здесь (здесь)",
+      "stress": "yári.na",
+      "property": "наречие места",
+      "IPA": "/ja.ri.na/"
+    },
+    {
+      "key": "bori",
+      "word": "Bori",
+      "translate": "один/одна/одно (один)",
+      "stress": "bórí",
+      "property": "числительное",
+      "IPA": "/bo.ri/"
+    },
+    {
+      "key": "tera",
+      "word": "Terani",
+      "translate": "два",
+      "stress": "terá.ni",
+      "property": "числительное",
+      "IPA": "/te.ra.ni/"
+    },
+    {
+      "key": "tira",
+      "word": "Tiraya",
+      "translate": "три",
+      "stress": "tirá.ya",
+      "property": "числительное",
+      "IPA": "/ti.ra.ja/"
+    },
+    {
+      "key": "sera",
+      "word": "Serava",
+      "translate": "четыре",
+      "stress": "sérá.va",
+      "property": "числительное",
+      "IPA": "/se.ra.va/"
+    },
+    {
+      "key": "nere",
+      "word": "Nerena",
+      "translate": "пять",
+      "stress": "neré.na",
+      "property": "числительное",
+      "IPA": "/ne.re.na/"
+    },
+    {
+      "key": "fera",
+      "word": "Ferava",
+      "translate": "шесть",
+      "stress": "ferá.va",
+      "property": "числительное",
+      "IPA": "/fe.ra.va/"
+    },
+    {
+      "key": "lera",
+      "word": "Lerami",
+      "translate": "семь",
+      "stress": "lé.ra.mi",
+      "property": "числительное",
+      "IPA": "/le.ra.mi/"
+    },
+    {
+      "key": "mera",
+      "word": "Meravi",
+      "translate": "восемь",
+      "stress": "mérá.vi",
+      "property": "числительное",
+      "IPA": "/me.ra.vi/"
+    },
+    {
+      "key": "pera",
+      "word": "Perama",
+      "translate": "девять",
+      "stress": "perá.ma",
+      "property": "числительное",
+      "IPA": "/pe.ra.ma/"
+    },
+    {
+      "key": "deca",
+      "word": "Decari",
+      "translate": "десять",
+      "stress": "decá.ri",
+      "property": "числительное",
+      "IPA": "/de.ca.ri/"
+    },
+    {
+      "key": "homa",
+      "word": "Homan",
+      "translate": "человек",
+      "stress": "hó.man",
+      "property": "существительное",
+      "IPA": "/ho.man/"
+    },
+    {
+      "key": "dana",
+      "word": "Danana",
+      "translate": "день",
+      "stress": "daná.na",
+      "property": "существительное",
+      "IPA": "/da.na.na/"
+    },
+    {
+      "key": "lama",
+      "word": "Lamasa",
+      "translate": "время",
+      "stress": "lamá.sa",
+      "property": "существительное",
+      "IPA": "/la.ma.sa/"
+    },
+    {
+      "key": "jana",
+      "word": "Janaka",
+      "translate": "год",
+      "stress": "janá.ka",
+      "property": "существительное",
+      "IPA": "/ja.na.ka/"
+    },
+    {
+      "key": "rena",
+      "word": "Rena",
+      "translate": "рука",
+      "stress": "ré.na",
+      "property": "существительное",
+      "IPA": "/re.na/"
+    },
+    {
+      "key": "glana",
+      "word": "Glania",
+      "translate": "глаз",
+      "stress": "glá.nia",
+      "property": "существительное",
+      "IPA": "/ɡla.nja/"
+    },
+    {
+      "key": "dima",
+      "word": "Dimasa",
+      "translate": "дом",
+      "stress": "dimá.sa",
+      "property": "существительное",
+      "IPA": "/di.ma.sa/"
+    },
+    {
+      "key": "vana",
+      "word": "Vanaka",
+      "translate": "город",
+      "stress": "vaná.ka",
+      "property": "существительное",
+      "IPA": "/va.na.ka/"
+    },
+    {
+      "key": "lena",
+      "word": "Lenawa",
+      "translate": "работа",
+      "stress": "lé.na.wa",
+      "property": "существительное",
+      "IPA": "/le.na.wa/"
+    },
+    {
+      "key": "kana",
+      "word": "Kanama",
+      "translate": "жизнь",
+      "stress": "kaná.ma",
+      "property": "существительное",
+      "IPA": "/ka.na.ma/"
+    },
+    {
+      "key": "tena",
+      "word": "Tenaka",
+      "translate": "место",
+      "stress": "tená.ka",
+      "property": "существительное",
+      "IPA": "/te.na.ka/"
+    },
+    {
+      "key": "dena",
+      "word": "Denama",
+      "translate": "слово",
+      "stress": "dená.ma",
+      "property": "существительное",
+      "IPA": "/de.na.ma/"
+    },
+    {
+      "key": "vena",
+      "word": "Venata",
+      "translate": "дело",
+      "stress": "vé.na.ta",
+      "property": "существительное",
+      "IPA": "/ve.na.ta/"
+    },
+    {
+      "key": "qena",
+      "word": "Qenati",
+      "translate": "вопрос",
+      "stress": "qe.ná.ti",
+      "property": "существительное",
+      "IPA": "/qe.na.ti/"
+    },
+    {
+      "key": "zena",
+      "word": "Zenato",
+      "translate": "ответ",
+      "stress": "ze.ná.to",
+      "property": "существительное",
+      "IPA": "/ze.na.to/"
+    },
+    {
+      "key": "mena",
+      "word": "Menapa",
+      "translate": "друг",
+      "stress": "mená.pa",
+      "property": "существительное",
+      "IPA": "/me.na.pa/"
+    },
+    {
+      "key": "fena",
+      "word": "Fenaki",
+      "translate": "семья",
+      "stress": "fená.ki",
+      "property": "существительное",
+      "IPA": "/fe.na.ki/"
+    },
+    {
+      "key": "mana",
+      "word": "Manaka",
+      "translate": "мама",
+      "stress": "maná.ka",
+      "property": "существительное",
+      "IPA": "/ma.na.ka/"
+    },
+    {
+      "key": "pana",
+      "word": "Panasa",
+      "translate": "папа",
+      "stress": "paná.sa",
+      "property": "существительное",
+      "IPA": "/pa.na.sa/"
+    },
+    {
+      "key": "kina",
+      "word": "Kinata",
+      "translate": "ребенок",
+      "stress": "kiná.ta",
+      "property": "существительное",
+      "IPA": "/ki.na.ta/"
+    },
+    {
+      "key": "lina",
+      "word": "Linam",
+      "translate": "мальчик",
+      "stress": "línám",
+      "property": "существительное",
+      "IPA": "/li.nam/"
+    },
+    {
+      "key": "mino",
+      "word": "Mino",
+      "translate": "девочка",
+      "stress": "mí.no",
+      "property": "существительное",
+      "IPA": "/mi.no/"
+    },
+    {
+      "key": "tano",
+      "word": "Tanamo",
+      "translate": "мужчина",
+      "stress": "taná.mo",
+      "property": "существительное",
+      "IPA": "/ta.na.mo/"
+    },
+    {
+      "key": "naro",
+      "word": "Naroma",
+      "translate": "женщина",
+      "stress": "naró.ma",
+      "property": "существительное",
+      "IPA": "/na.ro.ma/"
+    },
+    {
+      "key": "deni",
+      "word": "Denimi",
+      "translate": "деньги",
+      "stress": "dení.mi",
+      "property": "существительное",
+      "IPA": "/de.ni.mi/"
+    },
+    {
+      "key": "vana",
+      "word": "Vanasu",
+      "translate": "вода",
+      "stress": "vaná.su",
+      "property": "существительное",
+      "IPA": "/va.na.su/"
+    },
+    {
+      "key": "dona",
+      "word": "Donana",
+      "translate": "еда",
+      "stress": "doná.na",
+      "property": "существительное",
+      "IPA": "/do.na.na/"
+    },
+    {
+      "key": "mena",
+      "word": "Meneti",
+      "translate": "машина",
+      "stress": "mené.ti",
+      "property": "существительное",
+      "IPA": "/me.ne.ti/"
+    },
+    {
+      "key": "dana",
+      "word": "Danada",
+      "translate": "дом",
+      "stress": "daná.da",
+      "property": "существительное",
+      "IPA": "/da.na.da/"
+    },
+    {
+      "key": "vana",
+      "word": "Vanava",
+      "translate": "город",
+      "stress": "vaná.va",
+      "property": "существительное",
+      "IPA": "/va.na.va/"
+    },
+    {
+      "key": "lena",
+      "word": "Lenaga",
+      "translate": "страна",
+      "stress": "lená.ga",
+      "property": "существительное",
+      "IPA": "/le.na.ga/"
+    },
+    {
+      "key": "yana",
+      "word": "Yanatu",
+      "translate": "мир",
+      "stress": "yaná.tu",
+      "property": "существительное",
+      "IPA": "/ja.na.tu/"
+    },
+    {
+      "key": "zena",
+      "word": "Zensol",
+      "translate": "солнце",
+      "stress": "zén.sol",
+      "property": "существительное",
+      "IPA": "/ze.nsol/"
+    },
+    {
+      "key": "rama",
+      "word": "Ramali",
+      "translate": "небо",
+      "stress": "ramá.li",
+      "property": "существительное",
+      "IPA": "/ra.ma.li/"
+    },
+    {
+      "key": "noma",
+      "word": "Nomos",
+      "translate": "земля",
+      "stress": "nomós",
+      "property": "существительное",
+      "IPA": "/no.mos/"
+    },
+    {
+      "key": "tema",
+      "word": "Temaru",
+      "translate": "море",
+      "stress": "temá.ru",
+      "property": "существительное",
+      "IPA": "/te.ma.ru/"
+    },
+    {
+      "key": "mona",
+      "word": "Monati",
+      "translate": "лес",
+      "stress": "mo.ná.ti",
+      "property": "существительное",
+      "IPA": "/mo.na.ti/"
+    },
+    {
+      "key": "rana",
+      "word": "Ranatu",
+      "translate": "гора",
+      "stress": "raná.tu",
+      "property": "существительное",
+      "IPA": "/ra.na.tu/"
+    },
+    {
+      "key": "dena",
+      "word": "Denara",
+      "translate": "река",
+      "stress": "dená.ra",
+      "property": "существительное",
+      "IPA": "/de.na.ra/"
+    },
+    {
+      "key": "sena",
+      "word": "Senafil",
+      "translate": "цветок",
+      "stress": "sená.fil",
+      "property": "существительное",
+      "IPA": "/se.na.fil/"
+    },
+    {
+      "key": "lena",
+      "word": "Lenavir",
+      "translate": "дерево",
+      "stress": "lená.vir",
+      "property": "существительное",
+      "IPA": "/le.na.vir/"
+    },
+    {
+      "key": "pena",
+      "word": "Penahi",
+      "translate": "птица",
+      "stress": "pená.hi",
+      "property": "существительное",
+      "IPA": "/pe.na.hi/"
+    },
+    {
+      "key": "kena",
+      "word": "Kenalo",
+      "translate": "собака",
+      "stress": "kená.lo",
+      "property": "существительное",
+      "IPA": "/ke.na.lo/"
+    },
+    {
+      "key": "gena",
+      "word": "Genal",
+      "translate": "кот",
+      "stress": "ge.nál",
+      "property": "существительное",
+      "IPA": "/ɡe.nal/"
+    },
+    {
+      "key": "mila",
+      "word": "Milava",
+      "translate": "хорошо",
+      "stress": "milá.va",
+      "property": "прилагательное",
+      "IPA": "/mi.la.va/"
+    },
+    {
+      "key": "vela",
+      "word": "Velaki",
+      "translate": "плохо",
+      "stress": "velá.ki",
+      "property": "прилагательное",
+      "IPA": "/ve.la.ki/"
+    },
+    {
+      "key": "tila",
+      "word": "Tilagro",
+      "translate": "большой",
+      "stress": "tilág.ro",
+      "property": "прилагательное",
+      "IPA": "/ti.la.gro/"
+    },
+    {
+      "key": "nila",
+      "word": "Nilata",
+      "translate": "маленький",
+      "stress": "ni.lá.ta",
+      "property": "прилагательное",
+      "IPA": "/ni.la.ta/"
+    },
+    {
+      "key": "bola",
+      "word": "Bolaven",
+      "translate": "новый",
+      "stress": "bolá.ven",
+      "property": "прилагательное",
+      "IPA": "/bo.la.ven/"
+    },
+    {
+      "key": "nala",
+      "word": "Nalana",
+      "translate": "старый",
+      "stress": "nalá.na",
+      "property": "прилагательное",
+      "IPA": "/na.la.na/"
+    },
+    {
+      "key": "cala",
+      "word": "Calame",
+      "translate": "красивый",
+      "stress": "calá.me",
+      "property": "прилагательное",
+      "IPA": "/ka.la.me/"
+    },
+    {
+      "key": "zula",
+      "word": "Zulani",
+      "translate": "грустный",
+      "stress": "zu.lá.ni",
+      "property": "прилагательное",
+      "IPA": "/zu.la.ni/"
+    },
+    {
+      "key": "vala",
+      "word": "Valate",
+      "translate": "радостный",
+      "stress": "valá.te",
+      "property": "прилагательное",
+      "IPA": "/va.la.te/"
+    },
+    {
+      "key": "ola",
+      "word": "Olame",
+      "translate": "интересный",
+      "stress": "olá.me",
+      "property": "прилагательное",
+      "IPA": "/o.la.me/"
+    },
+    {
+      "key": "bula",
+      "word": "Bulava",
+      "translate": "скучный",
+      "stress": "bulá.va",
+      "property": "прилагательное",
+      "IPA": "/bu.la.va/"
+    },
+    {
+      "key": "1750699510074",
+      "word": "AAA",
+      "translate": "AAA",
+      "stress": "AAA",
+      "property": "AAA",
+      "IPA": "AAA"
+    },
+    {
+      "key": "1750699545181",
+      "word": "dirtyJson.parse(data)",
+      "translate": "dirtyJson.parse(data)",
+      "stress": "dirtyJson.parse(data)",
+      "property": "dirtyJson.parse(data)",
+      "IPA": "dirtyJson.parse(data)"
+    },
+    {
+      "key": "1750699565098",
+      "word": "dirtyJson.parse(data)",
+      "translate": "dirtyJson.parse(data)",
+      "stress": "dirtyJson.parse(data)",
+      "property": "dirtyJson.parse(data)",
+      "IPA": "dirtyJson.parse(data)"
+    }
+  ],
+  "rules": {
+    "noun": [
+      {
+        "key": "SingularPlural",
+        "rule": "Существительные имеют единственное и множественное числа. Множественное число образуется добавлением суффикса '-ar'."
+      },
+      {
+        "key": "PossessiveForm",
+        "rule": "Притяжательные формы образуются путём добавления суффиксов: '-ya' для единственного числа и '-var' для множественного."
+      }
+    ],
+    "verb": [
+      {
+        "key": "VerbConjugation",
+        "rule": "Глаголы спрягаются по лицам и числам следующим образом: 1-е лицо ед.ч.: добавление '-ra', 2-е лицо ед.ч.: '-ta', 3-е лицо ед.ч.: '-na'; во множественном числе добавляется '-dar'."
+      },
+      {
+        "key": "PastFutureTense",
+        "rule": "Прошедшее время формируется добавлением префикса 'Ve-', будущее время — префиксом 'Ni-' перед корнем глагола."
+      },
+      {
+        "rule": "ыыыыыыыыыыыы"
+      },
+      {
+        "rule": "ыыы"
+      },
+      {
+        "rule": "xczxc"
+      }
+    ],
+    "pronoun": [
+      {
+        "key": "PersonalPronouns",
+        "rule": "Личные местоимения отличаются формами лица и числа ('Anara' — я, 'Vyera' — ты, 'Tora' — он и т.д.)."
+      },
+      {
+        "key": "ReflexivePronouns",
+        "rule": "Возвратные местоимения формируются путем добавления окончания '-en': 'Ana-en' — себя, 'Vyera-en' — тебя самого."
+      }
+    ],
+    "adjective": [
+      {
+        "key": "AdjectiveAgreement",
+        "rule": "Прилагательные согласуются с существительными в роде и числе, принимая окончание '-ni' для женского рода и '-mar' для мужского рода."
+      },
+      {
+        "key": "ComparativeSuperlative",
+        "rule": "Степени сравнения прилагательных образуются добавлением приставки 'Sa-' для сравнительной степени и 'Me-' для превосходной."
+      }
+    ],
+    "adverb": [
+      {
+        "key": "FormationOfAdverbs",
+        "rule": "Наречия обычно образуются от прилагательных добавлением суффикса '-mi': например, от Milava («хорошо») — Milavam («хорошо»)."
+      }
+    ],
+    "conjunction": [
+      {
+        "key": "TypesOfConjunctions",
+        "rule": "Существуют союзы соединительного типа ('Ja'), противительного ('No') и подчинительные ('Esi')."
+      }
+    ]
+  }
+}

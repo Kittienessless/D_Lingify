@@ -79,7 +79,7 @@ export default class languageService {
     return await $api.get<LangResponse>(`${BASE_URL}/lang/lang/${id}`);
   }
   static async getAllLanguages(): Promise<AxiosResponse<ILanguage[]>> {
-    return await $api.get<ILanguage[]>(`${BASE_URL}/lang/getAllLangs`);
+    return await $api.get<ILanguage[]>(`${BASE_URL}/user/langs`);
   }
 
   static async uploadLang(

@@ -371,61 +371,72 @@
     "ru": "Russian",
     "en": "English"
   },
-   "hints": {
-      "wordCount": "Number of words in the dictionary. Minimum 5, maximum 800. Note that words are generated randomly; some are common, some are not.",
-      "partsOfSpeech": "You need to select the parts of speech that will be present in your language. Note that not all parts of speech are shown; others will be added later.",
-      "alphabet": "Enter separated by commas or spaces: a,b,c... / a b c ... All Latin letters to be used for language generation are entered. Be aware that missing letters may cause errors during generation.",
-      "morphologicalComplexity": "Morphological complexity is the degree of internal structure of a word, determined by the number and types of morphemes it contains. The more morphemes and the more complex their connection, the higher the morphological complexity.",
-      "wordOrder": "This structure defines the order and connection of words and parts of speech, such as simple, compound or complex sentences. It shows how sentence components are combined to convey meaning.",
-      "sentenceStructure": "This structure defines the order and connection of words and parts of speech, such as simple, compound or complex sentences. It shows how sentence components are combined to convey meaning.",
-      "speechStyle": "Speech style is a set of linguistic means that determine the character and tone of speech; for example: scientific, artistic or business style. It shows how words and constructions are chosen to achieve a specific communicative effect.",
-      "phoneticSystem": "The phonetic system is the set of speech sounds represented in the International Phonetic Alphabet (IPA), including vowels and consonants with their articulatory features. It defines the sound structure of the language and pronunciation rules.",
-      "wordFormationRules": "Word formation rules are systems of morphological and lexical patterns by which new words are formed in a language. They determine how words with new meanings are created from roots and affixes.",
-      "languageRegularity": "The regularity of language rules refers to consistency and predictability in applying morphological and syntactic patterns."
-    },
-    "rules": {
-      "noun": "Nouns",
-      "verb": "Verbs",
-      "pronoun": "Pronouns",
-      "adjective": "Adjectives",
-      "adverb": "Adverbs",
-      "conjunction": "Conjunctions",
-      "interjection": "Interjections",
-      "addRule": "Add",
-      "loading": "Loading...",
-      "saveChanges": "Save all changes to rules",
-      "edit": "Edit",
-      "delete": "Delete",
-      "cancel": "Cancel",
-      "enterNewRule": "Enter a new rule"
-    },
-    "dictionary": {
-      "word": "Word",
-      "translate": "Translation",
-      "stress": "Stress",
-      "property": "Property",
-      "IPA": "IPA",
-      "actions": "Actions",
-      "addWord": "Add Word",
-      "save": "Save",
-      "cancel": "Cancel",
-      "edit": "Edit",
-      "delete": "Delete",
-      "loading": "Loading...",
-      "saveAllChanges": "Save all changes"
-    },
-    "uploader": {
-      "supportedFormats": "Supported file formats:",
-      "contentFormats": "Content formats:",
-      "rulesFormat": "Rules Format",
-      "vocabularyFormat": "Vocabulary Format",
-      "firstLineTitle": "First line - title",
-      "secondLineDescription": "Second line - description",
-      "rulesFormatDetails": "Following lines - rules in format: \"rule [separator] value\"",
-      "supportedSeparators": "Supported separators:",
-      "selectFile": "Select File",
-      "uploadSuccess": "File processed successfully!",
-      "uploadError": "Failed to process file",
-      "uploadErrorFormat": "You can only upload TXT, DOC, DOCX, or Excel files!"
-    }
+  "hints": {
+    "wordCount": "Number of words in the dictionary. Minimum 5, maximum 800. Note that words are generated randomly; some are common, some are not.",
+    "partsOfSpeech": "You need to select the parts of speech that will be present in your language. Note that not all parts of speech are shown; others will be added later.",
+    "alphabet": "Enter separated by commas or spaces: a,b,c... / a b c ... All Latin letters to be used for language generation are entered. Be aware that missing letters may cause errors during generation.",
+    "morphologicalComplexity": "Morphological complexity is the degree of internal structure of a word, determined by the number and types of morphemes it contains. The more morphemes and the more complex their connection, the higher the morphological complexity.",
+    "wordOrder": "This structure defines the order and connection of words and parts of speech, such as simple, compound or complex sentences. It shows how sentence components are combined to convey meaning.",
+    "sentenceStructure": "This structure defines the order and connection of words and parts of speech, such as simple, compound or complex sentences. It shows how sentence components are combined to convey meaning.",
+    "speechStyle": "Speech style is a set of linguistic means that determine the character and tone of speech; for example: scientific, artistic or business style. It shows how words and constructions are chosen to achieve a specific communicative effect.",
+    "phoneticSystem": "The phonetic system is the set of speech sounds represented in the International Phonetic Alphabet (IPA), including vowels and consonants with their articulatory features. It defines the sound structure of the language and pronunciation rules.",
+    "wordFormationRules": "Word formation rules are systems of morphological and lexical patterns by which new words are formed in a language. They determine how words with new meanings are created from roots and affixes.",
+    "languageRegularity": "The regularity of language rules refers to consistency and predictability in applying morphological and syntactic patterns."
+  },
+  
+"confirmation1":{
+  "redact": "Redact",
+  "createLanguageButton": "Create language"
+
+},
+  "rules": {
+    "rule": "Rule",
+    "actions": "Action",
+
+    "text1": "It seems there are no results!",
+    "text2": "Create a language to see it in the list",
+    "noun": "Nouns",
+    "verb": "Verbs",
+    "pronoun": "Pronouns",
+    "adjective": "Adjectives",
+    "adverb": "Adverbs",
+    "conjunction": "Conjunctions",
+    "interjection": "Interjections",
+    "addRule": "Add",
+    "loading": "Loading...",
+    "saveChanges": "Save all changes to rules",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "enterNewRule": "Enter a new rule"
+  },
+  "dictionary": {
+    "word": "Word",
+    "translate": "Translation",
+    "stress": "Stress",
+    "property": "Property",
+    "IPA": "IPA",
+    "actions": "Actions",
+    "addWord": "Add Word",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "loading": "Loading...",
+    "saveAllChanges": "Save all changes"
+  },
+  "uploader": {
+    "supportedFormats": "Supported file formats:",
+    "contentFormats": "Content formats:",
+    "rulesFormat": "Rules Format",
+    "vocabularyFormat": "Vocabulary Format",
+    "firstLineTitle": "First line - title",
+    "secondLineDescription": "Second line - description",
+    "rulesFormatDetails": "Following lines - rules in format: \"rule [separator] value\"",
+    "supportedSeparators": "Supported separators:",
+    "selectFile": "Select File",
+    "uploadSuccess": "File processed successfully!",
+    "uploadError": "Failed to process file",
+    "uploadErrorFormat": "You can only upload TXT, DOC, DOCX, or Excel files!"
+  }
 }
